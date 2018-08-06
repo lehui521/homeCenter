@@ -58,6 +58,8 @@ export default {
   width: 100%;
   display: flex;
   justify-content: space-around;
+  background: #fff;
+  z-index: 999;
   .footerItem {
     width: 25%;
     height: 100%;
