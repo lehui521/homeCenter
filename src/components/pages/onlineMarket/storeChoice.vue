@@ -1,5 +1,5 @@
 <template>
-    <div class="decorationCase">
+    <div class="storeChoice">
         <div class="title">
             <img src="static/img/zhuangxiuanli.png" alt="">
             <img src="static/img/rightIcon.png" alt="" class="rightIcon">
@@ -21,7 +21,7 @@
 export default {};
 </script>
 <style lang="scss" scoped>
-.decorationCase {
+.storeChoice {
   font-size: 0.3rem;
   margin-bottom:0.3rem;
   .title {

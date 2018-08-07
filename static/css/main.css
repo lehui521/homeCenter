@@ -13,7 +13,7 @@
     p {
         margin: 0;
         padding: 0;
-        font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+        font-family: "PingFang SC", "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
     }
     
     ul,
@@ -32,4 +32,23 @@
     
     .van-swipe__indicators {
         bottom: 17px;
+    }
+    /*FAFDFA*/
+    
+    .van-tag {
+        display: inline-block;
+        padding: 0.04rem 0.08rem;
+        line-height: normal;
+        border-radius: 3px;
+        font-size: 0.22rem;
+        background: #FAFDFA;
+        color: #fff;
+    }
+    
+    .van-tag--success.van-tag--plain {
+        color: #38ba50;
+    }
+    
+    .van-tag::after {
+        border-color: #fafdfa;
     }

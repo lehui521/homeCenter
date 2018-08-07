@@ -8,7 +8,8 @@ export default new Router({
         path: '/',
         component: resolve => require(['../components/common/home'], resolve),
         children: [
-            { path: '/', component: resolve => require(['../components/pages/index'], resolve) }
+            { path: '/', component: resolve => require(['../components/pages/index'], resolve) }, //首页
+            { path: '/onlineMarket', component: resolve => require(['../components/pages/onlineMarket'], resolve) } //网上商场
         ]
     }]
 })

@@ -8,14 +8,19 @@
     </div>
 </template>
 <script>
-import Footer from "./footer.vue"
+import Footer from "./footer.vue";
 export default {
-    components:{Footer}
-}
+  data: function() {
+    return {};
+  },
+  components: { Footer },
+  mounted: function() {},
+  methods: {}
+};
 </script>
 <style lang="scss" scoped>
-.home{
-    padding-bottom:1.2rem;
+.home {
+  padding-bottom: 1.2rem;
 }
 </style>
 

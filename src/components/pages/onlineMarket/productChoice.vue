@@ -1,7 +1,7 @@
 <template>
-  <div class="storeChoice">
+  <div class="productChoice">
     <div class="title">
-      <img src="static/img/dianpujingxuan.png" alt="">
+      <img src="static/img/shangpinjingxuan.png" alt="">
       <img src="static/img/rightIcon.png" alt="" class="rightIcon">
     </div>
     <div class="banner">
@@ -9,12 +9,13 @@
     </div>
     <div class="center">
       <div class="list" v-for="(item,index) in [1,2,3,4]" :key="index">
+        <div class="price">￥5555</div>
         <img src="static/img/shichangtuipian.png" alt="">
         <div class="listName">
-          冠珠陶瓷
+          秋夕-现代橱柜
         </div>
         <div class="text">
-          上海恒大建材厂
+          <span class="name">上海恒大陶瓷市场</span>
         </div>
       </div>
     </div>
@@ -24,9 +25,9 @@
 export default {};
 </script>
 <style lang="scss" scoped>
-.storeChoice {
+.productChoice {
   font-size: 0.25rem;
-  margin-bottom:0.2rem;
+  margin-bottom: 0.2rem;
   .title {
     text-align: center;
     padding: 0.36rem 0;
@@ -53,13 +54,14 @@ export default {};
     justify-content: space-between;
     flex-wrap: wrap;
     box-sizing: border-box;
-    padding:0 0.2rem;
+    padding: 0 0.2rem;
     .list {
       width: 3.46rem;
       padding: 0.1rem;
       box-sizing: border-box;
-      box-shadow: #DEDEDE 2px 5px 10px;
-      margin-top:0.2rem;
+      box-shadow: #dedede 2px 5px 10px;
+      margin-top: 0.2rem;
+      position: relative;
       img {
         width: 3.26rem;
         height: 2.04rem;
@@ -68,13 +70,39 @@ export default {};
         font-weight: 500;
         text-align: center;
         color: #333333;
-        font-size:0.24rem;
+        font-size: 0.24rem;
+      }
+      .price {
+        position: absolute;
+        top: 0.3rem;
+        background-color: #fff;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        text-align: left;
+        padding: 2px 0;
+        padding-left: 3px;
+        padding-right: 6px;
+        font-size: 0.16rem;
+        color: #fbb0b0;
       }
       .text {
-        margin-top: 5px;
-        text-align: center;
+        text-align: right;
         color: #666666;
         font-size: 0.18rem;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        .name {
+          margin: auto;
+          margin-top: 5px;
+          display: inline-block;
+          width: 80%;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          text-align: center;
+          box-sizing: border-box;
+        }
       }
     }
   }

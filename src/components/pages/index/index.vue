@@ -1,73 +1,75 @@
 <template>
-    <div class="page">
-        <header class="header">
-            <div class="address">
-                <span>上海市</span>
-                <img src="static/img/weizhi.png" alt="">
-            </div>
-            <div class="headerIcon">
-                <img src="static/img/kefu.png" alt="">
-                <img src="static/img/xiaoxi.png" alt="">
-            </div>
-        </header>
-        <div class="banner">
-            <van-swipe :autoplay="3000">
-                <van-swipe-item v-for="(image, index) in bannerImgs" :key="index">
-                    <img :src="image" style="width:100%;height:100%;" class="bannerImg" />
-                </van-swipe-item>
-            </van-swipe>
-        </div>
-        <div class="indexNav">
-            <div class="navImg">
-                <img src="static/img/zhuanxiumeitu.png" alt="">
-                <span>装修美图</span>
-            </div>
-            <div class="navImg">
-                <img src="static/img/jingpindianpu.png" alt="">
-                <span>精品店铺</span>
-            </div>
-            <div class="navImg">
-                <img src="static/img/shangpinfenlei.png" alt="">
-                <span>商品分类</span>
-            </div>
-            <div class="navImg">
-                <img src="static/img/cuxiaohuodong.png" alt="">
-                <span>促销活动</span>
-            </div>
-        </div>
-        <newSwipe :newArr="newArr"></newSwipe>
-        <!-- 分割距离 -->
-        <div class="grayBlank">
-        </div>
-        <!-- 推荐市场 -->
-        <recommendM></recommendM>
-        <!-- 分割距离 -->
-        <div class="grayBlank">
-        </div>
-        <!-- 折扣专区 -->
-        <discountA></discountA>
-        <!-- 分割距离 -->
-        <div class="grayBlank">
-        </div>
-        <storeC></storeC>
-        <!-- 分割距离 -->
-        <div class="grayBlank">
-        </div>
-        <productC></productC>
-        <!-- 分割距离 -->
-        <div class="grayBlank">
-        </div>
-        <decorationC></decorationC>
-        <!-- 分割距离 -->
-        <div class="grayBlank">
-        </div>
-        <learnD></learnD>
-        <!-- 分割距离 -->
-        <div class="grayBlank">
-        </div>
+  <div class="page">
+    <header class="header">
+      <div class="address">
+        <span>上海市</span>
+        <img src="static/img/weizhi.png" alt="">
+      </div>
+      <div class="headerIcon">
+        <img src="static/img/kefu.png" alt="">
+        <img src="static/img/xiaoxi.png" alt="">
+      </div>
+    </header>
+    <div class="banner">
+      <van-swipe :autoplay="3000">
+        <van-swipe-item v-for="(image, index) in bannerImgs" :key="index">
+          <img :src="image" style="width:100%;height:100%;" class="bannerImg" />
+        </van-swipe-item>
+      </van-swipe>
     </div>
+    <div class="indexNav">
+      <div class="navImg">
+        <img src="static/img/zhuanxiumeitu.png" alt="">
+        <span>装修美图</span>
+      </div>
+      <div class="navImg">
+        <img src="static/img/jingpindianpu.png" alt="">
+        <span>精品店铺</span>
+      </div>
+      <div class="navImg">
+        <img src="static/img/shangpinfenlei.png" alt="">
+        <span>商品分类</span>
+      </div>
+      <div class="navImg">
+        <img src="static/img/cuxiaohuodong.png" alt="">
+        <span>促销活动</span>
+      </div>
+    </div>
+    <newSwipe :newArr="newArr"></newSwipe>
+    <!-- 分割距离 -->
+    <div class="grayBlank">
+    </div>
+    <!-- 推荐市场 -->
+    <recommendM></recommendM>
+    <!-- 分割距离 -->
+    <div class="grayBlank">
+    </div>
+    <!-- 折扣专区 -->
+    <discountA></discountA>
+    <!-- 分割距离 -->
+    <div class="grayBlank">
+    </div>
+    <storeC></storeC>
+    <!-- 分割距离 -->
+    <div class="grayBlank">
+    </div>
+    <productC></productC>
+    <!-- 分割距离 -->
+    <div class="grayBlank">
+    </div>
+    <decorationC></decorationC>
+    <!-- 分割距离 -->
+    <div class="grayBlank">
+    </div>
+    <learnD></learnD>
+    <!-- 分割距离 -->
+    <div class="grayBlank">
+    </div>
+    <platformR></platformR>
+  </div>
 </template>
 <script>
+//汇头条
 import newSwipe from "../../common/newSwipe.vue";
 //推荐市场
 import recommendM from "./recommendMarket.vue";
@@ -81,6 +83,8 @@ import productC from "./productChoice.vue";
 import decorationC from "./decorationCase.vue";
 //学装修
 import learnD from "./learnDecoration.vue";
+//平台招募
+import platformR from "./platformRecruit.vue";
 export default {
   components: {
     newSwipe,
@@ -89,8 +93,10 @@ export default {
     storeC,
     productC,
     decorationC,
-    learnD
+    learnD,
+    platformR
   },
+  mounted: function() {},
   data: function() {
     return {
       bannerImgs: [
@@ -99,7 +105,10 @@ export default {
         "static/img/banner1.png",
         "static/img/banner1.png"
       ],
-      newArr: ["asdasdasdasd", "asdasdasdfggg", "12321321321321"]
+      newArr: {
+        arr: ["asdasdasdasd", "asdasdasdfggg", "12321321321321"],
+        img: "static/img/huitoutiao.png"
+      }
     };
   },
   mounted: function() {},
@@ -121,18 +130,23 @@ export default {
     display: flex;
     justify-content: space-between;
     .address {
-      width: 2rem;
-      height: 0.6rem;
+      min-width: 1.5rem;
+      height: 0.54rem;
       background: rgba(255, 255, 255, 0.5);
       border-radius: 20px;
-      font-size: 0.36rem;
-      line-height: 0.6rem;
+      font-size: 0.24rem;
+      line-height: 0.54rem;
       text-align: center;
       color: #333333;
       font-weight: 500;
+      box-sizing: border-box;
+      padding-left:0.2rem;
       img {
-        width: 0.24rem;
-        height: 0.23rem;
+        width: 0.16rem;
+        float: right;
+        margin-right:0.2rem;
+        margin-top:0.2rem;
+        margin-left:0.1rem;
       }
     }
     .headerIcon {
@@ -157,7 +171,6 @@ export default {
     }
   }
   .indexNav {
-    height: 2rem;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -165,12 +178,13 @@ export default {
     .navImg {
       width: 25%;
       text-align: center;
-      font-size: 0.35rem;
+      font-size: 0.24rem;
       img {
-        width: 1.3rem;
-        height: 1.3rem;
+        width: 0.88rem;
+        height: 0.88rem;
       }
       span {
+        margin-top:0.1rem;
         display: block;
         font-weight: 500;
       }

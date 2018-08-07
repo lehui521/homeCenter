@@ -1,45 +1,48 @@
 <template>
-    <div class="footer">
-        <div @click="handleClick(1)" class="footerItem">
-            <img src="static/img/index.png" alt="" v-if="clickStatus!=1">
-            <img src="static/img/indexA.png" alt="" v-if="clickStatus==1">
-            <span :style="clickStatus==1?'color:#49C05F;':''">首页</span>
-        </div>
-        <div @click="handleClick(2)" class="footerItem">
-                <img src="static/img/onlineMart.png" alt="" v-if="clickStatus!=2">
-                <img src="static/img/onlineMartA.png" alt="" v-if="clickStatus==2">
-                <span :style="clickStatus==2?'color:#49C05F;':''">网上市场</span>
-        </div>
-        <div @click="handleClick(3)" class="footerItem">
-            
-                <img src="static/img/decorate.png" alt="" v-if="clickStatus!=3">
-                <img src="static/img/decorateA.png" alt="" v-if="clickStatus==3">
-                <span :style="clickStatus==3?'color:#49C05F;':''">装修学堂</span>
-            
-        </div>
-        <div @click="handleClick(4)" class="footerItem">
-            
-                <img src="static/img/my.png" alt="" v-if="clickStatus!=4">
-                <img src="static/img/myA.png" alt="" v-if="clickStatus==4">
-                <span :style="clickStatus==4?'color:#49C05F;':''">我的</span>
-            
-        </div>
+  <div class="footer">
+    <div @click="handleClick('/')" class="footerItem">
+      <img src="static/img/index.png" alt="" v-if="clickStatus!='/'">
+      <img src="static/img/indexA.png" alt="" v-if="clickStatus=='/'">
+      <span :style="clickStatus=='/'?'color:#49C05F;':''">首页</span>
     </div>
+    <div @click="handleClick('/onlineMarket')" class="footerItem">
+      <img src="static/img/onlineMart.png" alt="" v-if="clickStatus!='/onlineMarket'">
+      <img src="static/img/onlineMartA.png" alt="" v-if="clickStatus=='/onlineMarket'">
+      <span :style="clickStatus=='/onlineMarket'?'color:#49C05F;':''">网上市场</span>
+    </div>
+    <div @click="handleClick(3)" class="footerItem">
+
+      <img src="static/img/decorate.png" alt="" v-if="clickStatus!=3">
+      <img src="static/img/decorateA.png" alt="" v-if="clickStatus==3">
+      <span :style="clickStatus==3?'color:#49C05F;':''">装修学堂</span>
+
+    </div>
+    <div @click="handleClick(4)" class="footerItem">
+
+      <img src="static/img/my.png" alt="" v-if="clickStatus!=4">
+      <img src="static/img/myA.png" alt="" v-if="clickStatus==4">
+      <span :style="clickStatus==4?'color:#49C05F;':''">我的</span>
+
+    </div>
+  </div>
 </template>
 <script>
 export default {
   data: function() {
     return {
-      clickStatus: 1
+      clickStatus: "/"
     };
+  },
+  mounted: function() {
+    this.clickStatus = this.$route.path;
   },
   methods: {
     handleClick: function(index) {
       this.clickStatus = index;
-      if (index == 1) {
-        console.log("首页");
-      } else if (index == 2) {
-        console.log("网上市场");
+      if (index == "/") {
+        this.$router.push("/");
+      } else if (index == "/onlineMarket") {
+        this.$router.push("/onlineMarket");
       } else if (index == 3) {
         console.log("装修学堂");
       } else if (index == 4) {
