@@ -6,6 +6,13 @@
         background: #f8f8f8;
     }
     
+    html,
+    body,
+    #app {
+        height: 100%;
+        width: 100%;
+    }
+    
     body,
     span,
     div,
@@ -73,4 +80,9 @@
         line-height: 0.98rem !important;
         margin-top: -1em !important;
         height: 0.98rem !important;
+    }
+    /*瀑布流*/
+    
+    .img-inner-box {
+        border-radius: 0 !important;
     }

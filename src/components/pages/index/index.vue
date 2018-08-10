@@ -18,8 +18,8 @@
       </van-swipe>
     </div>
     <div class="indexNav">
-      <div class="navImg">
-        <img src="static/img/zhuanxiumeitu.png" alt="">
+      <div class="navImg" @click="$router.push('decorationBeauty')">
+        <img src="static/img/zhuanxiumeitu.png">
         <span>装修美图</span>
       </div>
       <div class="navImg">
