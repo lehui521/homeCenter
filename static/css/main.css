@@ -3,6 +3,7 @@
         font-size: 13.33vw;
         /* font-size: 10px; */
         color: #333333;
+        background: #f8f8f8;
     }
     
     body,
@@ -51,4 +52,25 @@
     
     .van-tag::after {
         border-color: #fafdfa;
+    }
+    /*这是video的样式*/
+    
+    .vjs-custom-skin>.video-js .vjs-control-bar {
+        position: fixed;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5)
+    }
+    
+    .vjs-custom-skin>.video-js {
+        height: 100% !important;
+    }
+    
+    .vjs-custom-skin>.video-js .vjs-big-play-button {
+        background-color: rgba(0, 0, 0, 0.45);
+        font-size: 0.98rem;
+        /* border-radius: 50%; */
+        width: 0.98rem;
+        line-height: 0.98rem !important;
+        margin-top: -1em !important;
+        height: 0.98rem !important;
     }

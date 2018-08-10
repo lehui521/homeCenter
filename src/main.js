@@ -10,7 +10,13 @@ import Vant from 'vant';
 import 'vant/lib/vant-css/index.css';
 import '../static/css/main.css'
 Vue.use(Vant); //引入vant组件
-/* eslint-disable no-new */
+
+import VideoPlayer from 'vue-video-player'
+require('video.js/dist/video-js.css')
+require('../static/css/video.css')
+
+Vue.use(VideoPlayer)
+    /* eslint-disable no-new */
 new Vue({
     el: '#app',
     router,

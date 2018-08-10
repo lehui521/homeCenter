@@ -10,19 +10,15 @@
       <img src="static/img/onlineMartA.png" alt="" v-if="clickStatus=='/onlineMarket'">
       <span :style="clickStatus=='/onlineMarket'?'color:#49C05F;':''">网上市场</span>
     </div>
-    <div @click="handleClick(3)" class="footerItem">
-
-      <img src="static/img/decorate.png" alt="" v-if="clickStatus!=3">
-      <img src="static/img/decorateA.png" alt="" v-if="clickStatus==3">
-      <span :style="clickStatus==3?'color:#49C05F;':''">装修学堂</span>
-
+    <div @click="handleClick('/decorationSchool')" class="footerItem">
+      <img src="static/img/decorate.png" alt="" v-if="clickStatus!='/decorationSchool'">
+      <img src="static/img/decorateA.png" alt="" v-if="clickStatus=='/decorationSchool'">
+      <span :style="clickStatus=='/decorationSchool'?'color:#49C05F;':''">装修学堂</span>
     </div>
-    <div @click="handleClick(4)" class="footerItem">
-
-      <img src="static/img/my.png" alt="" v-if="clickStatus!=4">
-      <img src="static/img/myA.png" alt="" v-if="clickStatus==4">
-      <span :style="clickStatus==4?'color:#49C05F;':''">我的</span>
-
+    <div @click="handleClick('/my')" class="footerItem">
+      <img src="static/img/my.png" alt="" v-if="clickStatus!='/my'">
+      <img src="static/img/myA.png" alt="" v-if="clickStatus=='/my'">
+      <span :style="clickStatus=='/my'?'color:#49C05F;':''">我的</span>
     </div>
   </div>
 </template>
@@ -43,10 +39,10 @@ export default {
         this.$router.push("/");
       } else if (index == "/onlineMarket") {
         this.$router.push("/onlineMarket");
-      } else if (index == 3) {
-        console.log("装修学堂");
-      } else if (index == 4) {
-        console.log("我的");
+      } else if (index == "/decorationSchool") {
+        this.$router.push("/decorationSchool");
+      } else if (index == "/my") {
+        this.$router.push("/my");
       }
     }
   }

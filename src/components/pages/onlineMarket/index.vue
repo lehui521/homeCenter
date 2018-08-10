@@ -1,94 +1,94 @@
 <template>
-    <div class="page">
-        <header class="header">
-            <div class="address">
-                <span>上海红星美凯龙真北路商场</span>
-                <img src="static/img/weizhi.png" alt="">
-            </div>
-            <div class="headerIcon">
-                <img src="static/img/kefu.png" alt="">
-                <img src="static/img/xiaoxi.png" alt="">
-            </div>
-        </header>
-        <div class="banner">
-            <img src="static/img/banner1.png" style="width:100%;height:100%;" class="bannerImg" />
-        </div>
-        <div class="indexNav">
-            <div class="navImg">
-                <img src="static/img/shichangditu.png" alt="">
-                <span>市场地图</span>
-            </div>
-            <div class="navImg">
-                <img src="static/img/jingpindianpu.png" alt="">
-                <span>精品店铺</span>
-            </div>
-            <div class="navImg">
-                <img src="static/img/shangpinfenlei.png" alt="">
-                <span>商品分类</span>
-            </div>
-            <div class="navImg">
-                <img src="static/img/cuxiaohuodong.png" alt="">
-                <span>促销活动</span>
-            </div>
-        </div>
-        <!-- 分割距离 -->
-        <div class="grayBlank">
-        </div>
-        <div class="marketDetail">
-            <div class="name">
-                <span>上海红星美凯龙真北路商场</span>
-                <img src="static/img/rightIcon.png" alt="" class="rightIcon">
-                <span class="icon">简介</span>
-            </div>
-            <div class="describe">
-                <span class="text1">上海红星美凯龙商场阿萨德喀什几乎是可敬的会卡金黄色的框架框架建行卡手机号的</span>
-                <u class="text2">全文</u>
-            </div>
-            <div class="tag">
-                <van-tag type="success" plain>建材</van-tag>
-                <van-tag type="success" plain>家居</van-tag>
-                <van-tag type="success" plain>灯饰</van-tag>
-                <van-tag type="success" plain>五金</van-tag>
-            </div>
-            <div class="phone">
-                <img src="static/img/dianhua.png" alt="">
-                <span>15252111236</span>
-            </div>
-            <div class="Maddress">
-                <img src="static/img/dizhi.png" alt="">
-                <span>上海市徐汇区凯旋路552号</span>
-            </div>
-        </div>
-        <!-- 分割距离 -->
-        <div class="grayBlank">
-        </div>
-        <newSwipe :newArr="newArr"></newSwipe>
-        <!-- 分割距离 -->
-        <div class="grayBlank">
-        </div>
-        <discountA></discountA>
-        <!-- 分割距离 -->
-        <div class="grayBlank">
-        </div>
-        <storeC></storeC>
-        <!-- 分割距离 -->
-        <div class="grayBlank">
-        </div>
-        <productC></productC>
-        <!-- 分割距离 -->
-        <div class="grayBlank">
-        </div>
-        <brandC></brandC>
-        <!-- 分割距离 -->
-        <div class="grayBlank">
-        </div>
-        <decorationC>
-        </decorationC>
-        <!-- 分割距离 -->
-        <div class="grayBlank">
-        </div>
-        <Designer></Designer>
+  <div class="page">
+    <header class="header">
+      <div class="address">
+        <span>上海红星美凯龙真北路商场</span>
+        <img src="static/img/weizhi.png" alt="">
+      </div>
+      <div class="headerIcon">
+        <img src="static/img/kefu.png" alt="">
+        <img src="static/img/xiaoxi.png" alt="">
+      </div>
+    </header>
+    <div class="banner">
+      <img src="static/img/banner1.png" style="width:100%;height:100%;" class="bannerImg" />
     </div>
+    <div class="indexNav">
+      <div class="navImg">
+        <img src="static/img/shichangditu.png" alt="">
+        <span>市场地图</span>
+      </div>
+      <div class="navImg">
+        <img src="static/img/jingpindianpu.png" alt="">
+        <span>精品店铺</span>
+      </div>
+      <div class="navImg">
+        <img src="static/img/shangpinfenlei.png" alt="">
+        <span>商品分类</span>
+      </div>
+      <div class="navImg">
+        <img src="static/img/cuxiaohuodong.png" alt="">
+        <span>促销活动</span>
+      </div>
+    </div>
+    <!-- 分割距离 -->
+    <div class="grayBlank">
+    </div>
+    <div class="marketDetail">
+      <div class="name">
+        <span>上海红星美凯龙真北路商场</span>
+        <img src="static/img/rightIcon.png" alt="" class="rightIcon">
+        <span class="icon">简介</span>
+      </div>
+      <div class="describe">
+        <span class="text1">上海红星美凯龙商场阿萨德喀什几乎是可敬的会卡金黄色的框架框架建行卡手机号的</span>
+        <u class="text2">全文</u>
+      </div>
+      <div class="tag">
+        <van-tag type="success" plain>建材</van-tag>
+        <van-tag type="success" plain>家居</van-tag>
+        <van-tag type="success" plain>灯饰</van-tag>
+        <van-tag type="success" plain>五金</van-tag>
+      </div>
+      <div class="phone">
+        <img src="static/img/dianhua.png" alt="">
+        <span>15252111236</span>
+      </div>
+      <div class="Maddress">
+        <img src="static/img/dizhi.png" alt="">
+        <span>上海市徐汇区凯旋路552号</span>
+      </div>
+    </div>
+    <!-- 分割距离 -->
+    <div class="grayBlank">
+    </div>
+    <newSwipe :newArr="newArr"></newSwipe>
+    <!-- 分割距离 -->
+    <div class="grayBlank">
+    </div>
+    <discountA></discountA>
+    <!-- 分割距离 -->
+    <div class="grayBlank">
+    </div>
+    <storeC></storeC>
+    <!-- 分割距离 -->
+    <div class="grayBlank">
+    </div>
+    <productC></productC>
+    <!-- 分割距离 -->
+    <div class="grayBlank">
+    </div>
+    <brandC></brandC>
+    <!-- 分割距离 -->
+    <div class="grayBlank">
+    </div>
+    <decorationC>
+    </decorationC>
+    <!-- 分割距离 -->
+    <div class="grayBlank">
+    </div>
+    <Designer></Designer>
+  </div>
 </template>
 <script>
 //汇头条
@@ -128,6 +128,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .page {
+  background: #fff;
   font-size: 0.3rem;
   .header {
     height: 1rem;
@@ -206,7 +207,7 @@ export default {
       font-weight: 500;
       height: 0.8rem;
       line-height: 0.8rem;
-      color:#444444;
+      color: #444444;
       .icon {
         float: right;
         color: #38ba50;
@@ -256,7 +257,7 @@ export default {
     line-height: 0.4rem;
     margin-bottom: 0.1rem;
     color: #666666;
-    font-size:0.24rem;
+    font-size: 0.24rem;
     span {
       overflow: hidden;
       white-space: nowrap;
@@ -280,7 +281,7 @@ export default {
     line-height: 0.4rem;
     margin-bottom: 0.1rem;
     color: #666666;
-    font-size:0.24rem;
+    font-size: 0.24rem;
     span {
       overflow: hidden;
       white-space: nowrap;

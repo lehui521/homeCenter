@@ -117,6 +117,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .page {
+  background: #fff;
   font-size: 0.35rem;
   .header {
     height: 1rem;
@@ -140,13 +141,13 @@ export default {
       color: #333333;
       font-weight: 500;
       box-sizing: border-box;
-      padding-left:0.2rem;
+      padding-left: 0.2rem;
       img {
         width: 0.16rem;
         float: right;
-        margin-right:0.2rem;
-        margin-top:0.2rem;
-        margin-left:0.1rem;
+        margin-right: 0.2rem;
+        margin-top: 0.2rem;
+        margin-left: 0.1rem;
       }
     }
     .headerIcon {
@@ -184,7 +185,7 @@ export default {
         height: 0.88rem;
       }
       span {
-        margin-top:0.1rem;
+        margin-top: 0.1rem;
         display: block;
         font-weight: 500;
       }
