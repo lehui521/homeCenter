@@ -1,6 +1,6 @@
 <template>
   <div class="storeChoice">
-    <div class="title">
+    <div class="title" @click="$router.push('storeChoiceContent')">
       <img src="static/img/dianpujingxuan.png" alt="">
       <img src="static/img/rightIcon.png" alt="" class="rightIcon">
     </div>
@@ -26,7 +26,7 @@ export default {};
 <style lang="scss" scoped>
 .storeChoice {
   font-size: 0.25rem;
-  margin-bottom:0.2rem;
+  margin-bottom: 0.2rem;
   .title {
     text-align: center;
     padding: 0.36rem 0;
@@ -53,13 +53,13 @@ export default {};
     justify-content: space-between;
     flex-wrap: wrap;
     box-sizing: border-box;
-    padding:0 0.2rem;
+    padding: 0 0.2rem;
     .list {
       width: 3.46rem;
       padding: 0.1rem;
       box-sizing: border-box;
-      box-shadow: #DEDEDE 2px 5px 10px;
-      margin-top:0.2rem;
+      box-shadow: #dedede 2px 5px 10px;
+      margin-top: 0.2rem;
       img {
         width: 3.26rem;
         height: 2.04rem;
@@ -68,7 +68,7 @@ export default {};
         font-weight: 500;
         text-align: center;
         color: #333333;
-        font-size:0.24rem;
+        font-size: 0.24rem;
       }
       .text {
         margin-top: 5px;

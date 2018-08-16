@@ -22,15 +22,15 @@
         <img src="static/img/zhuanxiumeitu.png">
         <span>装修美图</span>
       </div>
-      <div class="navImg">
+      <div class="navImg" @click="$router.push('boutiqueShop')">
         <img src="static/img/jingpindianpu.png" alt="">
         <span>精品店铺</span>
       </div>
-      <div class="navImg">
+      <div class="navImg" @click="$router.push('productClassif')">
         <img src="static/img/shangpinfenlei.png" alt="">
         <span>商品分类</span>
       </div>
-      <div class="navImg">
+      <div class="navImg" @click="$router.push('salesPromotion')">
         <img src="static/img/cuxiaohuodong.png" alt="">
         <span>促销活动</span>
       </div>
@@ -107,7 +107,8 @@ export default {
       ],
       newArr: {
         arr: ["asdasdasdasd", "asdasdasdfggg", "12321321321321"],
-        img: "static/img/huitoutiao.png"
+        img: "static/img/huitoutiao.png",
+        target: "index"
       }
     };
   },

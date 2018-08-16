@@ -1,16 +1,16 @@
 <template>
-    <div class="news">
-        <div class="left">
-            <img :src="newArr.img" alt="">
-        </div>
-        <div class="right">
-            <ul id="newsSwiper">
-                <li v-for="(item,index) in newArr.arr" :key="index">{{item}}</li>
-                <li>{{newArr.arr[0]}}</li>
-            </ul>
-            <img src="static/img/rightIcon.png" alt="">
-        </div>
+  <div class="news">
+    <div class="left">
+      <img :src="newArr.img" alt="">
     </div>
+    <div class="right">
+      <ul id="newsSwiper">
+        <li v-for="(item,index) in newArr.arr" :key="index" @click="clickNews">{{item}}</li>
+        <li @click="clickNews">{{newArr.arr[0]}}</li>
+      </ul>
+      <img src="static/img/rightIcon.png" alt="">
+    </div>
+  </div>
 </template>
 <script>
 export default {
@@ -31,6 +31,11 @@ export default {
         }
         news.style.top = -0.6 * num + "rem";
       }, 2300);
+    },
+    clickNews: function() {
+      if (this.newArr.target == "index") {
+        this.$router.push("indexNew");
+      }
     }
   }
 };

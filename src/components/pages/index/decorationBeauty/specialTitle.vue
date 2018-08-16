@@ -1,42 +1,48 @@
 <template>
-    <div class="singleDragram">
-        <div class="TypeList">
-            <div class="type" @click="typeClick('style')">
-                <div>
-                    <span :style="typeStatus =='style'?'color:#3cb850;':'color: #666666;'">风格</span>
-                    <img src="static/img/grayDown.png" alt="" v-if="typeStatus!=='style'">
-                    <img src="static/img/greenUp.png" alt="" v-if="typeStatus=='style'">
-                </div>
-            </div>
-            <div class="type" @click="typeClick('space')">
-                <div>
-                    <span :style="typeStatus =='space'?'color:#3cb850;':'color: #666666;'">户型</span>
-                    <img src="static/img/grayDown.png" alt="" v-if="typeStatus!=='space'">
-                    <img src="static/img/greenUp.png" alt="" v-if="typeStatus=='space'">
-                </div>
-            </div>
-            <!-- 户型 -->
-            <div class="typeContent" v-if="typeStatus=='space'">
-                <div class="content local" v-for="(item,index) in localData" :key="index">
-                    {{item}}
-                </div>
-            </div>
-            <!-- 风格 -->
-            <div class="typeContent" v-if="typeStatus=='style'">
-                <div class="content local" v-for="(item,index) in localData" :key="index">
-                    {{item}}
-                </div>
-            </div>
+  <div class="singleDragram">
+    <div class="TypeList">
+      <div class="type" @click="typeClick('style')">
+        <div>
+          <span :style="typeStatus =='style'?'color:#3cb850;':'color: #666666;'">风格</span>
+          <img src="static/img/grayDown.png" alt="" v-if="typeStatus!=='style'">
+          <img src="static/img/greenUp.png" alt="" v-if="typeStatus=='style'">
         </div>
-        <van-list v-model="loading" :finished="finished" @load="getData" style="height:100%;" :offset="5">
-            <div class="titleContent">
-
-            </div>
-        </van-list>
-        <!-- 模态框 -->
-        <div class="mask" v-if="typeStatus!==''" @click="typeStatus=''">
+      </div>
+      <div class="type" @click="typeClick('space')">
+        <div>
+          <span :style="typeStatus =='space'?'color:#3cb850;':'color: #666666;'">户型</span>
+          <img src="static/img/grayDown.png" alt="" v-if="typeStatus!=='space'">
+          <img src="static/img/greenUp.png" alt="" v-if="typeStatus=='space'">
         </div>
+      </div>
+      <!-- 户型 -->
+      <div class="typeContent" v-if="typeStatus=='space'">
+        <div class="content local" v-for="(item,index) in localData" :key="index">
+          {{item}}
+        </div>
+      </div>
+      <!-- 风格 -->
+      <div class="typeContent" v-if="typeStatus=='style'">
+        <div class="content local" v-for="(item,index) in localData" :key="index">
+          {{item}}
+        </div>
+      </div>
     </div>
+    <van-list v-model="loading" :finished="finished" @load="getData" style="height:100%;" :offset="5">
+      <div class="titleContent">
+        <div class="floor1"></div>
+        <div class="floor2">
+          <div class="text1">明亮色彩美式居室</div>
+          <div class="text2">
+            三楼看见含打开了解决伤口撒卡没睡醒吗什么撒库拉首开纪；是 奥贾兰落地镜安呢。
+          </div>
+        </div>
+      </div>
+    </van-list>
+    <!-- 模态框 -->
+    <div class="mask" v-if="typeStatus!==''" @click="typeStatus=''">
+    </div>
+  </div>
 </template>
 <script>
 export default {
@@ -166,8 +172,32 @@ export default {
     }
   }
   .titleContent {
-    height: 4.2rem;
-    border: 1px solid red;
+    height: 6.2rem;
+    .floor1 {
+      height: 4.2rem;
+      width: 100%;
+      background: #666666;
+    }
+    .floor2 {
+      height: 2rem;
+      width: 100%;
+      border: 1px solid red;
+      box-sizing: border-box;
+      padding-top: 0.3rem;
+      padding-left: 0.2rem;
+      padding-right: 0.2rem;
+      .text1 {
+        font-size: 0.28rem;
+        color: #666666;
+        letter-spacing: 0;
+      }
+      .text2 {
+        font-size: 0.24rem;
+        color: #999999;
+        letter-spacing: 0;
+        margin-top: 0.1rem;
+      }
+    }
   }
 }
 </style>

@@ -1,48 +1,48 @@
 <template>
-    <div class="designer">
-        <div class="title">
-            <img src="static/img/shejishi.png" alt="">
-            <img src="static/img/rightIcon.png" alt="" class="rightIcon">
-        </div>
-        <div class="designerContent">
-            <div class="designer" v-for="(item,index) in [1,2,3]" :key="index">
-                <div class="memberDetail">
-                    <div class="memberLeft">
-                        <img src="static/img/touxiang.jpg" alt="" class="tou">
-                        <p class="heart">
-                            <img src="static/img/shejishixin.png" alt="">
-                            <span>551</span>
-                        </p>
-                    </div>
-                    <div class="memberRight">
-                        <div class="memberName">
-                            呵呵哒
-                            <span>找TA</span>
-                        </div>
-                        <div class="tag">
-                            <van-tag type="success" plain>明星</van-tag>
-                            <van-tag type="success" plain>资深</van-tag>
-                        </div>
-                        <div class="address">
-                            <span>上海市</span>
-                            <span>15年</span>
-                        </div>
-                        <div class="textD">
-                            <span>现代</span>
-                            <span>简欧</span>
-                            <span>美式</span>
-                            <span>北欧</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="designerImg">
-                    <img src="static/img/shichangtuipian.png" alt="">
-                    <img src="static/img/shichangtuipian.png" alt="">
-                    <img src="static/img/shichangtuipian.png" alt="">
-                </div>
-            </div>
-        </div>
+  <div class="designer">
+    <div class="title">
+      <img src="static/img/shejishi.png" alt="">
+      <img src="static/img/rightIcon.png" alt="" class="rightIcon">
     </div>
+    <div class="designerContent">
+      <div class="designer" v-for="(item,index) in [1,2,3]" :key="index">
+        <div class="memberDetail">
+          <div class="memberLeft">
+            <img src="static/img/touxiang.jpg" alt="" class="tou">
+            <p class="heart">
+              <img src="static/img/shejishixin.png" alt="">
+              <span>551</span>
+            </p>
+          </div>
+          <div class="memberRight">
+            <div class="memberName">
+              呵呵哒
+              <span>找TA</span>
+            </div>
+            <div class="tag">
+              <van-tag type="success" plain>明星</van-tag>
+              <van-tag type="success" plain>资深</van-tag>
+            </div>
+            <div class="address">
+              <span>上海市</span>
+              <span>15年</span>
+            </div>
+            <div class="textD">
+              <span>现代</span>
+              <span>简欧</span>
+              <span>美式</span>
+              <span>北欧</span>
+            </div>
+          </div>
+        </div>
+        <div class="designerImg">
+          <img src="static/img/shichangtuipian.png" alt="">
+          <img src="static/img/shichangtuipian.png" alt="">
+          <img src="static/img/shichangtuipian.png" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 export default {};
@@ -89,7 +89,7 @@ export default {};
             font-size: 0.24rem;
             color: #38ba50;
             text-align: center;
-            margin-top: 0.2rem;
+            margin-top: 0.14rem;
             img {
               height: 0.24rem;
               margin-right: 5px;
@@ -140,16 +140,16 @@ export default {};
           }
         }
       }
-      .designerImg{
-          display: flex;
-          justify-content: space-between;
-          margin-top:0.1rem;
-          img{
-              display: inline-block;
-              height:1.6rem;
-              margin-right:0.14rem;
-              width:32%;
-          }
+      .designerImg {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 0.1rem;
+        img {
+          display: inline-block;
+          height: 1.6rem;
+          margin-right: 0.14rem;
+          width: 32%;
+        }
       }
     }
   }
