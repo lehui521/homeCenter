@@ -86,3 +86,11 @@
     .img-inner-box {
         border-radius: 0 !important;
     }
+    /*vant*/
+    
+    #marketList .van-checkbox__icon--round .van-icon {
+        border-radius: 0.08rem;
+        height: 0.3rem;
+        width: 0.3rem;
+        line-height: normal;
+    }

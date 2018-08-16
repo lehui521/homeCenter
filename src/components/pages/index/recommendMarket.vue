@@ -31,7 +31,7 @@
           </div>
         </div>
       </div>
-      <p class="more">
+      <p class="more" @click="$router.push('marketList')">
         查看更多市场>
       </p>
     </div>
@@ -72,7 +72,7 @@ export default {};
         span {
           display: inline-block;
           line-height: 0.4rem;
-          font-size:0.24rem;
+          font-size: 0.24rem;
         }
         .name {
           font-size: 0.3rem;
@@ -120,8 +120,8 @@ export default {};
         width: 100%;
         padding-left: 0.45rem;
         box-sizing: border-box;
-        font-size:0.24rem;
-      color:#444444;
+        font-size: 0.24rem;
+        color: #444444;
       }
       img {
         height: 0.24rem;
@@ -157,7 +157,7 @@ export default {};
     border-bottom: 0;
   }
   .more {
-    font-size:0.28rem;
+    font-size: 0.28rem;
     height: 0.7rem;
     background: #fbfbfb;
     text-align: center;

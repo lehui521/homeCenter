@@ -27,5 +27,6 @@ export default new Router({
         { path: '/discountAreaContent', component: resolve => require(['../components/pages/index/discountAreaContent'], resolve) }, //折扣专区
         { path: '/searchDiscountArea', component: resolve => require(['../components/pages/index/discountAreaContent/searchDiscountArea'], resolve) }, //折扣商品搜索
         { path: '/decorationCaseContent', component: resolve => require(['../components/pages/index/decorationCaseContent'], resolve) }, //装修案例
+        { path: '/marketList', component: resolve => require(['../components/pages/index/marketList'], resolve) }, //市场列表
     ]
 })
