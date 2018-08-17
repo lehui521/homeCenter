@@ -8,7 +8,7 @@
       <img src="static/img/discountBanner.png" alt="">
     </div>
     <div class="center">
-      <div class="list" v-for="(item,index) in [1,2,3,4]" :key="index">
+      <div class="list" v-for="(item,index) in [1,2,3,4]" :key="index" @click="$router.push('storeDetail')">
         <img src="static/img/shichangtuipian.png" alt="">
         <div class="listName">
           冠珠陶瓷

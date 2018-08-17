@@ -2,7 +2,7 @@
   <div class="header">
     <span>{{headerObj.title}}</span>
     <img :src="headerObj.img" alt="" class="share" @click="handleClickRight(headerObj.text)" v-if="headerObj.img!==''">
-    <img src="static/img/leftArrow.png" alt="" class="back">
+    <img src="static/img/leftArrow.png" alt="" class="back" @click="$router.go(-1)">
   </div>
 </template>
 <script>
@@ -22,6 +22,12 @@ export default {
       } else if (res == "storeChoice") {
         //精品店铺搜索
         this.$router.push("searchStoreChoice");
+      } else if (res == "decorationCompany") {
+        //装修公司搜索
+        this.$router.push("searchDecorationCompany");
+      } else if (res == "ownerDiary") {
+        //新增日记
+        this.$router.push("addDiary");
       }
     }
   }

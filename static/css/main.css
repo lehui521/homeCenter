@@ -94,3 +94,53 @@
         width: 0.3rem;
         line-height: normal;
     }
+    
+    #decorationEncyclopedia .van-tab {
+        font-size: 0.3rem;
+        color: #333333;
+        box-sizing: initial;
+    }
+    
+    #decorationEncyclopedia .van-tab--active {
+        color: #38ba50;
+    }
+    
+    #decorationEncyclopedia .van-tabs__line {
+        background: #38ba50;
+        bottom: 0.5rem;
+    }
+    
+    #decorationEncyclopedia .van-hairline--top-bottom::after {
+        border: 0;
+    }
+    
+    #decorationEncyclopedia .typeNav .van-tabs__line {
+        height: 0;
+    }
+    
+    #decorationEncyclopedia .typeNav .van-tab span {
+        width: 1.5rem;
+        height: 0.6rem;
+        font-size: 0.28rem;
+        color: #999999;
+        letter-spacing: 0;
+        border: 1px solid #999999;
+        line-height: 0.6rem;
+        border-radius: 0.08rem;
+        margin-top: 0.18rem;
+    }
+    
+    #decorationEncyclopedia .typeNav .van-tab--active span {
+        color: #38ba50;
+        border: 1px solid #38ba50;
+    }
+    
+    .van-picker__cancel,
+    .van-picker__confirm {
+        font-size: 0.3rem;
+        color: #38ba50;
+    }
+    
+    .van-picker-column__item {
+        font-size: 0.3rem;
+    }

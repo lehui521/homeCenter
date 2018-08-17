@@ -15,7 +15,7 @@
         <div class="navImg">
           <img src="static/img/tuku.png" alt="">
         </div>
-        <div class="navText">
+        <div class="navText" @click="$router.push('decorationBeauty')">
           <p class="text1">装修图库</p>
           <p class="text2">多风格供你参考</p>
         </div>
@@ -33,7 +33,7 @@
         <div class="navImg">
           <img src="static/img/zhuangxiu.png" alt="">
         </div>
-        <div class="navText">
+        <div class="navText" @click="$router.push('decorationEncyclopedia')">
           <p class="text1">装修百科</p>
           <p class="text2">菜鸟也能变达人</p>
         </div>
@@ -42,7 +42,7 @@
         <div class="navImg">
           <img src="static/img/cailiao.png" alt="">
         </div>
-        <div class="navText">
+        <div class="navText" @click="$router.push('materialEncyclopedia')">
           <p class="text1">材料百科</p>
           <p class="text2">材料也是门科学</p>
         </div>
