@@ -14,6 +14,7 @@ Vue.use(Vant); //引入vant组件
 import VideoPlayer from 'vue-video-player'
 require('video.js/dist/video-js.css')
 require('../static/css/video.css')
+import 'font-awesome/css/font-awesome.css';
 
 Vue.use(VideoPlayer)
     /* eslint-disable no-new */

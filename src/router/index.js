@@ -27,5 +27,13 @@ export default new Router({
         { path: '/discountAreaContent', component: resolve => require(['../components/pages/index/discountAreaContent'], resolve) }, //折扣专区
         { path: '/searchDiscountArea', component: resolve => require(['../components/pages/index/discountAreaContent/searchDiscountArea'], resolve) }, //折扣商品搜索
         { path: '/decorationCaseContent', component: resolve => require(['../components/pages/index/decorationCaseContent'], resolve) }, //装修案例
+        { path:'/myMessage',component:()=>import ('../components/pages/my/message') },
+        { path:'/myHome',component:()=>import ('../components/pages/my/home') },
+        { path:'/myFocus',component:()=>import ('../components/pages/my/focus') },
+        { path:'/mySetting',component:()=>import ('../components/pages/my/setting') },
+        { path:'/myAboutUs',component:()=>import ('../components/pages/my/aboutUs') },
+        { path:'/myEditPassword',component:()=>import ('../components/pages/my/editPassword') },
+        { path:'/myOinion',component:()=>import ('../components/pages/my/opinion') },
+        { path:'/myCollection',component:()=>import ('../components/pages/my/collection') },
     ]
 })
