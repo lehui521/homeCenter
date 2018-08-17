@@ -30,7 +30,7 @@
     </div>
     <!-- 内容 -->
     <div class="productChoiceContent">
-      <div class="list" v-for="(item,index) in [1,2,3,4]" :key="index">
+      <div class="list" v-for="(item,index) in [1,2,3,4]" :key="index" @click="$router.push('productDetail')">
         <div class="price">￥5555</div>
         <img src="static/img/shichangtuipian.png" alt="">
         <div class="listName">

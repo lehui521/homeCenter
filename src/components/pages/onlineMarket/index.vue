@@ -13,7 +13,7 @@
     <div class="banner">
       <img src="static/img/banner1.png" style="width:100%;height:100%;" class="bannerImg" />
     </div>
-    <div class="indexNav">
+    <div class="indexNav" @click="$router.push('marketMap')">
       <div class="navImg">
         <img src="static/img/shichangditu.png" alt="">
         <span>市场地图</span>

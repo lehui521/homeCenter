@@ -1,39 +1,39 @@
 <template>
-    <div class="decorationCompany">
-        <div class="title">
-            <img src="static/img/pinpaijingxuan.png" alt="">
-            <img src="static/img/rightIcon.png" alt="" class="rightIcon">
-        </div>
-        <div class="banner">
-            <img src="static/img/discountBanner.png" alt="">
-        </div>
-        <div class="companyCenter">
-            <div class="company" v-for="(item,index) in [1,2,3]" :key="index">
-                <div class="companyImg">
-                    <img src="static/img/shichangtuipian.png" alt="">
-                </div>
-                <div class="companyContent">
-                    <div class="name">
-                        境远装饰
-                        <span>找TA</span>
-                    </div>
-                    <div class="tag">
-                        <van-tag type="success" plain>推荐</van-tag>
-                        <van-tag type="success" plain>认证</van-tag>
-                    </div>
-                    <div class="address">
-                        上海真北路520号
-                    </div>
-                    <div class="icon">
-                        <img src="static/img/xin.png" alt="">
-                        <span>12345</span>
-                        <img src="static/img/yan.png" alt="">
-                        <span>65656</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="decorationCompany">
+    <div class="title" @click="$router.push('decorationCompanyContent')">
+      <img src="static/img/zhuangxiugongsi.png" alt="">
+      <img src="static/img/rightIcon.png" alt="" class="rightIcon">
     </div>
+    <div class="banner">
+      <img src="static/img/discountBanner.png" alt="">
+    </div>
+    <div class="companyCenter">
+      <div class="company" v-for="(item,index) in [1,2,3]" :key="index">
+        <div class="companyImg">
+          <img src="static/img/shichangtuipian.png" alt="">
+        </div>
+        <div class="companyContent">
+          <div class="name">
+            境远装饰
+            <span>找TA</span>
+          </div>
+          <div class="tag">
+            <van-tag type="success" plain>推荐</van-tag>
+            <van-tag type="success" plain>认证</van-tag>
+          </div>
+          <div class="address">
+            上海真北路520号
+          </div>
+          <div class="icon">
+            <img src="static/img/xin.png" alt="">
+            <span>12345</span>
+            <img src="static/img/yan.png" alt="">
+            <span>65656</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 export default {};

@@ -1,66 +1,66 @@
 <template>
-    <div class="singleDragram">
-        <div class="TypeList">
-            <div class="type" @click="typeClick('style')">
-                <div>
-                    <span :style="typeStatus =='style'?'color:#3cb850;':'color: #666666;'">风格</span>
-                    <img src="static/img/grayDown.png" alt="" v-if="typeStatus!=='style'">
-                    <img src="static/img/greenUp.png" alt="" v-if="typeStatus=='style'">
-                </div>
-            </div>
-            <div class="type" @click="typeClick('space')">
-                <div>
-                    <span :style="typeStatus =='space'?'color:#3cb850;':'color: #666666;'">空间</span>
-                    <img src="static/img/grayDown.png" alt="" v-if="typeStatus!=='space'">
-                    <img src="static/img/greenUp.png" alt="" v-if="typeStatus=='space'">
-                </div>
-            </div>
-            <div class="type" @click="typeClick('local')">
-                <div>
-                    <span :style="typeStatus =='local'?'color:#3cb850;':'color: #666666;'">局部</span>
-                    <img src="static/img/grayDown.png" alt="" v-if="typeStatus!=='local'">
-                    <img src="static/img/greenUp.png" alt="" v-if="typeStatus=='local'">
-                </div>
-            </div>
-            <div class="type" @click="typeClick('color')">
-                <div>
-                    <span :style="typeStatus =='color'?'color:#3cb850;':'color: #666666;'">颜色</span>
-                    <img src="static/img/grayDown.png" alt="" v-if="typeStatus!=='color'">
-                    <img src="static/img/greenUp.png" alt="" v-if="typeStatus=='color'">
-                </div>
-            </div>
-            <!-- 颜色 -->
-            <div class="typeContent" v-if="typeStatus=='color'">
-                <div class="content" :style="'background-color:'+item" v-for="(item,index) in colorData" :key="index"></div>
-            </div>
-            <!-- 局部 -->
-            <div class="typeContent" v-if="typeStatus=='local'">
-                <div class="content local" v-for="(item,index) in localData" :key="index">
-                    {{item}}
-                </div>
-            </div>
-            <!-- 空间 -->
-            <div class="typeContent" v-if="typeStatus=='space'">
-                <div class="content local" v-for="(item,index) in localData" :key="index">
-                    {{item}}
-                </div>
-            </div>
-            <!-- 风格 -->
-            <div class="typeContent" v-if="typeStatus=='style'">
-                <div class="content local" v-for="(item,index) in localData" :key="index">
-                    {{item}}
-                </div>
-            </div>
+  <div class="singleDragram">
+    <div class="TypeList">
+      <div class="type" @click="typeClick('style')">
+        <div>
+          <span :style="typeStatus =='style'?'color:#3cb850;':'color: #666666;'">风格</span>
+          <img src="static/img/grayDown.png" alt="" v-if="typeStatus!=='style'">
+          <img src="static/img/greenUp.png" alt="" v-if="typeStatus=='style'">
         </div>
-        <van-list v-model="loading" :finished="finished" @load="getData" style="height:100%;" :offset="10">
-            <vueWaterfallEasy :imgsArr="imgsArr" class="content" :loadingDotCount="0">
-                <div slot="waterfall-over">已经到底了</div>
-            </vueWaterfallEasy>
-        </van-list>
-        <!-- 模态框 -->
-        <div class="mask" v-if="typeStatus!==''" @click="typeStatus=''">
+      </div>
+      <div class="type" @click="typeClick('space')">
+        <div>
+          <span :style="typeStatus =='space'?'color:#3cb850;':'color: #666666;'">空间</span>
+          <img src="static/img/grayDown.png" alt="" v-if="typeStatus!=='space'">
+          <img src="static/img/greenUp.png" alt="" v-if="typeStatus=='space'">
         </div>
+      </div>
+      <div class="type" @click="typeClick('local')">
+        <div>
+          <span :style="typeStatus =='local'?'color:#3cb850;':'color: #666666;'">局部</span>
+          <img src="static/img/grayDown.png" alt="" v-if="typeStatus!=='local'">
+          <img src="static/img/greenUp.png" alt="" v-if="typeStatus=='local'">
+        </div>
+      </div>
+      <div class="type" @click="typeClick('color')">
+        <div>
+          <span :style="typeStatus =='color'?'color:#3cb850;':'color: #666666;'">颜色</span>
+          <img src="static/img/grayDown.png" alt="" v-if="typeStatus!=='color'">
+          <img src="static/img/greenUp.png" alt="" v-if="typeStatus=='color'">
+        </div>
+      </div>
+      <!-- 颜色 -->
+      <div class="typeContent" v-if="typeStatus=='color'">
+        <div class="content" :style="'background-color:'+item" v-for="(item,index) in colorData" :key="index"></div>
+      </div>
+      <!-- 局部 -->
+      <div class="typeContent" v-if="typeStatus=='local'">
+        <div class="content local" v-for="(item,index) in localData" :key="index">
+          {{item}}
+        </div>
+      </div>
+      <!-- 空间 -->
+      <div class="typeContent" v-if="typeStatus=='space'">
+        <div class="content local" v-for="(item,index) in localData" :key="index">
+          {{item}}
+        </div>
+      </div>
+      <!-- 风格 -->
+      <div class="typeContent" v-if="typeStatus=='style'">
+        <div class="content local" v-for="(item,index) in localData" :key="index">
+          {{item}}
+        </div>
+      </div>
     </div>
+    <van-list v-model="loading" :finished="finished" @load="getData" style="height:100%;" :offset="10">
+      <vueWaterfallEasy :imgsArr="imgsArr" class="content" :loadingDotCount="0">
+        <div slot="waterfall-over">已经到底了</div>
+      </vueWaterfallEasy>
+    </van-list>
+    <!-- 模态框 -->
+    <div class="mask" v-if="typeStatus!==''" @click="typeStatus=''">
+    </div>
+  </div>
 </template>
 <script>
 import vueWaterfallEasy from "vue-waterfall-easy";
@@ -180,7 +180,7 @@ export default {
     .content {
       height: 0.6rem;
       width: 1.5rem;
-      border-radius: 8px;
+      border-radius: 0.08rem;
       margin-top: 0.32rem;
       text-align: center;
       line-height: 0.6rem;

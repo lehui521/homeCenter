@@ -1,25 +1,25 @@
 <template>
-    <div class="ownerDiary">
-        <div class="title">
-            <img src="static/img/yezhuriji.png" alt="">
-            <img src="static/img/rightIcon.png" alt="" class="rightIcon">
-        </div>
-        <div class="content">
-            <div class="diary">
-                <img src="static/img/shichangtuipian.png" alt="">
-                <div class="diaryTitle">
-                    学林苑我的家
-                </div>
-                <div class="diaryText">
-                    <span>20-25万/</span>
-                    <span>半包/</span>
-                    <span>60m²以下/</span>
-                    <span>两居/</span>
-                    <span>宜家</span>
-                </div>
-            </div>
-        </div>
+  <div class="ownerDiary">
+    <div class="title" @click="$router.push('ownerDiaryContent')">
+      <img src="static/img/yezhuriji.png" alt="">
+      <img src="static/img/rightIcon.png" alt="" class="rightIcon">
     </div>
+    <div class="content">
+      <div class="diary">
+        <img src="static/img/shichangtuipian.png" alt="">
+        <div class="diaryTitle">
+          学林苑我的家
+        </div>
+        <div class="diaryText">
+          <span>20-25万/</span>
+          <span>半包/</span>
+          <span>60m²以下/</span>
+          <span>两居/</span>
+          <span>宜家</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 export default {};

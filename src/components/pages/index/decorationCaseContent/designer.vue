@@ -1,70 +1,70 @@
 <template>
-    <div class="designerBox">
-        <div class="typeList">
-            <div class="left" @click="typeClick('style')">
-                <span :style="status.typeStatus=='style'?'color:#3CB850;':''">风格</span>
-                <img src="static/img/greenUp.png" alt="" v-if="status.typeStatus=='style'">
-                <img src="static/img/grayDown.png" alt="" v-else>
-            </div>
-            <div class="right" @click="typeClick('sort')">
-                <span :style="status.typeStatus=='sort'?'color:#3CB850;':''">排序</span>
-                <img src="static/img/greenUp.png" alt="" v-if="status.typeStatus=='sort'">
-                <img src="static/img/grayDown.png" alt="" v-else>
-            </div>
-        </div>
-        <div class="designerTypeMask" v-if="status.typeStatus!==''">
-            <!-- 风格 -->
-            <div class="typeContent" v-if="status.typeStatus=='style'">
-                <div class=" local" v-for="i in 5" :key="i">不限</div>
-            </div>
-            <!-- 排序 -->
-            <div v-if="status.typeStatus=='sort'" class="typeContentT">
-                <div class="sortType">默认排序</div>
-                <div class="sortType">关注最多</div>
-                <div class="sortType">浏览最多</div>
-                <div class="sortType">成交最多</div>
-                <div class="sortType">星级最多</div>
-            </div>
-        </div>
-        <div class="designerContent">
-            <div class="designer" v-for="(item,index) in [1,2,3]" :key="index">
-                <div class="memberDetail">
-                    <div class="memberLeft">
-                        <img src="static/img/touxiang.jpg" alt="" class="tou">
-                        <p class="heart">
-                            <img src="static/img/shejishixin.png" alt="">
-                            <span>551</span>
-                        </p>
-                    </div>
-                    <div class="memberRight">
-                        <div class="memberName">
-                            呵呵哒
-                            <span>找TA</span>
-                        </div>
-                        <div class="tag">
-                            <van-tag type="success" plain>明星</van-tag>
-                            <van-tag type="success" plain>资深</van-tag>
-                        </div>
-                        <div class="address">
-                            <span>上海市</span>
-                            <span>15年</span>
-                        </div>
-                        <div class="textD">
-                            <span>现代</span>
-                            <span>简欧</span>
-                            <span>美式</span>
-                            <span>北欧</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="designerImg">
-                    <img src="static/img/shichangtuipian.png" alt="">
-                    <img src="static/img/shichangtuipian.png" alt="">
-                    <img src="static/img/shichangtuipian.png" alt="">
-                </div>
-            </div>
-        </div>
+  <div class="designerBox">
+    <div class="typeList">
+      <div class="left" @click="typeClick('style')">
+        <span :style="status.typeStatus=='style'?'color:#3CB850;':''">风格</span>
+        <img src="static/img/greenUp.png" alt="" v-if="status.typeStatus=='style'">
+        <img src="static/img/grayDown.png" alt="" v-else>
+      </div>
+      <div class="right" @click="typeClick('sort')">
+        <span :style="status.typeStatus=='sort'?'color:#3CB850;':''">排序</span>
+        <img src="static/img/greenUp.png" alt="" v-if="status.typeStatus=='sort'">
+        <img src="static/img/grayDown.png" alt="" v-else>
+      </div>
     </div>
+    <div class="designerTypeMask" v-if="status.typeStatus!==''">
+      <!-- 风格 -->
+      <div class="typeContent" v-if="status.typeStatus=='style'">
+        <div class=" local" v-for="i in 5" :key="i">不限</div>
+      </div>
+      <!-- 排序 -->
+      <div v-if="status.typeStatus=='sort'" class="typeContentT">
+        <div class="sortType">默认排序</div>
+        <div class="sortType">关注最多</div>
+        <div class="sortType">浏览最多</div>
+        <div class="sortType">成交最多</div>
+        <div class="sortType">星级最多</div>
+      </div>
+    </div>
+    <div class="designerContent">
+      <div class="designer" v-for="(item,index) in [1,2,3]" :key="index">
+        <div class="memberDetail">
+          <div class="memberLeft">
+            <img src="static/img/touxiang.jpg" alt="" class="tou">
+            <p class="heart">
+              <img src="static/img/shejishixin.png" alt="">
+              <span>551</span>
+            </p>
+          </div>
+          <div class="memberRight">
+            <div class="memberName">
+              呵呵哒
+              <span>找TA</span>
+            </div>
+            <div class="tag">
+              <van-tag type="success" plain>明星</van-tag>
+              <van-tag type="success" plain>资深</van-tag>
+            </div>
+            <div class="address">
+              <span>上海市</span>
+              <span>15年</span>
+            </div>
+            <div class="textD">
+              <span>现代</span>
+              <span>简欧</span>
+              <span>美式</span>
+              <span>北欧</span>
+            </div>
+          </div>
+        </div>
+        <div class="designerImg">
+          <img src="static/img/shichangtuipian.png" alt="">
+          <img src="static/img/shichangtuipian.png" alt="">
+          <img src="static/img/shichangtuipian.png" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 export default {
