@@ -1,0 +1,33 @@
+.require:after {
+    content: "*";
+    color: red;
+}
+
+.brick{
+    .item{
+        display: flex;
+        line-height: 44px;
+        // padding: 0.8em 0;
+        background-color: #ffffff;
+        border-bottom: 1px solid #e2e3e3;
+        .item-text {
+            width: 7em;
+            display: inline-block;
+            padding-left: 1em;
+            color: #000000;
+        }
+        .item-input {
+            border: 0;
+            flex: 1;
+        }
+        .item-right-text {
+            display: inline-block;
+            width: 2em;
+            color: #BCBCBC;
+        }
+        .patch-margin {
+            // margin-top: 5px;
+            line-height: 44px;
+        }
+    }
+}
