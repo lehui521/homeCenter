@@ -29,14 +29,46 @@ export default new Router({
         { path: '/discountAreaContent', component: resolve => require(['../components/pages/index/discountAreaContent'], resolve) }, //折扣专区
         { path: '/searchDiscountArea', component: resolve => require(['../components/pages/index/discountAreaContent/searchDiscountArea'], resolve) }, //折扣商品搜索
         { path: '/decorationCaseContent', component: resolve => require(['../components/pages/index/decorationCaseContent'], resolve) }, //装修案例
-        { path:'/myMessage',component:()=>import ('../components/pages/my/message') },
-        { path:'/myHome',component:()=>import ('../components/pages/my/home') },
-        { path:'/myFocus',component:()=>import ('../components/pages/my/focus') },
-        { path:'/mySetting',component:()=>import ('../components/pages/my/setting') },
-        { path:'/myAboutUs',component:()=>import ('../components/pages/my/aboutUs') },
-        { path:'/myEditPassword',component:()=>import ('../components/pages/my/editPassword') },
-        { path:'/myOinion',component:()=>import ('../components/pages/my/opinion') },
-        { path:'/myCollection',component:()=>import ('../components/pages/my/collection') },
+        {
+            path: '/myMessage',
+            component: () =>
+                import ('../components/pages/my/message')
+        },
+        {
+            path: '/myHome',
+            component: () =>
+                import ('../components/pages/my/home')
+        },
+        {
+            path: '/myFocus',
+            component: () =>
+                import ('../components/pages/my/focus')
+        },
+        {
+            path: '/mySetting',
+            component: () =>
+                import ('../components/pages/my/setting')
+        },
+        {
+            path: '/myAboutUs',
+            component: () =>
+                import ('../components/pages/my/aboutUs')
+        },
+        {
+            path: '/myEditPassword',
+            component: () =>
+                import ('../components/pages/my/editPassword')
+        },
+        {
+            path: '/myOinion',
+            component: () =>
+                import ('../components/pages/my/opinion')
+        },
+        {
+            path: '/myCollection',
+            component: () =>
+                import ('../components/pages/my/collection')
+        },
         { path: '/marketList', component: resolve => require(['../components/pages/index/marketList'], resolve) }, //市场列表
         { path: '/decorationCompanyContent', component: resolve => require(['../components/pages/onlineMarket/decorationCompanyContent'], resolve) }, //装修公司
         { path: '/searchDecorationCompany', component: resolve => require(['../components/pages/onlineMarket/decorationCompanyContent/searchDecorationCompany'], resolve) }, //装修公司搜索
@@ -53,5 +85,6 @@ export default new Router({
         { path: '/diaryDetail', component: resolve => require(['../components/pages/decorationSchool/ownerDiaryContent/diaryDetail'], resolve) }, //日记详情
         { path: '/reportPage', component: resolve => require(['../components/pages/decorationSchool/ownerDiaryContent/reportPage'], resolve) }, //举报
         { path: '/decorationStrategy', component: resolve => require(['../components/pages/decorationSchool/decorationStrategy'], resolve) }, //装修攻略
+        { path: '/myCoupon', component: resolve => require(['../components/pages/my/myCoupon'], resolve) }, //我的优惠券
     ]
 })
