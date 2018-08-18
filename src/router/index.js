@@ -42,5 +42,8 @@ export default new Router({
         { path: '/ownerDiaryContent', component: resolve => require(['../components/pages/decorationSchool/ownerDiaryContent'], resolve) }, //业主日记
         { path: '/addDiary', component: resolve => require(['../components/pages/decorationSchool/ownerDiaryContent/addDiary'], resolve) }, //业主日记详情
         { path: '/addDiaryStep2', component: resolve => require(['../components/pages/decorationSchool/ownerDiaryContent/addDiaryStep2'], resolve) }, //新建日记
+        { path: '/diaryDetail', component: resolve => require(['../components/pages/decorationSchool/ownerDiaryContent/diaryDetail'], resolve) }, //日记详情
+        { path: '/reportPage', component: resolve => require(['../components/pages/decorationSchool/ownerDiaryContent/reportPage'], resolve) }, //举报
+        { path: '/decorationStrategy', component: resolve => require(['../components/pages/decorationSchool/decorationStrategy'], resolve) }, //装修攻略
     ]
 })

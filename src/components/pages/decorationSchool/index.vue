@@ -24,7 +24,7 @@
         <div class="navImg">
           <img src="static/img/gonglv.png" alt="">
         </div>
-        <div class="navText">
+        <div class="navText" @click="$router.push('decorationStrategy')">
           <p class="text1">装修攻略</p>
           <p class="text2">装修阶段必备常识</p>
         </div>

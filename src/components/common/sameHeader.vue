@@ -45,6 +45,7 @@ export default {
   line-height: 0.88rem;
   top: 0;
   background: #fff;
+  z-index: 99999;
   .share {
     position: absolute;
     right: 0.4rem;

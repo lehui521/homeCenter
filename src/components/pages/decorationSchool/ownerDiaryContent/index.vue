@@ -1,57 +1,57 @@
 <template>
-    <div class="pages">
-        <HeaderSame :headerObj="headerObj"></HeaderSame>
-        <div class="TypeList">
-            <div class="type" @click="typeClick('budget')">
-                <div>
-                    <span :style="typeStatus =='budget'?'color:#3cb850;':'color: #666666;'">预算</span>
-                    <img src="static/img/grayDown.png" alt="" v-if="typeStatus!=='budget'">
-                    <img src="static/img/greenUp.png" alt="" v-if="typeStatus=='budget'">
-                </div>
-            </div>
-            <div class="type" @click="typeClick('style')">
-                <div>
-                    <span :style="typeStatus =='style'?'color:#3cb850;':'color: #666666;'">风格</span>
-                    <img src="static/img/grayDown.png" alt="" v-if="typeStatus!=='style'">
-                    <img src="static/img/greenUp.png" alt="" v-if="typeStatus=='style'">
-                </div>
-            </div>
-            <div class="type" @click="typeClick('home')">
-                <div>
-                    <span :style="typeStatus =='home'?'color:#3cb850;':'color: #666666;'">户型</span>
-                    <img src="static/img/grayDown.png" alt="" v-if="typeStatus!=='home'">
-                    <img src="static/img/greenUp.png" alt="" v-if="typeStatus=='home'">
-                </div>
-            </div>
-            <div class="type" @click="typeClick('sort')">
-                <div>
-                    <span :style="typeStatus =='sort'?'color:#3cb850;':'color: #666666;'">排序</span>
-                    <img src="static/img/grayDown.png" alt="" v-if="typeStatus!=='sort'">
-                    <img src="static/img/greenUp.png" alt="" v-if="typeStatus=='sort'">
-                </div>
-            </div>
+  <div class="pages">
+    <HeaderSame :headerObj="headerObj"></HeaderSame>
+    <div class="TypeList">
+      <div class="type" @click="typeClick('budget')">
+        <div>
+          <span :style="typeStatus =='budget'?'color:#3cb850;':'color: #666666;'">预算</span>
+          <img src="static/img/grayDown.png" alt="" v-if="typeStatus!=='budget'">
+          <img src="static/img/greenUp.png" alt="" v-if="typeStatus=='budget'">
         </div>
-        <div class="typeMask" v-if="typeStatus!==''">
-            <div class="typeContent" v-if="typeStatus=='sort'">
-                <div class="single" v-for="i in 10" :key="i">全部</div>
-            </div>
+      </div>
+      <div class="type" @click="typeClick('style')">
+        <div>
+          <span :style="typeStatus =='style'?'color:#3cb850;':'color: #666666;'">风格</span>
+          <img src="static/img/grayDown.png" alt="" v-if="typeStatus!=='style'">
+          <img src="static/img/greenUp.png" alt="" v-if="typeStatus=='style'">
         </div>
-        <div class="content">
-            <div class="diary">
-                <img src="static/img/shichangtuipian.png" alt="">
-                <div class="diaryTitle">
-                    学林苑我的家
-                </div>
-                <div class="diaryText">
-                    <span>20-25万/</span>
-                    <span>半包/</span>
-                    <span>60m²以下/</span>
-                    <span>两居/</span>
-                    <span>宜家</span>
-                </div>
-            </div>
+      </div>
+      <div class="type" @click="typeClick('home')">
+        <div>
+          <span :style="typeStatus =='home'?'color:#3cb850;':'color: #666666;'">户型</span>
+          <img src="static/img/grayDown.png" alt="" v-if="typeStatus!=='home'">
+          <img src="static/img/greenUp.png" alt="" v-if="typeStatus=='home'">
         </div>
+      </div>
+      <div class="type" @click="typeClick('sort')">
+        <div>
+          <span :style="typeStatus =='sort'?'color:#3cb850;':'color: #666666;'">排序</span>
+          <img src="static/img/grayDown.png" alt="" v-if="typeStatus!=='sort'">
+          <img src="static/img/greenUp.png" alt="" v-if="typeStatus=='sort'">
+        </div>
+      </div>
     </div>
+    <div class="typeMask" v-if="typeStatus!==''">
+      <div class="typeContent" v-if="typeStatus=='sort'">
+        <div class="single" v-for="i in 10" :key="i">全部</div>
+      </div>
+    </div>
+    <div class="content">
+      <div class="diary" @click="$router.push('diaryDetail')">
+        <img src="static/img/shichangtuipian.png" alt="">
+        <div class="diaryTitle">
+          学林苑我的家
+        </div>
+        <div class="diaryText">
+          <span>20-25万/</span>
+          <span>半包/</span>
+          <span>60m²以下/</span>
+          <span>两居/</span>
+          <span>宜家</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 import HeaderSame from "../../../common/sameHeader.vue";
