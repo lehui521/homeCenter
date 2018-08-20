@@ -11,11 +11,11 @@
         <div class="leftText">
           <div class="name">
             <p class="nameC">heheda</p>
-            <p class="button">编辑资料</p>
+            <p class="button" @click="$router.push('updateMemberInfo')">编辑资料</p>
           </div>
         </div>
       </div>
-      <div class="right">
+      <div class="right" @click="$router.push('registerDetail')">
         <div class="rightImg1"></div>
         <div class="rightImg2">
           <span>55</span>

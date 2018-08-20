@@ -5,9 +5,13 @@
         <span>上海市</span>
         <img src="static/img/weizhi.png" alt="">
       </div>
-      <div class="headerIcon">
+      <div class="headerIcon" v-if="!showHeaderStyle">
         <img src="static/img/kefu.png" alt="">
         <img src="static/img/xiaoxi.png" alt="">
+      </div>
+      <div class="headerIcon" v-if="showHeaderStyle">
+        <img src="static/img/kefuB.png" alt="">
+        <img src="static/img/xiaoxiB.png" alt="">
       </div>
     </header>
     <div class="banner">
@@ -118,19 +122,12 @@ export default {
       let top = document.documentElement.scrollTop;
       if (parseInt(top) > 100) {
         this.showHeaderStyle = true;
-        console.log(top);
       } else {
         this.showHeaderStyle = false;
       }
     };
   },
-  methods: {
-    scrollTop: function() {
-      window.scroll(() => {
-        console.log(555);
-      });
-    }
-  }
+  methods: {}
 };
 </script>
 <style lang="scss" scoped>

@@ -15,6 +15,7 @@ export default new Router({
             ]
         },
         { path: '/decorationBeauty', component: resolve => require(['../components/pages/index/decorationBeauty/index'], resolve) }, //装修美图
+        { path: '/specialTitleDetail', component: resolve => require(['../components/pages/index/decorationBeauty/specialTitleDetail'], resolve) }, //装修美图
         { path: '/boutiqueShop', component: resolve => require(['../components/pages/index/boutiqueShop/index'], resolve) }, //精品店铺
         { path: '/productClassif', component: resolve => require(['../components/pages/index/productClassif/index'], resolve) }, //商品分类
         { path: '/salesPromotion', component: resolve => require(['../components/pages/index/salesPromotion/index'], resolve) }, //促销活动
@@ -86,5 +87,16 @@ export default new Router({
         { path: '/reportPage', component: resolve => require(['../components/pages/decorationSchool/ownerDiaryContent/reportPage'], resolve) }, //举报
         { path: '/decorationStrategy', component: resolve => require(['../components/pages/decorationSchool/decorationStrategy'], resolve) }, //装修攻略
         { path: '/myCoupon', component: resolve => require(['../components/pages/my/myCoupon'], resolve) }, //我的优惠券
+        { path: '/updateMemberInfo', component: resolve => require(['../components/pages/my/updateMemberInfo'], resolve) }, //编辑资料
+        { path: '/updateMemberName', component: resolve => require(['../components/pages/my/updateMemberName'], resolve) }, //编辑用户的姓名
+        { path: '/focusContentCompany', component: resolve => require(['../components/pages/my/focusContentCompany'], resolve) }, //我的关注装修公司
+        { path: '/focusContentDesigner', component: resolve => require(['../components/pages/my/focusContentDesigner'], resolve) }, //我的关注设计师
+        { path: '/focusContentStore', component: resolve => require(['../components/pages/my/focusContentStore'], resolve) }, //我的关注店铺
+        { path: '/myDecorationBeauty', component: resolve => require(['../components/pages/my/myCollection/myDecorationBeauty'], resolve) }, //我的收藏装修美图
+        { path: '/myDecorationEncyclopedia', component: resolve => require(['../components/pages/my/myCollection/myDecorationEncyclopedia'], resolve) }, //我的收藏装修百科
+        { path: '/myMaterialEncyclopedia', component: resolve => require(['../components/pages/my/myCollection/myMaterialEncyclopedia'], resolve) }, //我的收藏材料百科
+        { path: '/myDecorationCase', component: resolve => require(['../components/pages/my/myCollection/myDecorationCase'], resolve) }, //我的收藏装修案例
+        { path: '/mySalesPromotion', component: resolve => require(['../components/pages/my/myCollection/mySalesPromotion'], resolve) }, //我的收藏促销活动
+        { path: '/registerDetail', component: resolve => require(['../components/pages/my/registerDetail'], resolve) }, //金币
     ]
 })

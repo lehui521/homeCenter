@@ -1,67 +1,67 @@
 <template>
-    <div class="pages">
-        <HeaderSame :headerObj="headerObj"></HeaderSame>
-        <div class="headerNav">
-            <div class="nav" @click="clickNav">全部</div>
-            <div class="nav" @click="clickNav">地板</div>
-            <div class="nav" @click="clickNav">橱柜</div>
-            <div class="nav" @click="clickNav">石材</div>
-            <div class="navImg" @click="showNav=true">
-                <img src="static/img/navDown.png" alt="">
-            </div>
-        </div>
-        <div class="mask" v-if="showNav">
-            <div class="navPosition">
-                <div class="floor1">
-                    <span>全部</span>
-                    <img src="static/img/navUp.png" alt="" @click="showNav=false">
-                </div>
-                <div class="floor2">
-                    <span>全部</span>
-                    <span>全部</span>
-                    <span>全部</span>
-                    <span>全部</span>
-                    <span>全部</span>
-                </div>
-            </div>
-        </div>
-        <div class="banner">
-            <img src="static/img/banner1.png" alt="">
-        </div>
-        <div class="discountProduct">
-            <div class="product" v-for="i in 2" :key="i">
-                <img src="static/img/banner1.png" alt="" class="discountProImg">
-                <div class="producText">
-                    <div class="text1">简爱</div>
-                    <div class="text2">我乐橱柜</div>
-                    <div class="text3">
-                        <span>￥2636</span>
-                        <s>￥3600</s>
-                    </div>
-                </div>
-                <!-- 已领取的样式 -->
-                <div class="discountImg" v-if="i==1">
-                    <div class="discountImgContent">
-                        <span class="goUseButton">去使用</span>
-                    </div>
-                    <img src="static/img/yilingqu.png" alt="" class="recievedImg">
-                </div>
-                <!-- 未领取的样式 -->
-                <div class="discountImg" v-else>
-                    <div class="circle">
-                        <svgCircle :proNum="proNum"></svgCircle>
-                        <div class="circleText">
-                            <span>已抢</span><br/>
-                            <span>50%</span>
-                        </div>
-                    </div>
-                    <div class="discountImgContent">
-                        <span class="goRecieveButton">立即领取</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="pages">
+    <HeaderSame :headerObj="headerObj"></HeaderSame>
+    <div class="headerNav">
+      <div class="nav" @click="clickNav">全部</div>
+      <div class="nav" @click="clickNav">地板</div>
+      <div class="nav" @click="clickNav">橱柜</div>
+      <div class="nav" @click="clickNav">石材</div>
+      <div class="navImg" @click="showNav=true">
+        <img src="static/img/navDown.png" alt="">
+      </div>
     </div>
+    <div class="mask" v-if="showNav">
+      <div class="navPosition">
+        <div class="floor1">
+          <span>全部</span>
+          <img src="static/img/navUp.png" alt="" @click="showNav=false">
+        </div>
+        <div class="floor2">
+          <span>全部</span>
+          <span>全部</span>
+          <span>全部</span>
+          <span>全部</span>
+          <span>全部</span>
+        </div>
+      </div>
+    </div>
+    <div class="banner">
+      <img src="static/img/banner1.png" alt="">
+    </div>
+    <div class="discountProduct">
+      <div class="product" v-for="i in 2" :key="i">
+        <img src="static/img/banner1.png" alt="" class="discountProImg">
+        <div class="producText">
+          <div class="text1">简爱</div>
+          <div class="text2">我乐橱柜</div>
+          <div class="text3">
+            <span>￥2636</span>
+            <s>￥3600</s>
+          </div>
+        </div>
+        <!-- 已领取的样式 -->
+        <div class="discountImg" v-if="i==1">
+          <div class="discountImgContent">
+            <span class="goUseButton">去使用</span>
+          </div>
+          <img src="static/img/yilingqu.png" alt="" class="recievedImg">
+        </div>
+        <!-- 未领取的样式 -->
+        <div class="discountImg" v-else>
+          <div class="circle">
+            <svgCircle :proNum="proNum"></svgCircle>
+            <div class="circleText">
+              <span>已抢</span><br/>
+              <span>50%</span>
+            </div>
+          </div>
+          <div class="discountImgContent">
+            <span class="goRecieveButton">立即领取</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 import svgCircle from "../../../common/svgCircle.vue";
@@ -276,11 +276,13 @@ export default {
           position: relative;
           margin: auto;
           text-align: center;
+          font-size: 0.18rem;
           .goUseButton {
-            padding: 0 0.23rem;
+            padding: 0.01rem 0.23rem;
             display: inline-block;
-            height: 0.28rem;
-            line-height: 0.28rem;
+            // height: 0.28rem;
+            // line-height: 0.28rem;
+            box-sizing: border-box;
             font-size: 0.18rem;
             color: #ffffff;
             background-image: linear-gradient(-90deg, #ff8b23 0%, #ff6d00 100%);
@@ -289,10 +291,10 @@ export default {
           }
           .goRecieveButton {
             border-radius: 100px;
-            padding: 0 0.14rem;
+            padding: 0.01rem 0.14rem;
             display: inline-block;
-            height: 0.28rem;
-            line-height: 0.28rem;
+            // height: 0.28rem;
+            // line-height: 0.28rem;
             font-size: 0.18rem;
             color: #ffffff;
             background-image: linear-gradient(90deg, #fb0f39 0%, #fc124f 100%);

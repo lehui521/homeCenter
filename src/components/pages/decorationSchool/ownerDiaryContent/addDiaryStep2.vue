@@ -1,40 +1,40 @@
 <template>
-    <div class="pages">
-        <div class="header">
-            <span>新建日记</span>
-            <span class="share">完成</span>
-            <img src="static/img/leftArrow.png" alt="" class="back" @click="$router.go(-1)">
-        </div>
-        <div class="diaryImg">
-            <img src="static/img/banner1.png" alt="">
-        </div>
-        <div class="smallImg">
-            <img src="static/img/grayImg.png" alt="">
-            <img src="static/img/grayCamera.png" alt="">
-        </div>
-        <div class="diaryTextContent">
-            <van-field v-model="message" type="textarea" placeholder="请输入日记内容" rows="2" autosize class="textArea" />
-        </div>
-        <div class="diarySelect">
-            <van-cell title="装修阶段" is-link value="泥木验收" class="single" @click="status.showDecorationStage=true" />
-            <van-cell title="装修标签" is-link value="准备" class="single" />
-            <van-cell title="选中日期" is-link value="2017-10-10" class="single" @click="status.showDate=true" />
-        </div>
-        <van-popup v-model="status.showDecorationStage" position="bottom" :overlay="true" class="typeMask">
-            <van-picker show-toolbar :columns="columns" @cancel="status.showDecorationStage=false" @confirm="status.showDecorationStage=false" class="picker" />
-        </van-popup>
-        <van-popup v-model="status.showDate" position="bottom" :overlay="true" class="typeMask">
-            <van-datetime-picker :min-date="minDate" v-model="currentDate" type="date" @cancel="status.showDate=false" @confirm="status.showDate=false" :formatter="formatterDate" />
-        </van-popup>
+  <div class="pages">
+    <div class="header">
+      <span>新建日记</span>
+      <span class="share">完成</span>
+      <img src="static/img/leftArrow.png" alt="" class="back" @click="$router.go(-1)">
     </div>
+    <div class="diaryImg">
+      <img src="static/img/banner1.png" alt="">
+    </div>
+    <div class="smallImg">
+      <img src="static/img/grayImg.png" alt="">
+      <img src="static/img/grayCamera.png" alt="">
+    </div>
+    <div class="diaryTextContent">
+      <van-field v-model="message" type="textarea" placeholder="请输入日记内容" rows="2" autosize class="textArea" />
+    </div>
+    <div class="diarySelect">
+      <van-cell title="装修阶段" is-link value="泥木验收" class="single" @click="status.showDecorationStage=true" />
+      <van-cell title="装修标签" is-link value="准备" class="single" />
+      <van-cell title="选中日期" is-link value="2017-10-10" class="single" @click="status.showDate=true" />
+    </div>
+    <van-popup v-model="status.showDecorationStage" position="bottom" :overlay="true" class="typeMask">
+      <van-picker show-toolbar :columns="columns" @cancel="status.showDecorationStage=false" @confirm="status.showDecorationStage=false" class="picker" />
+    </van-popup>
+    <van-popup v-model="status.showDate" position="bottom" :overlay="true" class="typeMask">
+      <van-datetime-picker :max-date="minDate" v-model="currentDate" type="date" @cancel="status.showDate=false" @confirm="status.showDate=false" :formatter="formatterDate" />
+    </van-popup>
+  </div>
 </template>
 <script>
 export default {
   data: function() {
     return {
       message: "",
-      currentDate: "",
-      minDate: new Date("2017-01-01"),
+      currentDate: new Date(),
+      minDate: new Date(),
       status: {
         showDecorationStage: false,
         showDate: false
