@@ -193,8 +193,9 @@
   @import "../../../css/brick.scss";
   .contract {
     padding-bottom: 4em;
-    font-size: 14px;
+    font-size: .3rem;
     padding-top: 0.88rem;
+   c
     .content {
       .item {
         .item-text {

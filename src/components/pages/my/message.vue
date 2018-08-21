@@ -4,7 +4,7 @@
     <div class="content">
       <ul class="list">
         <li class="item">
-          <div class="relativeItem">
+          <router-link class="relativeItem" to="/">
             <div class="thumb">
               <img src="static/img/demo.jpg" alt="">
             </div>
@@ -15,10 +15,10 @@
             <div class="item-icon veralign">
               <i class="fa fa-angle-right" aria-hidden="true"></i>
             </div>
-          </div>
+          </router-link>
         </li>
         <li class="item">
-          <div class="relativeItem">
+          <router-link class="relativeItem" to="/">
             <div class="thumb">
               <img src="static/img/demo.jpg" alt="">
             </div>
@@ -29,10 +29,10 @@
             <div class="item-icon veralign">
               <i class="fa fa-angle-right" aria-hidden="true"></i>
             </div>
-          </div>
+          </router-link>
         </li>
         <li class="item">
-          <div class="relativeItem">
+          <router-link class="relativeItem" to="/systemMessage">
             <div class="thumb">
               <img src="static/img/demo.jpg" alt="">
             </div>
@@ -43,7 +43,7 @@
             <div class="item-icon veralign">
               <i class="fa fa-angle-right" aria-hidden="true"></i>
             </div>
-          </div>
+          </router-link>
         </li>
       </ul>
     </div>
@@ -76,6 +76,7 @@
 <style lang="scss" scoped>
   .page {
     padding-top: 0.88rem;
+    font-size: .3rem;
     .header {}
     .content {
       .list {
@@ -99,8 +100,7 @@
             }
           }
           .thumb {
-            width: 20vw;
-            height: 20vw;
+            width: .8rem;
             display: inline-block;
             vertical-align: middle;
             img {
@@ -120,6 +120,7 @@
               color: #333333;
             }
             .item-show-annotation {
+              position: absolute;
               color: #999999;
               display: inline-block;
               font-size: 0.28rem;
