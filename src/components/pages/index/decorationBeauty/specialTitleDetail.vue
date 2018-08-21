@@ -1,21 +1,21 @@
 <template>
-    <div class="pages">
-        <div class="header">
-            <span>专题详情</span>
-            <img src="static/img/fenxiang.png" alt="" class="share">
-            <img src="static/img/greenFullStar.png" alt="" class="star">
-            <img src="static/img/leftArrow.png" alt="" class="back" @click="$router.go(-1)">
-        </div>
-        <van-swipe class="swipeContent" :show-indicators="false">
-            <van-swipe-item class="swipeSingle" v-for="i in 7" :key="i">
-                <div class="img"></div>
-                <div class="imgText">
-                    <div class="left">{{i}}/7</div>
-                    <div class="right"></div>
-                </div>
-            </van-swipe-item>
-        </van-swipe>
+  <div class="pages">
+    <div class="header">
+      <span>专题详情</span>
+      <img src="static/img/fenxiang.png" alt="" class="share">
+      <img src="static/img/greenFullStar.png" alt="" class="star">
+      <img src="static/img/leftArrow.png" alt="" class="back" @click="$router.go(-1)">
     </div>
+    <van-swipe class="swipeContent" :show-indicators="false" :loop="false">
+      <van-swipe-item class="swipeSingle" v-for="i in 7" :key="i">
+        <div class="img"></div>
+        <div class="imgText">
+          <div class="left">{{i}}/7</div>
+          <div class="right"></div>
+        </div>
+      </van-swipe-item>
+    </van-swipe>
+  </div>
 </template>
 <script>
 export default {};
