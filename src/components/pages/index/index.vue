@@ -1,13 +1,17 @@
 <template>
   <div class="page">
-    <header class="header">
+    <header :class="showHeaderStyle?'header bgWhite':'header'">
       <div class="address">
         <span>上海市</span>
         <img src="static/img/weizhi.png" alt="">
       </div>
-      <div class="headerIcon">
+      <div class="headerIcon" v-if="!showHeaderStyle">
         <img src="static/img/kefu.png" alt="">
         <img src="static/img/xiaoxi.png" alt="">
+      </div>
+      <div class="headerIcon" v-if="showHeaderStyle">
+        <img src="static/img/kefuB.png" alt="">
+        <img src="static/img/xiaoxiB.png" alt="">
       </div>
     </header>
     <div class="banner">
@@ -96,7 +100,6 @@ export default {
     learnD,
     platformR
   },
-  mounted: function() {},
   data: function() {
     return {
       bannerImgs: [
@@ -109,10 +112,21 @@ export default {
         arr: ["asdasdasdasd", "asdasdasdfggg", "12321321321321"],
         img: "static/img/huitoutiao.png",
         target: "index"
+      },
+      showHeaderStyle: false
+    };
+  },
+  mounted: function() {
+    window.onscroll = () => {
+      let header = document.getElementById("header");
+      let top = document.documentElement.scrollTop;
+      if (parseInt(top) > 100) {
+        this.showHeaderStyle = true;
+      } else {
+        this.showHeaderStyle = false;
       }
     };
   },
-  mounted: function() {},
   methods: {}
 };
 </script>
@@ -121,6 +135,7 @@ export default {
   background: #fff;
   font-size: 0.35rem;
   .header {
+    transition: all 0.3s ease-in-out;
     height: 1rem;
     background: rgba(255, 255, 255, 0);
     position: fixed;
@@ -164,6 +179,9 @@ export default {
         display: inline-block;
       }
     }
+  }
+  .bgWhite {
+    background: rgba(255, 255, 255, 1);
   }
   .banner {
     height: 4.5rem;

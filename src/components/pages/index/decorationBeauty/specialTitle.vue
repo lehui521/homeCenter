@@ -29,7 +29,7 @@
       </div>
     </div>
     <van-list v-model="loading" :finished="finished" @load="getData" style="height:100%;" :offset="5">
-      <div class="titleContent">
+      <div class="titleContent" @click="$router.push('specialTitleDetail')">
         <div class="floor1"></div>
         <div class="floor2">
           <div class="text1">明亮色彩美式居室</div>

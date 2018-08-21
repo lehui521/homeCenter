@@ -1,13 +1,17 @@
 <template>
   <div class="page">
-    <header class="header">
+    <header :class="showHeaderStyle?'header bgWhite':'header'">
       <div class="address">
         <span>上海红星美凯龙真北路商场</span>
         <img src="static/img/weizhi.png" alt="">
       </div>
-      <div class="headerIcon">
+      <div class="headerIcon" v-if="!showHeaderStyle">
         <img src="static/img/kefu.png" alt="">
         <img src="static/img/xiaoxi.png" alt="">
+      </div>
+      <div class="headerIcon" v-if="showHeaderStyle">
+        <img src="static/img/kefuB.png" alt="">
+        <img src="static/img/xiaoxiB.png" alt="">
       </div>
     </header>
     <div class="banner">
@@ -120,6 +124,18 @@ export default {
       newArr: {
         arr: ["asdsad", "dasdasdasd"],
         img: "static/img/xinwentoutiao.png"
+      },
+      showHeaderStyle: false
+    };
+  },
+  mounted: function() {
+    window.onscroll = () => {
+      let header = document.getElementById("header");
+      let top = document.documentElement.scrollTop;
+      if (parseInt(top) > 100) {
+        this.showHeaderStyle = true;
+      } else {
+        this.showHeaderStyle = false;
       }
     };
   },
@@ -141,6 +157,7 @@ export default {
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
+    transition: all 0.3s ease-in-out;
     .address {
       min-width: 1.5rem;
       height: 0.54rem;
@@ -172,6 +189,10 @@ export default {
         display: inline-block;
       }
     }
+  }
+  .bgWhite {
+    background: rgba(255, 255, 255, 1);
+    transition: all 0.3s ease-in-out;
   }
   .banner {
     height: 4.5rem;

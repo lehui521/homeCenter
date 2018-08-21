@@ -31,8 +31,12 @@
         list-style: none
     }
     
+    .pb-1 {
+        padding-bottom: 1rem;
+    }
+    
     .grayBlank {
-        height: 26px;
+        height: 0.26rem;
         background: #f8f8f8;
         box-shadow: inset 1px 1px 20px #EDEDED;
     }
@@ -143,4 +147,8 @@
     
     .van-picker-column__item {
         font-size: 0.3rem;
+    }
+    
+    #updateMember .van-cell__right-icon {
+        line-height: 1.08rem;
     }
