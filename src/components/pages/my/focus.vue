@@ -6,7 +6,8 @@
         <li class="item">
           <div class="relativeItem">
             <div class="thumb">
-              <img src="static/img/demo.jpg" alt="">
+              <!-- <img src="static/img/demo.jpg" alt=""> -->
+              <div class="thumb-demo"></div>
             </div>
             <div class="item-show">
               <p class="item-show-text">装修公司</p>
@@ -19,7 +20,8 @@
         <li class="item">
           <div class="relativeItem">
             <div class="thumb">
-              <img src="static/img/demo.jpg" alt="">
+              <!-- <img src="static/img/demo.jpg" alt=""> -->
+              <div class="thumb-demo"></div>
             </div>
             <div class="item-show">
               <p class="item-show-text">商场店铺</p>
@@ -32,7 +34,8 @@
         <li class="item">
           <div class="relativeItem">
             <div class="thumb">
-              <img src="static/img/demo.jpg" alt="">
+              <!-- <img src="static/img/demo.jpg" alt=""> -->
+              <div class="thumb-demo"></div>
             </div>
             <div class="item-show">
               <p class="item-show-text">设计师</p>
@@ -72,6 +75,7 @@
 </script>
 <style lang="scss" scoped>
   .page {
+    font-size: .3rem;
     padding-top: 0.88rem;
     .header {}
     .content {
@@ -96,10 +100,15 @@
             }
           }
           .thumb {
-            width: 20vw;
-            height: 20vw;
+            width: .8rem;
             display: inline-block;
             vertical-align: middle;
+            .thumb-demo {
+              border-radius: 50%;
+              height: 40px;
+              width: 40px;
+              background-color: #eee;
+            }
             img {
               width: 100%;
               height: 100%;

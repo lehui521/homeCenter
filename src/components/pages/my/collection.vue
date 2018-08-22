@@ -84,6 +84,7 @@
 <style lang="scss" scoped>
   .page {
     padding-top: 0.88rem;
+    font-size: .3rem;
     .header {}
     .content {
       .list {
@@ -107,8 +108,7 @@
             }
           }
           .thumb {
-            width: 15vw;
-            height: 15vw;
+            width: .8rem;
             display: inline-block;
             vertical-align: middle;
             img {

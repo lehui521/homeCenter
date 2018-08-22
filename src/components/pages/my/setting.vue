@@ -46,80 +46,74 @@
   </div>
 </template>
 <script>
-  import HeaderSame from "../../common/sameHeader.vue";
-  export default {
+import HeaderSame from "../../common/sameHeader.vue";
+export default {
     data() {
-      return {
-        headerObj: {
-          title: "设置",
-          img: ""
-        },
-        formData: {
-
-        },
-        checked: false
-      }
+        return {
+            headerObj: {
+                title: "设置",
+                img: ""
+            },
+            formData: {},
+            checked: false
+        };
     },
     methods: {
-      dateClick() {
-
-      }
+        dateClick() {}
     },
-    created() {
-
-    },
+    created() {},
     components: {
-      HeaderSame
+        HeaderSame
     }
-  }
-
+};
 </script>
 <style lang="scss" scoped>
-  .page {
+.page {
     padding-top: 0.88rem;
-    font-size: 14px;
-    .header {}
+    font-size: 0.3rem;
+    .header {
+    }
     .content {
-      line-height: 44px;
-      .list {
-        .item {
-          padding: 1% 4%;
-          background-color: #fff;
-          border-bottom: 1px solid #979797;
-          display: block;
-          .item-text {
-            font-size: 16px;
-            color: #666666;
-          }
-          .item-right-text {
-            float: right;
-            font-size: 20px;
-          }
-          .item-swith {
-            vertical-align: middle;
-          }
+        line-height: 44px;
+        .list {
+            .item {
+                padding: 1% 4%;
+                background-color: #fff;
+                border-bottom: 1px solid #979797;
+                display: block;
+                color: inherit;
+                .item-text {
+                    font-size: 16px;
+                    color: #666666;
+                }
+                .item-right-text {
+                    float: right;
+                    font-size: 20px;
+                }
+                .item-swith {
+                    vertical-align: middle;
+                }
+            }
         }
-      }
     }
     .footer {
-      text-align: center;
-      margin-top: 1rem;
-      padding: .5vw;
-      .footer-btn {
-        background: #fff;
-        width: 80%;
-        padding: 3vw 0;
-        color: #3CB850;
-        border: none;
-        border: 1px solid #3CB850;
-      }
+        text-align: center;
+        margin-top: 1rem;
+        padding: 0.5vw;
+        .footer-btn {
+            background: #fff;
+            width: 80%;
+            padding: 3vw 0;
+            color: #3cb850;
+            border: none;
+            border: 1px solid #3cb850;
+        }
     }
     .veralign::before {
-      content: "";
-      display: inline-block;
-      vertical-align: middle;
-      height: 100%;
+        content: "";
+        display: inline-block;
+        vertical-align: middle;
+        height: 100%;
     }
-  }
-
+}
 </style>
