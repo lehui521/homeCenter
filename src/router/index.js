@@ -98,5 +98,6 @@ export default new Router({
         { path: '/myDecorationCase', component: resolve => require(['../components/pages/my/myCollection/myDecorationCase'], resolve) }, //我的收藏装修案例
         { path: '/mySalesPromotion', component: resolve => require(['../components/pages/my/myCollection/mySalesPromotion'], resolve) }, //我的收藏促销活动
         { path: '/registerDetail', component: resolve => require(['../components/pages/my/registerDetail'], resolve) }, //金币
+        { path: '/onlineMarketNews', component: resolve => require(['../components/pages/onlineMarket/onlineMarketNews'], resolve) }, //网上市场的新闻
     ]
 })

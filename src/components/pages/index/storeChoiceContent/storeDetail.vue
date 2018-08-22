@@ -14,7 +14,9 @@
         </div>
         <div class="brief">
           <span>橱柜</span>
+          <span>|</span>
           <span>简约</span>
+          <span>|</span>
           <span>家具</span>
         </div>
         <div class="storeTag">
@@ -267,8 +269,7 @@ export default {
         padding: 0.08rem 0;
         span {
           display: inline-block;
-          border-right: 1px solid #444444;
-          padding-right: 0.1rem;
+          padding-right: 0.02rem;
         }
         span:last-child {
           border-right: 0;
@@ -436,27 +437,32 @@ export default {
           position: relative;
           margin: auto;
           text-align: center;
+          font-size: 0.18rem;
+          padding-top: 1.1rem;
+          box-sizing: border-box;
           .goUseButton {
-            padding: 0 0.23rem;
-            display: inline-block;
-            height: 0.28rem;
-            line-height: 0.28rem;
+            display: block;
+            padding: 0.03rem 0.23rem;
+            // height: 0.28rem;
+            // line-height: 0.28rem;
             font-size: 0.18rem;
             color: #ffffff;
             background-image: linear-gradient(-90deg, #ff8b23 0%, #ff6d00 100%);
             border-radius: 100px;
-            margin-top: 1.1rem;
+            width: 1rem;
+            margin: auto;
           }
           .goRecieveButton {
             border-radius: 100px;
-            padding: 0 0.14rem;
-            display: inline-block;
-            height: 0.28rem;
-            line-height: 0.28rem;
+            padding: 0.03rem 0.14rem;
+            display: block;
+            // height: 0.28rem;
+            // line-height: 0.28rem;
             font-size: 0.18rem;
             color: #ffffff;
             background-image: linear-gradient(90deg, #fb0f39 0%, #fc124f 100%);
-            margin-top: 1.1rem;
+            width: 1rem;
+            margin: auto;
           }
         }
         .recievedImg {
@@ -621,7 +627,7 @@ export default {
         }
         .textA2 {
           font-size: 0.22rem;
-          color: #2a2a2a;
+          color: #999999;
         }
         .textA3 {
           font-size: 0.24rem;

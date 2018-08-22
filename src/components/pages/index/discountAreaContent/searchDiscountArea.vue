@@ -187,28 +187,32 @@ export default {
           height: 100%;
           position: relative;
           text-align: center;
+          font-size: 0.18rem;
+          padding-top: 1.1rem;
+          box-sizing: border-box;
           .goUseButton {
-            padding: 0.01rem 0.23rem;
-            display: inline-block;
+            display: block;
+            padding: 0.03rem 0.23rem;
             // height: 0.28rem;
             // line-height: 0.28rem;
-            box-sizing: border-box;
             font-size: 0.18rem;
             color: #ffffff;
             background-image: linear-gradient(-90deg, #ff8b23 0%, #ff6d00 100%);
             border-radius: 100px;
-            margin-top: 1.1rem;
+            width: 1rem;
+            margin: auto;
           }
           .goRecieveButton {
             border-radius: 100px;
-            padding: 0.01rem 0.14rem;
-            display: inline-block;
+            padding: 0.03rem 0.14rem;
+            display: block;
             // height: 0.28rem;
             // line-height: 0.28rem;
             font-size: 0.18rem;
             color: #ffffff;
             background-image: linear-gradient(90deg, #fb0f39 0%, #fc124f 100%);
-            margin-top: 1.1rem;
+            width: 1rem;
+            margin: auto;
           }
         }
         .recievedImg {
