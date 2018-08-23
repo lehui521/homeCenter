@@ -123,7 +123,8 @@ export default {
     return {
       newArr: {
         arr: ["asdsad", "dasdasdasd"],
-        img: "static/img/xinwentoutiao.png"
+        img: "static/img/xinwentoutiao.png",
+        target: "onlineMarket"
       },
       showHeaderStyle: false
     };

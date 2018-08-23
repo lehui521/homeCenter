@@ -35,6 +35,8 @@ export default {
     clickNews: function() {
       if (this.newArr.target == "index") {
         this.$router.push("indexNew");
+      } else if (this.newArr.target == "onlineMarket") {
+        this.$router.push("onlineMarketNews");
       }
     }
   }

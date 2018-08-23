@@ -14,6 +14,7 @@
         <div class="activeText">
           <div class="left">
             <span class="text1">我乐橱柜国庆促销</span>
+            <span class="text1">|</span>
             <span class="text2">上海红星美凯龙asdasdasd</span>
           </div>
           <div class="right">
@@ -59,6 +60,7 @@
           <div class="activeText">
             <div class="left">
               <span class="text1">我乐橱柜国庆促销</span>
+              <span class="text1">|</span>
               <span class="text2">上海红星美凯龙asdasdasd</span>
             </div>
             <div class="right">
@@ -144,11 +146,10 @@ export default {
           color: #333333;
           display: inline-block;
           padding-right: 0.1rem;
-          border-right: 1px solid #333333;
         }
         .text2 {
           font-size: 0.22rem;
-          color: #2a2a2a;
+          color: #999999;
           display: inline-block;
           overflow: hidden;
           white-space: nowrap;
@@ -156,7 +157,7 @@ export default {
           width: 1.98rem;
           box-sizing: border-box;
           padding-top: 0.03rem;
-          padding-left: 0.1rem;
+          padding-left: 0;
         }
       }
       .right {
@@ -278,11 +279,10 @@ export default {
             color: #333333;
             display: inline-block;
             padding-right: 0.1rem;
-            border-right: 1px solid #333333;
           }
           .text2 {
             font-size: 0.22rem;
-            color: #2a2a2a;
+            color: #999999;
             display: inline-block;
             overflow: hidden;
             white-space: nowrap;
@@ -290,7 +290,7 @@ export default {
             width: 1.98rem;
             box-sizing: border-box;
             padding-top: 0.03rem;
-            padding-left: 0.1rem;
+            padding-left: 0;
           }
         }
         .right {
