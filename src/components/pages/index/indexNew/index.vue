@@ -3,7 +3,7 @@
     <HeaderSame :headerObj="headerObj"></HeaderSame>
     <div class="headerNav">
       <van-tabs @click="tabClick">
-        <van-tab v-for="index in 8" :title="'选项 ' + index" :key="index">
+        <van-tab v-for="index in 8" :title="(index==1?'推荐':(('选项 ') + index))" :key="index">
         </van-tab>
       </van-tabs>
     </div>

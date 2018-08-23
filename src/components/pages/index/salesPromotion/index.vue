@@ -14,7 +14,7 @@
         <div class="activeText">
           <div class="left">
             <span class="text1">我乐橱柜国庆促销</span>
-            <span class="text1">|</span>
+            <!-- <span class="text1">|</span> -->
             <span class="text2">上海红星美凯龙asdasdasd</span>
           </div>
           <div class="right">
@@ -28,7 +28,7 @@
     <div class="storer" v-if="status.tabStatus=='storer'">
       <div class="grayBlank"></div>
       <div class="storeNav">
-        <div class="nav" @click="clickNav">全部</div>
+        <div class="nav storeNav-green" @click="clickNav">全部</div>
         <div class="nav" @click="clickNav">地板</div>
         <div class="nav" @click="clickNav">橱柜</div>
         <div class="nav" @click="clickNav">石材</div>
@@ -60,7 +60,7 @@
           <div class="activeText">
             <div class="left">
               <span class="text1">我乐橱柜国庆促销</span>
-              <span class="text1">|</span>
+              <!-- <span class="text1">|</span> -->
               <span class="text2">上海红星美凯龙asdasdasd</span>
             </div>
             <div class="right">
@@ -146,6 +146,7 @@ export default {
           color: #333333;
           display: inline-block;
           padding-right: 0.1rem;
+          border-right: 1px solid #333;
         }
         .text2 {
           font-size: 0.22rem;
@@ -158,6 +159,7 @@ export default {
           box-sizing: border-box;
           padding-top: 0.03rem;
           padding-left: 0;
+          margin-left: .1rem;
         }
       }
       .right {
@@ -188,6 +190,9 @@ export default {
         letter-spacing: 0;
         line-height: 0.88rem;
         text-align: center;
+      }
+      .storeNav-green{
+        color: #3cb850;
       }
       .navImg {
         width: 8%;
@@ -279,6 +284,7 @@ export default {
             color: #333333;
             display: inline-block;
             padding-right: 0.1rem;
+            border-right: 1px solid #333;
           }
           .text2 {
             font-size: 0.22rem;
@@ -291,6 +297,7 @@ export default {
             box-sizing: border-box;
             padding-top: 0.03rem;
             padding-left: 0;
+            margin-left: .1rem;
           }
         }
         .right {

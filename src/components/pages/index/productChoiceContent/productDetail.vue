@@ -24,7 +24,7 @@
     <div class="grayBlank"></div>
     <div class="discount">
       <img src="static/img/juan.png" alt="" class="juan">
-      <span>折扣劵</span>
+      <span>满减券</span>
       <img src="static/img/rightArrow.png" alt="" class="rightArrow">
     </div>
     <div class="grayBlank"></div>
