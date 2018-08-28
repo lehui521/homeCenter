@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <div class="page" @scroll="scrollHandle($event)" @touchmove="scrollHandle($event)">
     <header :class="showHeaderStyle?'header bgWhite':'header'">
       <div class="address">
         <span>上海市</span>
@@ -116,8 +116,9 @@ export default {
       showHeaderStyle: false
     };
   },
-  mounted: function() {
-    window.onscroll = () => {
+  mounted: function() {},
+  methods: {
+    scrollHandle: function(e) {
       let header = document.getElementById("header");
       let top = document.documentElement.scrollTop;
       if (parseInt(top) > 100) {
@@ -125,9 +126,8 @@ export default {
       } else {
         this.showHeaderStyle = false;
       }
-    };
-  },
-  methods: {}
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>
