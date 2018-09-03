@@ -53,7 +53,7 @@ export default {
   .left {
     width: 30%;
     height: 100%;
-    border-right: 1px solid #d5d5d5;
+    border-right: 1px solid #000;
     text-align: center;
     padding: 0.07rem 0;
     box-sizing: border-box;

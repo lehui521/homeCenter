@@ -1,6 +1,6 @@
 <template>
   <div class="learnDecoration">
-    <div class="title">
+    <div class="title" @click="$router.push('decorationSchool')">
       <img src="static/img/xuezhuangxiu.png" alt="">
       <img src="static/img/rightIcon.png" alt="" class="rightIcon">
     </div>
@@ -54,8 +54,8 @@ export default {};
       box-sizing: border-box;
       box-shadow: #dedede 2px 5px 10px;
       margin-top: 0.2rem;
-      border:1px solid #efefef;
-      height:2.24rem;
+      border: 1px solid #efefef;
+      height: 2.24rem;
       img {
         width: 100%;
         height: 100%;

@@ -6,12 +6,12 @@
         <img src="static/img/weizhi.png" alt="">
       </div>
       <div class="headerIcon" v-if="!showHeaderStyle">
-        <img src="static/img/kefu.png" alt="">
-        <img src="static/img/xiaoxi.png" alt="">
+        <div class="iconDiv"><img src="static/img/kefu.png" alt=""></div>
+        <div class="iconDiv"><img src="static/img/xiaoxi.png" alt=""></div>
       </div>
       <div class="headerIcon" v-if="showHeaderStyle">
-        <img src="static/img/kefuB.png" alt="">
-        <img src="static/img/xiaoxiB.png" alt="">
+        <div class="iconDiv"><img src="static/img/kefuB.png" alt=""></div>
+        <div class="iconDiv"><img src="static/img/xiaoxiB.png" alt=""></div>
       </div>
     </header>
     <div class="banner">
@@ -28,7 +28,7 @@
       </div>
       <div class="navImg" @click="$router.push('boutiqueShop')">
         <img src="static/img/jingpindianpu.png" alt="">
-        <span>精品店铺</span>
+        <span>精品旺铺</span>
       </div>
       <div class="navImg" @click="$router.push('productClassif')">
         <img src="static/img/shangpinfenlei.png" alt="">
@@ -118,6 +118,7 @@ export default {
   },
   mounted: function() {
     this.scrollHandle();
+    // this.getData();
   },
   methods: {
     scrollHandle: function(e) {
@@ -134,6 +135,21 @@ export default {
           this.showHeaderStyle = false;
         }
       });
+    },
+    getData: function() {
+      this.tool
+        .request({
+          url: "v3_index/index",
+          method: "post",
+          data: {
+            city_id: "1",
+            lat: "100.2",
+            lng: "0.3"
+          }
+        })
+        .then(res => {
+          console.log(res);
+        });
     }
   }
 };
@@ -144,7 +160,7 @@ export default {
   font-size: 0.35rem;
   .header {
     transition: all 0.3s ease-in-out;
-    height: 1rem;
+    height: 0.88rem;
     background: rgba(255, 255, 255, 0);
     position: fixed;
     top: 0;
@@ -175,16 +191,22 @@ export default {
       }
     }
     .headerIcon {
-      width: 1.8rem;
-      height: 0.6rem;
+      width: 1.3rem;
+      height: 100%;
       line-height: 0.6rem;
       text-align: center;
       display: flex;
       justify-content: space-between;
-      img {
-        width: 0.6rem;
-        height: 0.5rem;
-        display: inline-block;
+      .iconDiv {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        height: 100%;
+        img {
+          width: 0.38rem;
+          height: 0.3rem;
+          display: inline-block;
+        }
       }
     }
   }

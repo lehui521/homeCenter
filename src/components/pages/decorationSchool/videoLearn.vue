@@ -1,6 +1,6 @@
 <template>
   <div class="videoLearn">
-    <div class="title">
+    <div class="title" @click="$router.push('videoLearnContent')">
       <img src="static/img/shipinxuezhuangxiu.png" alt="">
       <img src="static/img/rightIcon.png" alt="" class="rightIcon">
     </div>

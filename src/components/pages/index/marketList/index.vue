@@ -1,92 +1,100 @@
 <template>
-    <div class="pages" id="marketList">
-        <div class="header">
-            <img src="static/img/leftArrow.png" alt="" class="headerImg" @click="$router.go(-1)">
-            <div class="searchInput">
-                <div class="searchIcon">
-                    <van-icon name="search" />
-                </div>
-                <div class="input">
-                    <input type="text" placeholder="请输入市场名称" @keyup.enter.native="search" @focus="status.searchStatus=false" @blur="status.searchStatus=true">
-                </div>
-            </div>
+  <div class="pages" id="marketList">
+    <div class="header">
+      <div class="back">
+        <img src="static/img/leftArrow.png" alt="" class="headerImg" @click="$router.go(-1)">
+      </div>
+      <div class="searchInput">
+        <div class="searchIcon">
+          <van-icon name="search" />
         </div>
-        <div v-if="status.searchStatus">
-            <div class="banner">
-                <img src="static/img/banner1.png" alt="">
-            </div>
-            <div class="typeList">
-                <div class="left" @click="typeClick('type')">
-                    <span :style="status.typeStatus=='type'?'color:#3CB850;':''">主营业务</span>
-                    <img src="static/img/greenUp.png" alt="" v-if="status.typeStatus=='type'">
-                    <img src="static/img/grayDown.png" alt="" v-else>
-                </div>
-                <div class="right" @click="typeClick('sort')">
-                    <span :style="status.typeStatus=='sort'?'color:#3CB850;':''">排序</span>
-                    <img src="static/img/greenUp.png" alt="" v-if="status.typeStatus=='sort'">
-                    <img src="static/img/grayDown.png" alt="" v-else>
-                </div>
-            </div>
-            <div class="content">
-                <div class="market" v-for="(item,index) in [1,2,3]" :key="index">
-                    <div class="marketImg">
-                        <img src="static/img/shichangtuipian.png" alt="">
-                    </div>
-                    <div class="marketText">
-                        <div class="marketName">
-                            <span class="name">上海家饰佳徐汇店</span>
-                            <span>64m</span>
-                        </div>
-                        <div class="marketTag">
-                            <van-tag type="success" plain>家具</van-tag>
-                            <van-tag type="success" plain>灯饰</van-tag>
-                        </div>
-                        <div class="marketPhone">
-                            <img src="static/img/dianhua.png" alt="">
-                            <span>15252111236</span>
-                        </div>
-                        <div class="marketAddress">
-                            <img src="static/img/dizhi.png" alt="">
-                            <span>上海市徐汇区凯旋路552号</span>
-                        </div>
-                        <div class="marketHot">
-                            <img src="static/img/re.png" alt="">
-                            <span>市场新开业，品牌大放价</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="typeMask" v-if="status.typeStatus!==''">
-                <div class="maskContent" v-if="status.typeStatus=='type'">
-                    <div class="singleTop">不限</div>
-                    <van-checkbox-group v-model="result">
-                        <van-cell-group>
-                            <van-cell v-for="item in [1,2,3]" clickable :key="item" :title="`复选框 ${item}`" class="singleCheck">
-                                <van-checkbox :name="item" ref="checkboxes" />
-                            </van-cell>
-                        </van-cell-group>
-                    </van-checkbox-group>
-                    <div class="singleButton">
-                        <button>确定</button>
-                    </div>
-                </div>
-                <div class="maskContent" v-if="status.typeStatus=='sort'">
-                    <div class="singleTop">不限</div>
-                    <van-checkbox-group v-model="result">
-                        <van-cell-group>
-                            <van-cell v-for="item in [1,2,3]" clickable :key="item" :title="`建材 ${item}`" class="singleCheck">
-                                <van-checkbox :name="item" ref="checkboxes" />
-                            </van-cell>
-                        </van-cell-group>
-                    </van-checkbox-group>
-                    <div class="singleButton">
-                        <button>确定</button>
-                    </div>
-                </div>
-            </div>
+        <div class="input">
+          <input type="text" placeholder="请输入市场名称" @keyup.enter.native="search" @focus="status.searchStatus=false" @blur="status.searchStatus=true">
         </div>
-
+      </div>
     </div>
+    <div v-if="status.searchStatus">
+      <div class="banner">
+        <img src="static/img/banner1.png" alt="">
+      </div>
+      <div class="typeList">
+        <div class="left" @click="typeClick('type')">
+          <span :style="status.typeStatus=='type'?'color:#3CB850;':''">主营业务</span>
+          <img src="static/img/greenUp.png" alt="" v-if="status.typeStatus=='type'">
+          <img src="static/img/grayDown.png" alt="" v-else>
+        </div>
+        <div class="right" @click="typeClick('sort')">
+          <span :style="status.typeStatus=='sort'?'color:#3CB850;':''">排序</span>
+          <img src="static/img/greenUp.png" alt="" v-if="status.typeStatus=='sort'">
+          <img src="static/img/grayDown.png" alt="" v-else>
+        </div>
+      </div>
+      <div class="content">
+        <div class="market" v-for="(item,index) in [1,2,3]" :key="index">
+          <div class="marketImg">
+            <img src="static/img/shichangtuipian.png" alt="">
+          </div>
+          <div class="marketText">
+            <div class="marketName">
+              <span class="name">上海家饰佳徐汇店</span>
+              <span>64m</span>
+            </div>
+            <div class="marketTag">
+              <van-tag type="success" plain>家具</van-tag>
+              <van-tag type="success" plain>灯饰</van-tag>
+            </div>
+            <div class="marketPhone">
+              <div class="icon">
+                <img src="static/img/dianhua.png" alt="">
+              </div>
+              <span>15252111236</span>
+            </div>
+            <div class="marketAddress">
+              <div class="icon">
+                <img src="static/img/dizhi.png" alt="">
+              </div>
+              <span>上海市徐汇区凯旋路552号</span>
+            </div>
+            <div class="marketHot">
+              <div class="icon">
+                <img src="static/img/re.png" alt="">
+              </div>
+              <span>市场新开业，品牌大放价</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="typeMask" v-if="status.typeStatus!==''">
+        <div class="maskContent" v-if="status.typeStatus=='type'">
+          <div class="singleTop">不限</div>
+          <van-checkbox-group v-model="result">
+            <van-cell-group>
+              <van-cell v-for="item in [1,2,3]" clickable :key="item" :title="`复选框 ${item}`" class="singleCheck">
+                <van-checkbox :name="item" ref="checkboxes" />
+              </van-cell>
+            </van-cell-group>
+          </van-checkbox-group>
+          <div class="singleButton">
+            <button>确定</button>
+          </div>
+        </div>
+        <div class="maskContent" v-if="status.typeStatus=='sort'">
+          <div class="singleTop">不限</div>
+          <van-checkbox-group v-model="result">
+            <van-cell-group>
+              <van-cell v-for="item in [1,2,3]" clickable :key="item" :title="`建材 ${item}`" class="singleCheck">
+                <van-checkbox :name="item" ref="checkboxes" />
+              </van-cell>
+            </van-cell-group>
+          </van-checkbox-group>
+          <div class="singleButton">
+            <button>确定</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </template>
 <script>
 export default {
@@ -122,13 +130,20 @@ export default {
     left: 0;
     background: #fff;
     width: 100%;
+    .back {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      position: absolute;
+      left: 0.3rem;
+      top: 0;
+      .headerImg {
+        height: 0.32rem;
+      }
+    }
   }
-  .headerImg {
-    height: 0.32rem;
-    float: left;
-    margin-top: 0.27rem;
-    margin-left: 0.3rem;
-  }
+
   .searchInput {
     width: 5.6rem;
     height: 0.56rem;
@@ -138,11 +153,13 @@ export default {
     justify-content: flex-start;
     .searchIcon {
       font-size: 0.26rem;
-      line-height: 0.56rem;
       background: #f1f2f6;
       width: 0.68rem;
       text-align: center;
       height: 0.56rem;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
     }
     .input {
       width: 100%;
@@ -253,20 +270,25 @@ export default {
         margin-bottom: 0.1rem;
         font-size: 0.24rem;
         color: #444444;
+        display: flex;
+        justify-content: flex-start;
         span {
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
           display: inline-block;
           width: 100%;
-          padding-left: 0.45rem;
+          padding-left: 0.2rem;
           box-sizing: border-box;
         }
-        img {
-          height: 0.24rem;
-          position: absolute;
-          top: 0.02rem;
-          left: 0;
+        .icon {
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          img {
+            height: 0.24rem;
+          }
         }
       }
       .marketAddress {
@@ -274,44 +296,54 @@ export default {
         height: 0.4rem;
         line-height: 0.4rem;
         margin-bottom: 0.1rem;
+        display: flex;
+        justify-content: flex-start;
+        .icon {
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          img {
+            height: 0.24rem;
+          }
+        }
         span {
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
           display: inline-block;
           width: 100%;
-          padding-left: 0.45rem;
+          padding-left: 0.2rem;
           box-sizing: border-box;
           font-size: 0.24rem;
           color: #444444;
-        }
-        img {
-          height: 0.24rem;
-          position: absolute;
-          top: 0.02rem;
-          left: 0;
         }
       }
       .marketHot {
         position: relative;
         height: 0.4rem;
         line-height: 0.4rem;
+        display: flex;
+        justify-content: flex-start;
         span {
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
           display: inline-block;
           width: 100%;
-          padding-left: 0.45rem;
+          padding-left: 0.2rem;
           box-sizing: border-box;
           font-size: 0.24rem;
           color: #444444;
         }
-        img {
-          height: 0.24rem;
-          position: absolute;
-          top: 0.04rem;
-          left: 0;
+        .icon {
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          img {
+            height: 0.24rem;
+          }
         }
       }
     }

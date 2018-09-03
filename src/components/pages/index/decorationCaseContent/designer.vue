@@ -103,6 +103,11 @@ export default {
     box-sizing: border-box;
     line-height: 0.48rem;
     background: #fff;
+    position: fixed;
+    top: 0.88rem;
+    width: 100%;
+    left: 0;
+    z-index: 9999;
     .left {
       width: 50%;
       position: relative;

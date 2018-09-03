@@ -1,7 +1,7 @@
 <template>
-  <svg xmlns="http://www.w3.org/200/svg" height="55" width="55">
-    <circle cx="27" cy="27" :r="options.r" fill="none" stroke="#FFE4E1" stroke-width="4" stroke-linecap="round" style="transform-origin: center;" />
-    <circle class="circleProgress" id="progress_bar" cx="27" cy="27" :r="options.r" fill="none" stroke="#FC124F" stroke-width="5" :stroke-dasharray="proNum+',10000'" />
+  <svg xmlns="http://www.w3.org/200/svg" height="100%" width="100%">
+    <circle cx="50%" cy="50%" :r="options.r" fill="none" stroke="#FFE4E1" stroke-width="4" stroke-linecap="round" style="transform-origin: center;" />
+    <circle class="circleProgress" id="progress_bar" cx="50%" cy="50%" :r="options.r" fill="none" stroke="#FC124F" stroke-width="5" :stroke-dasharray="proNum+',10000'" />
   </svg>
 </template>
 <script>

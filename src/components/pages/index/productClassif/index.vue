@@ -1,30 +1,30 @@
 <template>
-    <div class="pages">
-        <HeaderSame :headerObj="headerObj"></HeaderSame>
-        <div class="content">
-            <div class="left">
-                <div :class="navIndex==i?'singleActive single':'single'" v-for="i in 20" :key="i" @click="leftNavClick(i)">
-                    <span>推荐</span>
-                </div>
-            </div>
-            <div class="right">
-                <div class="banner">
-                    <img src="static/img/banner1.png" alt="">
-                </div>
-                <div class="hotTitle">
-                    热门分类
-                </div>
-                <div class="rightContent">
-                    <div class="singleRight" v-for="i in 4" :key="i">
-                        <div class="singleImg">
-                            <img src="static/img/banner1.png" alt="">
-                        </div>
-                        <div class="singleName">瓷砖</div>
-                    </div>
-                </div>
-            </div>
+  <div class="pages">
+    <HeaderSame :headerObj="headerObj"></HeaderSame>
+    <div class="content">
+      <div class="left">
+        <div :class="navIndex==i?'singleActive single':'single'" v-for="i in 20" :key="i" @click="leftNavClick(i)">
+          <span>推荐</span>
         </div>
+      </div>
+      <div class="right">
+        <div class="banner">
+          <img src="static/img/banner1.png" alt="">
+        </div>
+        <div class="hotTitle">
+          热门分类
+        </div>
+        <div class="rightContent">
+          <div class="singleRight" v-for="i in 4" :key="i">
+            <div class="singleImg">
+              <img src="static/img/banner1.png" alt="">
+            </div>
+            <div class="singleName">瓷砖</div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 <script>
 import HeaderSame from "../../../common/sameHeader.vue";
@@ -49,6 +49,7 @@ export default {
 
 <style lang="scss" scoped>
 .pages {
+  padding-top: 0;
   .content {
     position: fixed;
     height: 100%;

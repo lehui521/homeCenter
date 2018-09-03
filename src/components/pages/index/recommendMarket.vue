@@ -4,7 +4,7 @@
       <img src="static/img/tuijianshichang.png" alt="">
     </div>
     <div class="marketList">
-      <div class="market" v-for="(item,index) in [1,2,3]" :key="index">
+      <div class="market" v-for="(item,index) in [1,2,3]" :key="index" @click="$router.push('onlineMarket')">
         <div class="marketBorder" :style="index==2?'border:0;':''">
           <div class="marketImg">
             <img src="static/img/shichangtuipian.png" alt="">
@@ -19,15 +19,18 @@
               <van-tag type="success" plain>灯饰</van-tag>
             </div>
             <div class="marketPhone">
-              <img src="static/img/dianhua.png" alt="">
+              <div class="icon"><img src="static/img/dianhua.png" alt=""></div>
+
               <span>15252111236</span>
             </div>
             <div class="marketAddress">
-              <img src="static/img/dizhi.png" alt="">
+              <div class="icon"><img src="static/img/dizhi.png" alt=""></div>
+
               <span>上海市徐汇区凯旋路552号</span>
             </div>
             <div class="marketHot">
-              <img src="static/img/re.png" alt="">
+              <div class="icon"><img src="static/img/re.png" alt=""></div>
+
               <span>市场新开业，品牌大放价</span>
             </div>
           </div>
@@ -92,26 +95,30 @@ export default {};
         font-size: 0.22rem;
       }
       .marketPhone {
-        position: relative;
         height: 0.4rem;
         line-height: 0.4rem;
         margin-bottom: 0.1rem;
         font-size: 0.24rem;
         color: #444444;
+        display: flex;
+        justify-content: flex-start;
+        .icon {
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          height: 100%;
+          img {
+            height: 0.24rem;
+          }
+        }
         span {
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
           display: inline-block;
           width: 100%;
-          padding-left: 0.45rem;
+          padding-left: 0.2rem;
           box-sizing: border-box;
-        }
-        img {
-          height: 0.24rem;
-          position: absolute;
-          top: 0.02rem;
-          left: 0;
         }
       }
       .marketAddress {
@@ -119,44 +126,54 @@ export default {};
         height: 0.4rem;
         line-height: 0.4rem;
         margin-bottom: 0.1rem;
+        display: flex;
+        justify-content: flex-start;
+        .icon {
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          height: 100%;
+          img {
+            height: 0.24rem;
+          }
+        }
         span {
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
           display: inline-block;
           width: 100%;
-          padding-left: 0.45rem;
+          padding-left: 0.2rem;
           box-sizing: border-box;
           font-size: 0.24rem;
           color: #444444;
-        }
-        img {
-          height: 0.24rem;
-          position: absolute;
-          top: 0.02rem;
-          left: 0;
         }
       }
       .marketHot {
         position: relative;
         height: 0.4rem;
         line-height: 0.4rem;
+        display: flex;
+        justify-content: flex-start;
+        .icon {
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          height: 100%;
+          img {
+            height: 0.24rem;
+          }
+        }
         span {
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
           display: inline-block;
           width: 100%;
-          padding-left: 0.45rem;
+          padding-left: 0.2rem;
           box-sizing: border-box;
           font-size: 0.24rem;
           color: #444444;
-        }
-        img {
-          height: 0.24rem;
-          position: absolute;
-          top: 0.04rem;
-          left: 0;
         }
       }
     }

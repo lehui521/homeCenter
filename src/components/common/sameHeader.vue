@@ -2,7 +2,10 @@
   <div class="header">
     <span>{{headerObj.title}}</span>
     <img :src="headerObj.img" alt="" class="share" @click="handleClickRight(headerObj.text)" v-if="headerObj.img!==''">
-    <img src="static/img/leftArrow.png" alt="" class="back" @click="$router.go(-1)">
+    <div class="back">
+      <img src="static/img/leftArrow.png" alt="" @click="gobackClick">
+    </div>
+
   </div>
 </template>
 <script>
@@ -28,7 +31,12 @@ export default {
       } else if (res == "ownerDiary") {
         //新增日记
         this.$router.push("addDiary");
+      } else if (res == "indexNews") {
+        this.$router.push("searchIndexNew");
       }
+    },
+    gobackClick: function() {
+      this.goBack();
     }
   }
 };
@@ -53,10 +61,16 @@ export default {
     top: 0.27rem;
   }
   .back {
-    height: 0.32rem;
+    height: 100%;
     position: absolute;
-    top: 0.28rem;
     left: 0.3rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    top: 0;
+    img {
+      height: 0.32rem;
+    }
   }
 }
 </style>

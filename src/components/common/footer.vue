@@ -26,8 +26,14 @@
 export default {
   data: function() {
     return {
-      clickStatus: "/"
+      clickStatus: "/",
+      path: this.$route.path
     };
+  },
+  watch: {
+    $route() {
+      this.clickStatus = this.$route.path;
+    }
   },
   mounted: function() {
     this.clickStatus = this.$route.path;

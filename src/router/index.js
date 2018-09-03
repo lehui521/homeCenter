@@ -54,6 +54,10 @@ export default new Router({
             component: resolve => require(['../components/pages/index/indexNew'], resolve)
         }, //首页汇头条
         {
+            path: '/searchIndexNew',
+            component: resolve => require(['../components/pages/index/indexNew/searchIndexNews'], resolve)
+        },
+        {
             path: '/productChoiceContent',
             component: resolve => require(['../components/pages/index/productChoiceContent'], resolve)
         }, //商品精选
@@ -89,6 +93,10 @@ export default new Router({
             path: '/decorationCaseContent',
             component: resolve => require(['../components/pages/index/decorationCaseContent'], resolve)
         }, //装修案例
+        {
+            path: '/caseDetail',
+            component: resolve => require(['../components/pages/index/decorationCaseContent/caseDetail'], resolve)
+        },
         {
             path: '/myMessage',
             component: () =>
@@ -150,6 +158,10 @@ export default new Router({
             component: resolve => require(['../components/pages/onlineMarket/brandChoiceContent/brandDetail'], resolve)
         }, //品牌详情
         {
+            path: '/onlineMarketNews',
+            component: resolve => require(['../components/pages/onlineMarket/onlineMarketNews'], resolve)
+        }, //新闻头条
+        {
             path: '/decorationEncyclopedia',
             component: resolve => require(['../components/pages/decorationSchool/decorationEncyclopedia'], resolve)
         }, //装修百科
@@ -197,6 +209,10 @@ export default new Router({
             path: '/video',
             component: resolve => require(['../components/pages/decorationSchool/video'], resolve)
         }, //装修攻略
+        {
+            path: '/videoLearnContent',
+            component: resolve => require(['../components/pages/decorationSchool/videoLearnContent'], resolve)
+        },
         {
             path: '/myCoupon',
             component: resolve => require(['../components/pages/my/myCoupon'], resolve)

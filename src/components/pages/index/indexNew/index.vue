@@ -49,7 +49,7 @@ export default {
       headerObj: {
         title: "汇头条",
         img: "static/img/sousuo.png",
-        text: "headerNew"
+        text: "indexNews"
       }
     };
   },

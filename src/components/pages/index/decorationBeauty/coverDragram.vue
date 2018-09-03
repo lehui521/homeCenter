@@ -190,6 +190,14 @@ export default {
     box-sizing: border-box;
     flex-flow: wrap;
     padding-bottom: 0.32rem;
+    .content {
+      height: 0.6rem;
+      width: 1.5rem;
+      border-radius: 0.08rem;
+      margin-top: 0.32rem;
+      text-align: center;
+      line-height: 0.6rem;
+    }
     .local {
       background: #f4f4f4;
       color: #666666;

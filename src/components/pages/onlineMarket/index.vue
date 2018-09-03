@@ -15,20 +15,20 @@
     <div class="banner">
       <img src="static/img/banner1.png" style="width:100%;height:100%;" class="bannerImg" />
     </div>
-    <div class="indexNav" @click="$router.push('marketMap')">
-      <div class="navImg">
+    <div class="indexNav">
+      <div class="navImg" @click="$router.push('marketMap')">
         <img src="static/img/shichangditu.png" alt="">
         <span>市场地图</span>
       </div>
-      <div class="navImg">
+      <div class="navImg" @click="$router.push('boutiqueShop')">
         <img src="static/img/jingpindianpu.png" alt="">
         <span>精品店铺</span>
       </div>
-      <div class="navImg">
+      <div class="navImg" @click="$router.push('productClassif')">
         <img src="static/img/shangpinfenlei.png" alt="">
         <span>商品分类</span>
       </div>
-      <div class="navImg">
+      <div class="navImg" @click="$router.push('salesPromotion')">
         <img src="static/img/cuxiaohuodong.png" alt="">
         <span>促销活动</span>
       </div>
@@ -157,7 +157,7 @@ export default {
   background: #fff;
   font-size: 0.3rem;
   .header {
-    height: 1rem;
+    height: 0.88rem;
     background: rgba(255, 255, 255, 0);
     position: fixed;
     top: 0;
@@ -188,14 +188,15 @@ export default {
       }
     }
     .headerIcon {
-      width: 1.8rem;
       height: 0.6rem;
-      line-height: 0.6rem;
       text-align: right;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      margin-right: 0.2rem;
       img {
         width: 0.33rem;
         height: 0.33rem;
-        margin-right: 0.35rem;
       }
     }
   }

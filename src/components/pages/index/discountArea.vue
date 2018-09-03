@@ -9,14 +9,14 @@
     </div>
     <div class="center">
       <div class="leftImg">
-        <img src="static/img/discountLeft.png" alt="">
+        <img src="static/img/discountLeft.png" alt="" @click="$router.push('productDetail')">
       </div>
       <div class="rightImg">
         <div>
-          <img src="static/img/discountRight1.png" alt="">
+          <img src="static/img/discountRight1.png" alt="" @click="$router.push('productDetail')">
         </div>
         <div>
-          <img src="static/img/discountRight2.png" alt="">
+          <img src="static/img/discountRight2.png" alt="" @click="$router.push('productDetail')">
         </div>
       </div>
     </div>

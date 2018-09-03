@@ -75,7 +75,7 @@ export default {
   data: function() {
     return {
       headerObj: {
-        title: "精品店铺",
+        title: "精品旺铺",
         img: "static/img/sousuo.png",
         text: "boutiqueShop"
       },
