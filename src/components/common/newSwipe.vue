@@ -55,6 +55,8 @@ export default {
     height: 100%;
     border-right: 1px solid #d5d5d5;
     text-align: center;
+    padding: 0.07rem 0;
+    box-sizing: border-box;
     img {
       height: 100%;
     }

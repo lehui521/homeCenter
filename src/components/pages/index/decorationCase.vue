@@ -58,7 +58,7 @@ export default {};
         height: 2.04rem;
       }
       .listName {
-        margin: 0.26rem 0;
+        margin: 0.13rem 0;
         font-weight: 500;
         text-align: center;
         color: #333333;

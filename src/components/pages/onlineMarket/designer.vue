@@ -67,6 +67,7 @@ export default {};
   }
   .designerContent {
     padding: 0.2rem;
+    padding-top: 0;
     box-sizing: border-box;
     .designer {
       border: 1px solid #efefef;

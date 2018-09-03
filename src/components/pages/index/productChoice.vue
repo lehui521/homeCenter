@@ -15,8 +15,7 @@
           秋夕-现代橱柜
         </div>
         <div class="text">
-          <span class="name" style="padding-right:0.1rem;">九牧恒大店</span>
-          <span class="name">上海恒大陶瓷市场</span>
+          <span class="name">九牧恒大店 | 上海恒大陶瓷市场</span>
         </div>
       </div>
     </div>
@@ -29,6 +28,7 @@ export default {};
 .productChoice {
   font-size: 0.25rem;
   margin-bottom: 0.2rem;
+  background: #fff;
   .title {
     text-align: center;
     padding: 0.36rem 0;
@@ -87,21 +87,21 @@ export default {};
         color: #fbb0b0;
       }
       .text {
-        text-align: right;
+        text-align: center;
         color: #666666;
         font-size: 0.18rem;
         width: 100%;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
         .name {
           margin-top: 5px;
           display: inline-block;
-          width: 50%;
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
-          text-align: left;
+          text-align: center;
           box-sizing: border-box;
+          width: 100%;
         }
       }
     }

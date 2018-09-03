@@ -74,6 +74,7 @@ export default {
 <style lang="scss" scoped>
 .pages {
   padding-top: 0.88rem;
+  background: #fff;
   .typeList {
     border-top: 1px solid #d5d5d5;
     border-bottom: 1px solid #d5d5d5;

@@ -50,7 +50,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .footer {
-  height: 1.1rem;
+  height: 0.98rem;
   border-top: 2px solid #efefef;
   position: fixed;
   bottom: 0;
@@ -70,12 +70,14 @@ export default {
     align-items: center;
     img {
       display: block;
-      width: 0.5rem;
-      height: 0.6rem;
+      width: 0.4rem;
+      height: 0.46rem;
+      margin-top: 0.1rem;
     }
     span {
       display: block;
       font-size: 0.2rem;
+      margin-top: 0.09rem;
     }
   }
 }

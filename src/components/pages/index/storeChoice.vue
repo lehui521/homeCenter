@@ -27,6 +27,7 @@ export default {};
 .storeChoice {
   font-size: 0.25rem;
   margin-bottom: 0.2rem;
+  background: #fff;
   .title {
     text-align: center;
     padding: 0.36rem 0;
@@ -55,10 +56,11 @@ export default {};
     box-sizing: border-box;
     padding: 0 0.2rem;
     .list {
+      border: 1px solid #efefef;
       width: 3.46rem;
       padding: 0.1rem;
       box-sizing: border-box;
-      box-shadow: #dedede 2px 5px 10px;
+      box-shadow: #dedede 2px 2px 5px;
       margin-top: 0.2rem;
       img {
         width: 3.26rem;

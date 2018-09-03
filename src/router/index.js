@@ -194,6 +194,10 @@ export default new Router({
             component: resolve => require(['../components/pages/decorationSchool/decorationStrategy'], resolve)
         }, //装修攻略
         {
+            path: '/video',
+            component: resolve => require(['../components/pages/decorationSchool/video'], resolve)
+        }, //装修攻略
+        {
             path: '/myCoupon',
             component: resolve => require(['../components/pages/my/myCoupon'], resolve)
         }, //我的优惠券

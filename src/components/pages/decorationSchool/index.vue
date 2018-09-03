@@ -82,6 +82,7 @@ export default {
 <style lang="scss" scoped>
 .pages {
   background: #fff;
+  padding-top: 0;
   .header {
     height: 0.88rem;
     text-align: center;

@@ -153,3 +153,7 @@
     #updateMember .van-cell__right-icon {
         line-height: 1.08rem;
     }
+    
+    .van-swipe__indicator--active {
+        background: #fff;
+    }

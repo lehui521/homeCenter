@@ -116,16 +116,24 @@ export default {
       showHeaderStyle: false
     };
   },
-  mounted: function() {},
+  mounted: function() {
+    this.scrollHandle();
+  },
   methods: {
     scrollHandle: function(e) {
-      let header = document.getElementById("header");
-      let top = document.documentElement.scrollTop;
-      if (parseInt(top) > 100) {
-        this.showHeaderStyle = true;
-      } else {
-        this.showHeaderStyle = false;
-      }
+      document.addEventListener("touchmove", e => {
+        let header = document.getElementById("header");
+        let top =
+          window.pageYOffset ||
+          document.documentElement.scrollTop ||
+          document.body.scrollTop ||
+          0;
+        if (parseInt(top) > 100) {
+          this.showHeaderStyle = true;
+        } else {
+          this.showHeaderStyle = false;
+        }
+      });
     }
   }
 };

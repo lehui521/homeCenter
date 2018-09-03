@@ -4,6 +4,9 @@
       <img src="static/img/pinpaijingxuan.png" alt="">
       <img src="static/img/rightIcon.png" alt="" class="rightIcon">
     </div>
+    <div class="banner">
+      <img src="static/img/banner2.png" alt="">
+    </div>
     <div class="center">
       <div v-for="(item,index) in [1,2,3,4,5,6,7,8,9]" :key="index" @click="$router.push('brandDetail')">
         <img src="static/img/songxia.png" alt="">
@@ -32,6 +35,14 @@ export default {};
       right: 0.3rem;
     }
   }
+  .banner {
+    height: 2.56rem;
+    width: 100%;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
   .center {
     display: flex;
     justify-content: space-between;
@@ -42,7 +53,7 @@ export default {};
       margin-top: 0.2rem;
       width: 2.32rem;
       padding: 0.6rem 0.2rem;
-      box-shadow: #dedede 2px 5px 10px;
+      box-shadow: #dedede 2px 3px 5px;
       text-align: center;
       box-sizing: border-box;
       img {
