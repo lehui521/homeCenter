@@ -77,16 +77,20 @@
   .page {
     padding-top: 0.88rem;
     font-size: .3rem;
+
     .header {}
+
     .content {
       .list {
         .item {
           padding: 2%;
           background-color: #fff;
-          border-bottom: 1px solid #979797;
+          border-bottom: 1px solid #D5D5D5;
+
           .relativeItem {
             position: relative;
             display: block;
+
             .item-icon {
               color: #eee;
               position: absolute;
@@ -94,31 +98,37 @@
               font-size: 0.6rem;
               right: 2vw;
               height: 100%;
+
               i {
                 vertical-align: middle;
               }
             }
           }
+
           .thumb {
             width: .8rem;
             display: inline-block;
             vertical-align: middle;
+
             img {
               width: 100%;
               height: 100%;
               border-radius: 50%;
             }
           }
+
           .item-show {
             display: inline-block;
             margin-left: 2%;
             vertical-align: middle;
+
             .item-show-text {
               position: absolute;
               top: 0;
               font-size: 0.3rem;
               color: #333333;
             }
+
             .item-show-annotation {
               position: absolute;
               color: #999999;
@@ -127,6 +137,7 @@
               vertical-align: bottom;
             }
           }
+
           .item-show-name {
             color: #999999;
             font-size: 12px;
@@ -135,7 +146,9 @@
         }
       }
     }
+
     .footer {}
+
     .veralign::before {
       content: "";
       display: inline-block;

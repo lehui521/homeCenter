@@ -11,6 +11,9 @@
             <div class="item-show">
               <p class="item-show-text">装修美图</p>
             </div>
+             <div class="item-icon veralign">
+              <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </div>
           </div>
         </li>
         <li class="item">
@@ -20,6 +23,9 @@
             </div>
             <div class="item-show">
               <p class="item-show-text">材料百科</p>
+            </div>
+             <div class="item-icon veralign">
+              <i class="fa fa-angle-right" aria-hidden="true"></i>
             </div>
           </div>
         </li>
@@ -31,6 +37,9 @@
             <div class="item-show">
               <p class="item-show-text">装修百科</p>
             </div>
+             <div class="item-icon veralign">
+              <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </div>
           </div>
         </li>
         <li class="item">
@@ -41,6 +50,9 @@
             <div class="item-show">
               <p class="item-show-text">设计案例</p>
             </div>
+             <div class="item-icon veralign">
+              <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </div>
           </div>
         </li>
         <li class="item">
@@ -50,6 +62,9 @@
             </div>
             <div class="item-show">
               <p class="item-show-text">促销活动</p>
+            </div>
+             <div class="item-icon veralign">
+              <i class="fa fa-angle-right" aria-hidden="true"></i>
             </div>
           </div>
         </li>
@@ -91,7 +106,7 @@
         .item {
           padding: 2%;
           background-color: #fff;
-          border-bottom: 1px solid #979797;
+              border-bottom: 1px solid #D5D5D5;
           .relativeItem {
             position: relative;
             display: block;

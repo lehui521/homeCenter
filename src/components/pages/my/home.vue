@@ -51,11 +51,11 @@
             <i class="fa fa-angle-right" aria-hidden="true"></i>
           </span>
         </li>
-        <li class="item">
+        <li class="item home-input">
           <label class="item-text require">小区名称</label>
           <input class="item-input" type="number" v-model="formData.community" placeholder="我的世界">
         </li>
-        <li class="item">
+        <li class="item home-input">
           <label class="item-text require">装修公司</label>
           <input class="item-input" type="number" v-model="formData.company" placeholder="宜家">
         </li>
@@ -65,8 +65,8 @@
       <button class="footer-btn">立即提交</button>
     </div>
     <!-- <button @click="save">模拟保存</button> -->
-    <bottomLayer v-if="bottomStatus" :value-name='labelValue' :label-name="labelName" :dataList="arrlist" v-on:botConfirm="botConfirm"
-      v-on:botCancel="botCancel">
+    <bottomLayer v-if="bottomStatus" :value-name='labelValue' :label-name="labelName" :dataList="arrlist"
+      v-on:botConfirm="botConfirm" v-on:botCancel="botCancel">
       <template slot="header">
         <!-- <span>审批人</span> -->
       </template>
@@ -191,70 +191,94 @@
 </script>
 <style lang="scss" scoped>
   @import "../../../css/brick.scss";
+
   .contract {
     padding-bottom: 4em;
     font-size: .3rem;
     padding-top: 0.88rem;
-   c
+
     .content {
       .item {
         .item-text {
           padding-left: 1em;
         }
+
         .item-right-icon {
           padding-left: 0.3em;
+
           i {
             vertical-align: middle;
           }
         }
+
         .item-right-text {
           width: auto;
+          margin-right: 1em;
         }
+
         .item-unit {
           line-height: 32px;
+
           span:last-of-type {
             vertical-align: super;
           }
         }
+
         .require:after {
           content: "*";
           color: red;
         }
       }
+
       .item-margin-top {
         margin-top: 2vh;
       }
+
       .item-margin-bottom {
         margin-bottom: 2vh;
       }
+
       .placeholder-color {
         color: #bcbcbc;
       }
+
       .cervix {
         .item {
-          padding-right: 1em;
+          // padding-right: 1em;
+
           .item-text {
             width: auto;
           }
+
           .item-input {
             text-align: right;
           }
         }
+
+        .home-input {
+          .item-input {
+            padding-right: 1em;
+          }
+        }
       }
+
       .gray-title {
         line-height: 44px;
         text-align: left;
         padding-left: 1em;
         color: #999999;
+
         p {
           display: inline-block;
         }
       }
     }
+
     .footer {
       text-align: center;
       margin-top: 1rem;
       padding: .5vw;
+
       .footer-btn {
         background: #3CB850;
         width: 80%;
