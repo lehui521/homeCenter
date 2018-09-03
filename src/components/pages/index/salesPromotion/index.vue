@@ -67,7 +67,6 @@
               <img src="static/img/rightArrow.png" alt="">
               <span class="text3">了解详情</span>
             </div>
-
           </div>
         </div>
       </div>
@@ -140,15 +139,17 @@ export default {
       display: flex;
       justify-content: space-between;
       .left {
-        display: flex;
-        justify-content: space-between;
+        // display: flex;
+        // justify-content: space-between;
         .text1 {
           color: #333333;
           display: inline-block;
-          padding-right: 0.1rem;
-          border-right: 1px solid #333;
+
+          float: left;
         }
         .text2 {
+          border-left: 1px solid #333;
+          padding-left: 0.1rem;
           font-size: 0.22rem;
           color: #999999;
           display: inline-block;
@@ -157,9 +158,9 @@ export default {
           text-overflow: ellipsis;
           width: 1.98rem;
           box-sizing: border-box;
-          padding-top: 0.03rem;
-          padding-left: 0;
-          margin-left: .1rem;
+          margin-left: 0.1rem;
+          float: left;
+          margin-top: 0.04rem;
         }
       }
       .right {
@@ -191,7 +192,7 @@ export default {
         line-height: 0.88rem;
         text-align: center;
       }
-      .storeNav-green{
+      .storeNav-green {
         color: #3cb850;
       }
       .navImg {
@@ -297,7 +298,7 @@ export default {
             box-sizing: border-box;
             padding-top: 0.03rem;
             padding-left: 0;
-            margin-left: .1rem;
+            margin-left: 0.1rem;
           }
         }
         .right {

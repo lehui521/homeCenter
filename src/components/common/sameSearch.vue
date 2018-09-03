@@ -5,7 +5,7 @@
         <van-icon name="search" />
       </div>
       <div class="input">
-        <input type="text" placeholder="请输入市场名称" @keyup.enter.native="searchHandle">
+        <input type="text" placeholder="请输入搜索内容" @keyup.enter.native="searchHandle">
       </div>
     </div>
     <div class="cancel" @click="$router.go(-1)">取消</div>
@@ -46,11 +46,14 @@ export default {
     margin-top: 0.08rem;
     .searchIcon {
       font-size: 0.26rem;
-      line-height: 0.56rem;
       background: #f1f2f6;
       width: 0.68rem;
       text-align: center;
       height: 0.56rem;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
     }
     .input {
       width: 100%;

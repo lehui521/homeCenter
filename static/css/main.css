@@ -11,6 +11,7 @@
     #app {
         height: 100%;
         width: 100%;
+        font-size: 13.33vw;
     }
     
     body,
@@ -111,7 +112,7 @@
     
     #decorationEncyclopedia .van-tabs__line {
         background: #38ba50;
-        bottom: 0.5rem;
+        bottom: 0.42rem;
     }
     
     #decorationEncyclopedia .van-hairline--top-bottom::after {
@@ -151,4 +152,8 @@
     
     #updateMember .van-cell__right-icon {
         line-height: 1.08rem;
+    }
+    
+    .van-swipe__indicator--active {
+        background: #fff;
     }

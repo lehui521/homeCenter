@@ -25,10 +25,15 @@
             上海真北路520号
           </div>
           <div class="icon">
-            <img src="static/img/xin.png" alt="">
-            <span>12345</span>
-            <img src="static/img/yan.png" alt="">
-            <span>65656</span>
+            <div><img src="static/img/xin.png" alt=""></div>
+            <div>
+              <span>12345</span>
+            </div>
+            <div><img src="static/img/yan.png" alt=""></div>
+            <div>
+              <span>65656</span>
+            </div>
+
           </div>
         </div>
       </div>
@@ -113,14 +118,14 @@ export default {};
           font-size: 0.24rem;
           color: #999999;
           margin-top: 0.05rem;
+          display: flex;
+          justify-content: flex-start;
           img {
             height: 0.24rem;
-            float: left;
-            margin-top: 0.01rem;
+            margin-right: 0.1rem;
           }
           span {
-            margin: 0 0.2rem;
-            float: left;
+            margin-right: 0.3rem;
           }
         }
       }

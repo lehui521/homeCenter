@@ -1,72 +1,72 @@
 <template>
-    <div class="pages" id="boutiqueShop">
-        <HeaderSame :headerObj="headerObj"></HeaderSame>
-        <div class="banner">
-            <img src="static/img/banner1.png" alt="">
-        </div>
-        <div class="headerNav">
-            <div class="nav" v-for="i in 10" :key="i">
-                <div class="img"></div>
-                <div class="text">瓷砖</div>
-            </div>
-        </div>
-        <div class="typeList">
-            <div class="left" @click="typeClick('type')">
-                <span :style="status.typeStatus=='type'?'color:#3CB850;':''">类目</span>
-                <img src="static/img/greenUp.png" alt="" v-if="status.typeStatus=='type'">
-                <img src="static/img/grayDown.png" alt="" v-else>
-            </div>
-            <div class="right" @click="typeClick('sort')">
-                <span :style="status.typeStatus=='sort'?'color:#3CB850;':''">排序</span>
-                <img src="static/img/greenUp.png" alt="" v-if="status.typeStatus=='sort'">
-                <img src="static/img/grayDown.png" alt="" v-else>
-            </div>
-        </div>
-        <div class="storeList">
-            <!-- 类型的内容 -->
-            <div class="typeMask" v-if="status.typeStatus!==''">
-                <div class="typeContent" v-if="status.typeStatus=='type'">
-                    <div class="currentType">
-                        全部
-                    </div>
-                    <div class="typeTitle">建材</div>
-                    <div class="typeMore">
-                        <div class="single">瓷砖</div>
-                        <div class="single">瓷砖</div>
-                        <div class="single">瓷砖</div>
-                        <div class="single">瓷砖</div>
-                        <div class="single">瓷砖</div>
-                    </div>
-                </div>
-                <div class="sortContent" v-if="status.typeStatus=='sort'">
-                    <div class="floor1 activeSort">默认排序</div>
-                    <div class="floor1">关注最多</div>
-                    <div class="floor1">距离最近</div>
-                </div>
-            </div>
-            <div class="market" v-for="(item,index) in [1,2,3]" :key="index">
-                <div class="marketImg">
-                    <img src="static/img/shichangtuipian.png" alt="">
-                </div>
-                <div class="marketText">
-                    <div class="marketName">
-                        <span class="name">上海家饰佳徐汇店</span>
-                        <span>64m</span>
-                    </div>
-                    <div class="marketTag">
-                        <van-tag type="success" plain>家具</van-tag>
-                        <van-tag type="success" plain>灯饰</van-tag>
-                    </div>
-                    <div class="marketPhone">
-                        <span>15252111236</span>
-                    </div>
-                    <div class="marketAddress">
-                        <span>上海市徐汇区凯旋路552号</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="pages" id="boutiqueShop">
+    <HeaderSame :headerObj="headerObj"></HeaderSame>
+    <div class="banner">
+      <img src="static/img/banner1.png" alt="">
     </div>
+    <div class="headerNav">
+      <div class="nav" v-for="i in 10" :key="i">
+        <div class="img"></div>
+        <div class="text">瓷砖</div>
+      </div>
+    </div>
+    <div class="typeList">
+      <div class="left" @click="typeClick('type')">
+        <span :style="status.typeStatus=='type'?'color:#3CB850;':''">类目</span>
+        <img src="static/img/greenUp.png" alt="" v-if="status.typeStatus=='type'">
+        <img src="static/img/grayDown.png" alt="" v-else>
+      </div>
+      <div class="right" @click="typeClick('sort')">
+        <span :style="status.typeStatus=='sort'?'color:#3CB850;':''">排序</span>
+        <img src="static/img/greenUp.png" alt="" v-if="status.typeStatus=='sort'">
+        <img src="static/img/grayDown.png" alt="" v-else>
+      </div>
+    </div>
+    <div class="storeList">
+      <!-- 类型的内容 -->
+      <div class="typeMask" v-if="status.typeStatus!==''">
+        <div class="typeContent" v-if="status.typeStatus=='type'">
+          <div class="currentType">
+            全部
+          </div>
+          <div class="typeTitle">建材</div>
+          <div class="typeMore">
+            <div class="single">瓷砖</div>
+            <div class="single">瓷砖</div>
+            <div class="single">瓷砖</div>
+            <div class="single">瓷砖</div>
+            <div class="single">瓷砖</div>
+          </div>
+        </div>
+        <div class="sortContent" v-if="status.typeStatus=='sort'">
+          <div class="floor1 activeSort">默认排序</div>
+          <div class="floor1">关注最多</div>
+          <div class="floor1">距离最近</div>
+        </div>
+      </div>
+      <div class="market" v-for="(item,index) in [1,2,3]" :key="index">
+        <div class="marketImg">
+          <img src="static/img/shichangtuipian.png" alt="">
+        </div>
+        <div class="marketText">
+          <div class="marketName">
+            <span class="name">上海家饰佳徐汇店</span>
+            <span>64m</span>
+          </div>
+          <div class="marketTag">
+            <van-tag type="success" plain>家具</van-tag>
+            <van-tag type="success" plain>灯饰</van-tag>
+          </div>
+          <div class="marketPhone">
+            <span>15252111236</span>
+          </div>
+          <div class="marketAddress">
+            <span>上海市徐汇区凯旋路552号</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 import HeaderSame from "../../../common/sameHeader.vue";
@@ -75,7 +75,7 @@ export default {
   data: function() {
     return {
       headerObj: {
-        title: "精品店铺",
+        title: "精品旺铺",
         img: "static/img/sousuo.png",
         text: "boutiqueShop"
       },
@@ -99,6 +99,7 @@ export default {
 <style lang="scss" scoped>
 .pages {
   padding-top: 0.88rem;
+  background: #fff;
   .banner {
     height: 3.46rem;
     width: 100%;
@@ -111,6 +112,7 @@ export default {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    height: auto;
     .nav {
       width: 20%;
       margin-top: 0.18rem;

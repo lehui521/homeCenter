@@ -1,67 +1,71 @@
 <template>
-    <div class="pages">
-        <HeaderSame :headerObj="headerObj"></HeaderSame>
-        <div class="banner">
-            <img src="static/img/banner1.png" alt="">
-        </div>
-        <div class="typeList">
-            <div class="left" @click="typeClick('screen')">
-                <span :style="status.typeStatus=='screen'?'color:#3CB850;':''">筛选</span>
-                <img src="static/img/greenUp.png" alt="" v-if="status.typeStatus=='screen'">
-                <img src="static/img/grayDown.png" alt="" v-else>
-            </div>
-            <div class="right" @click="typeClick('sort')">
-                <span :style="status.typeStatus=='sort'?'color:#3CB850;':''">排序</span>
-                <img src="static/img/greenUp.png" alt="" v-if="status.typeStatus=='sort'">
-                <img src="static/img/grayDown.png" alt="" v-else>
-            </div>
-        </div>
-        <div class="companyCenter">
-            <div class="company" v-for="(item,index) in [1,2,3]" :key="index">
-                <div class="companyImg">
-                    <img src="static/img/shichangtuipian.png" alt="">
-                </div>
-                <div class="companyContent">
-                    <div class="name">
-                        境远装饰
-                        <span>找TA</span>
-                    </div>
-                    <div class="tag">
-                        <van-tag type="success" plain>推荐</van-tag>
-                        <van-tag type="success" plain>认证</van-tag>
-                    </div>
-                    <div class="address">
-                        上海真北路520号
-                    </div>
-                    <div class="icon">
-                        <img src="static/img/xin.png" alt="">
-                        <span>12345</span>
-                        <img src="static/img/yan.png" alt="">
-                        <span>65656</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="designerTypeMask" v-if="status.typeStatus!==''">
-            <!-- 筛选 -->
-            <div class="typeContent" v-if="status.typeStatus=='screen'">
-                <div class="screenContent">
-                    <div class="screenTitle">服务保障</div>
-                    <div class="screenList">
-                        <div class=" local" v-for="i in 5" :key="i">不限</div>
-                    </div>
-
-                </div>
-
-            </div>
-            <!-- 排序 -->
-            <div v-if="status.typeStatus=='sort'" class="typeContentT">
-                <div class="sortType">关注最多</div>
-                <div class="sortType">离我最近</div>
-                <div class="sortType">评分最高</div>
-            </div>
-        </div>
+  <div class="pages">
+    <HeaderSame :headerObj="headerObj"></HeaderSame>
+    <div class="banner">
+      <img src="static/img/banner1.png" alt="">
     </div>
+    <div class="typeList">
+      <div class="left" @click="typeClick('screen')">
+        <span :style="status.typeStatus=='screen'?'color:#3CB850;':''">筛选</span>
+        <img src="static/img/greenUp.png" alt="" v-if="status.typeStatus=='screen'">
+        <img src="static/img/grayDown.png" alt="" v-else>
+      </div>
+      <div class="right" @click="typeClick('sort')">
+        <span :style="status.typeStatus=='sort'?'color:#3CB850;':''">排序</span>
+        <img src="static/img/greenUp.png" alt="" v-if="status.typeStatus=='sort'">
+        <img src="static/img/grayDown.png" alt="" v-else>
+      </div>
+    </div>
+    <div class="companyCenter">
+      <div class="designerTypeMask" v-if="status.typeStatus!==''">
+        <!-- 筛选 -->
+        <div class="typeContent" v-if="status.typeStatus=='screen'">
+          <div class="screenContent">
+            <div class="screenTitle">服务保障</div>
+            <div class="screenList">
+              <div class=" local" v-for="i in 5" :key="i">不限</div>
+            </div>
+          </div>
+          <div class="typeButton">
+            <div class="btn1">重置</div>
+            <div class="btn2">确定</div>
+          </div>
+        </div>
+        <!-- 排序 -->
+        <div v-if="status.typeStatus=='sort'" class="typeContentT">
+          <div class="sortType">关注最多</div>
+          <div class="sortType">离我最近</div>
+          <div class="sortType">评分最高</div>
+        </div>
+      </div>
+      <!-- 内容 -->
+      <div class="company" v-for="(item,index) in [1,2,3]" :key="index">
+        <div class="companyImg">
+          <img src="static/img/shichangtuipian.png" alt="">
+        </div>
+        <div class="companyContent">
+          <div class="name">
+            境远装饰
+            <span>找TA</span>
+          </div>
+          <div class="tag">
+            <van-tag type="success" plain>推荐</van-tag>
+            <van-tag type="success" plain>认证</van-tag>
+          </div>
+          <div class="address">
+            上海真北路520号
+          </div>
+          <div class="icon">
+            <img src="static/img/xin.png" alt="">
+            <span>12345</span>
+            <img src="static/img/yan.png" alt="">
+            <span>65656</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </template>
 <script>
 import HeaderSame from "../../../common/sameHeader.vue";
@@ -143,6 +147,80 @@ export default {
   .companyCenter {
     padding: 0.2rem;
     font-size: 0.3rem;
+    position: relative;
+    .designerTypeMask {
+      background: rgba(0, 0, 0, 0.5);
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      z-index: 999;
+      .typeContent {
+        width: 100%;
+        background: #fff;
+
+        .typeButton {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 0.5rem;
+          .btn1 {
+            width: 50%;
+            height: 1rem;
+            text-align: center;
+            line-height: 1rem;
+            font-size: 0.3rem;
+            color: #3cb850;
+          }
+          .btn2 {
+            width: 50%;
+            height: 1rem;
+            text-align: center;
+            line-height: 1rem;
+            font-size: 0.3rem;
+            background: #3cb850;
+            color: #fff;
+          }
+        }
+        .screenContent {
+          padding: 0 0.3rem;
+          box-sizing: border-box;
+          padding-bottom: 0.32rem;
+          .screenTitle {
+            font-size: 0.3rem;
+            color: #333333;
+            padding-top: 0.21rem;
+          }
+          .screenList {
+            display: flex;
+            justify-content: space-between;
+            flex-flow: wrap;
+            .local {
+              background: #f4f4f4;
+              color: #666666;
+              font-size: 0.28rem;
+              height: 0.6rem;
+              width: 1.5rem;
+              text-align: center;
+              line-height: 0.6rem;
+              border-radius: 0.08rem;
+              margin-top: 0.32rem;
+            }
+          }
+        }
+      }
+      .typeContentT {
+        background: #fff;
+        .sortType {
+          height: 0.74rem;
+          line-height: 0.74rem;
+          font-size: 0.24rem;
+          color: #666666;
+          border-bottom: 1px solid #d5d5d5;
+          text-align: center;
+        }
+      }
+    }
     .company {
       border: 1px solid #efefef;
       margin-top: 0.2rem;
@@ -203,56 +281,6 @@ export default {
             float: left;
           }
         }
-      }
-    }
-  }
-  .designerTypeMask {
-    background: rgba(0, 0, 0, 0.5);
-    position: fixed;
-    top: 5.24rem;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    z-index: 999;
-    .typeContent {
-      width: 100%;
-      background: #fff;
-      padding: 0 0.3rem;
-      box-sizing: border-box;
-      padding-bottom: 0.32rem;
-      .screenContent {
-        .screenTitle {
-          font-size: 0.3rem;
-          color: #333333;
-          padding-top: 0.21rem;
-        }
-        .screenList {
-          display: flex;
-          justify-content: space-between;
-          flex-flow: wrap;
-          .local {
-            background: #f4f4f4;
-            color: #666666;
-            font-size: 0.28rem;
-            height: 0.6rem;
-            width: 1.5rem;
-            text-align: center;
-            line-height: 0.6rem;
-            border-radius: 0.08rem;
-            margin-top: 0.32rem;
-          }
-        }
-      }
-    }
-    .typeContentT {
-      background: #fff;
-      .sortType {
-        height: 0.74rem;
-        line-height: 0.74rem;
-        font-size: 0.24rem;
-        color: #666666;
-        border-bottom: 1px solid #d5d5d5;
-        text-align: center;
       }
     }
   }

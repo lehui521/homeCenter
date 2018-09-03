@@ -6,31 +6,29 @@
         <img src="static/img/weizhi.png" alt="">
       </div>
       <div class="headerIcon" v-if="!showHeaderStyle">
-        <img src="static/img/kefu.png" alt="">
-        <img src="static/img/xiaoxi.png" alt="">
+        <img src="static/img/fenxiang.png" alt="">
       </div>
       <div class="headerIcon" v-if="showHeaderStyle">
-        <img src="static/img/kefuB.png" alt="">
-        <img src="static/img/xiaoxiB.png" alt="">
+        <img src="static/img/fenxiangB.png" alt="">
       </div>
     </header>
     <div class="banner">
       <img src="static/img/banner1.png" style="width:100%;height:100%;" class="bannerImg" />
     </div>
-    <div class="indexNav" @click="$router.push('marketMap')">
-      <div class="navImg">
+    <div class="indexNav">
+      <div class="navImg" @click="$router.push('marketMap')">
         <img src="static/img/shichangditu.png" alt="">
         <span>市场地图</span>
       </div>
-      <div class="navImg">
+      <div class="navImg" @click="$router.push('boutiqueShop')">
         <img src="static/img/jingpindianpu.png" alt="">
         <span>精品店铺</span>
       </div>
-      <div class="navImg">
+      <div class="navImg" @click="$router.push('productClassif')">
         <img src="static/img/shangpinfenlei.png" alt="">
         <span>商品分类</span>
       </div>
-      <div class="navImg">
+      <div class="navImg" @click="$router.push('salesPromotion')">
         <img src="static/img/cuxiaohuodong.png" alt="">
         <span>促销活动</span>
       </div>
@@ -60,7 +58,9 @@
       </div>
       <div class="Maddress">
         <img src="static/img/dizhi.png" alt="">
-        <span>上海市徐汇区凯旋路552号</span>
+        <span class="address">上海市徐汇区凯旋路552号
+        </span>
+        <span class="distance">1.79km</span>
       </div>
     </div>
     <!-- 分割距离 -->
@@ -130,17 +130,26 @@ export default {
     };
   },
   mounted: function() {
-    window.onscroll = () => {
-      let header = document.getElementById("header");
-      let top = document.documentElement.scrollTop;
-      if (parseInt(top) > 100) {
-        this.showHeaderStyle = true;
-      } else {
-        this.showHeaderStyle = false;
-      }
-    };
+    this.scrollHandle();
   },
-  created: function() {}
+  created: function() {},
+  methods: {
+    scrollHandle: function(e) {
+      document.addEventListener("touchmove", e => {
+        let header = document.getElementById("header");
+        let top =
+          window.pageYOffset ||
+          document.documentElement.scrollTop ||
+          document.body.scrollTop ||
+          0;
+        if (parseInt(top) > 100) {
+          this.showHeaderStyle = true;
+        } else {
+          this.showHeaderStyle = false;
+        }
+      });
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>
@@ -148,7 +157,7 @@ export default {
   background: #fff;
   font-size: 0.3rem;
   .header {
-    height: 1rem;
+    height: 0.88rem;
     background: rgba(255, 255, 255, 0);
     position: fixed;
     top: 0;
@@ -170,24 +179,24 @@ export default {
       color: #333333;
       font-weight: 500;
       padding-left: 0.2rem;
+      padding-right: 0.2rem;
       img {
         width: 0.16rem;
         float: right;
-        margin-right: 0.2rem;
         margin-top: 0.2rem;
+        margin-left: 0.1rem;
       }
     }
     .headerIcon {
-      width: 1.8rem;
       height: 0.6rem;
-      line-height: 0.6rem;
-      text-align: center;
+      text-align: right;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
+      flex-direction: column;
+      margin-right: 0.2rem;
       img {
-        width: 0.6rem;
-        height: 0.5rem;
-        display: inline-block;
+        width: 0.33rem;
+        height: 0.33rem;
       }
     }
   }
@@ -304,7 +313,13 @@ export default {
     margin-bottom: 0.1rem;
     color: #666666;
     font-size: 0.24rem;
-    span {
+    position: relative;
+    .distance {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+    .address {
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;

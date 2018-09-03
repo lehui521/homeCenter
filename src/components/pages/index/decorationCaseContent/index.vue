@@ -50,7 +50,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .pages {
-  padding-top: 0.88rem;
+  padding-top: 1.78rem;
 }
 .header {
   height: 0.88rem;
@@ -82,6 +82,7 @@ export default {
       transition: all 0.3s ease-in-out;
       z-index: 999;
       left: 0.17rem;
+      bottom: 0;
     }
   }
   .back {
@@ -89,10 +90,12 @@ export default {
     left: 0;
     top: 0;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     .icon {
       height: 0.32rem;
       margin-left: 0.32rem;
-      margin-bottom: 0.28rem;
     }
   }
 }

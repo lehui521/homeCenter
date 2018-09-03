@@ -8,7 +8,7 @@
       <img src="static/img/discountBanner.png" alt="">
     </div>
     <div class="center">
-      <div class="list" v-for="(item,index) in [1,2,3,4]" :key="index">
+      <div class="list" v-for="(item,index) in [1,2,3,4]" :key="index" @click="$router.push('caseDetail')">
         <img src="static/img/shichangtuipian.png" alt="">
         <div class="listName">
           冠珠陶瓷
@@ -58,7 +58,7 @@ export default {};
         height: 2.04rem;
       }
       .listName {
-        margin: 0.26rem 0;
+        margin: 0.13rem 0;
         font-weight: 500;
         text-align: center;
         color: #333333;

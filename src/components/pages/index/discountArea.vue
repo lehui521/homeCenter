@@ -9,14 +9,14 @@
     </div>
     <div class="center">
       <div class="leftImg">
-        <img src="static/img/discountLeft.png" alt="">
+        <img src="static/img/discountLeft.png" alt="" @click="$router.push('productDetail')">
       </div>
       <div class="rightImg">
         <div>
-          <img src="static/img/discountRight1.png" alt="">
+          <img src="static/img/discountRight1.png" alt="" @click="$router.push('productDetail')">
         </div>
         <div>
-          <img src="static/img/discountRight2.png" alt="">
+          <img src="static/img/discountRight2.png" alt="" @click="$router.push('productDetail')">
         </div>
       </div>
     </div>
@@ -56,21 +56,28 @@ export default {};
     display: flex;
     justify-content: space-between;
     div {
-      width: 50%;
+      width: 49%;
     }
     .leftImg {
+      border: 1px solid #efefef;
+      box-shadow: #dbdbdb 1px 2px 5px;
       img {
         width: 100%;
         height: 4.1rem;
       }
     }
     .rightImg {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
       div {
-        height: 50%;
+        height: 48%;
         width: 100%;
+        box-shadow: #dbdbdb 1px 2px 5px;
+        border: 1px solid #efefef;
         img {
           width: 100%;
-          height: 2rem;
+          height: 100%;
           margin-bottom: 0.1rem;
         }
       }

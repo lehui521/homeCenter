@@ -1,45 +1,13 @@
 <template>
-  <div class="pages">
-    <searchHeader @searchClick="handleSearch"></searchHeader>
-    <!-- 内容 -->
-    <div class="discountProduct" v-if="true">
-      <div class="product">
-        <img src="static/img/banner1.png" alt="" class="discountProImg">
-        <div class="producText">
-          <div class="text1">简爱</div>
-          <div class="text2">我乐橱柜</div>
-          <div class="text3">
-            <span>￥2636</span>
-            <s>￥3600</s>
-          </div>
+    <div class="pages">
+        <searchHeader @searchClick="handleSearch"></searchHeader>
+        <!-- 内容 -->
+
+        <div class="noProduct">
+            <img src="static/img/noProduct.png" alt="">
+            <div class="text">未搜索到相关商品</div>
         </div>
-        <!-- 已领取的样式 -->
-        <div class="discountImg" v-if="false">
-          <div class="discountImgContent">
-            <span class="goUseButton">去使用</span>
-          </div>
-          <img src="static/img/yilingqu.png" alt="" class="recievedImg">
-        </div>
-        <!-- 未领取的样式 -->
-        <div class="discountImg">
-          <div class="circle">
-            <svgCircle :proNum="proNum"></svgCircle>
-            <div class="circleText">
-              <span>已抢</span>
-              <span>50%</span>
-            </div>
-          </div>
-          <div class="discountImgContent">
-            <span class="goRecieveButton">立即领取</span>
-          </div>
-        </div>
-      </div>
     </div>
-    <div class="noProduct" v-else>
-      <img src="static/img/noProduct.png" alt="">
-      <div class="text">未搜索到相关商品</div>
-    </div>
-  </div>
 </template>
 <script>
 import svgCircle from "../../../common/svgCircle.vue";

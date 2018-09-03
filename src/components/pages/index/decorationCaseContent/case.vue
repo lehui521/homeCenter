@@ -1,75 +1,75 @@
 <template>
-    <div class="case">
-        <div class="typeList">
-            <div class="left" @click="typeClick('style')">
-                <span :style="status.typeStatus=='style'?'color:#3CB850;':''">风格</span>
-                <img src="static/img/greenUp.png" alt="" v-if="status.typeStatus=='style'">
-                <img src="static/img/grayDown.png" alt="" v-else>
-            </div>
-            <div class="left" @click="typeClick('homeSize')">
-                <span :style="status.typeStatus=='homeSize'?'color:#3CB850;':''">户型</span>
-                <img src="static/img/greenUp.png" alt="" v-if="status.typeStatus=='homeSize'">
-                <img src="static/img/grayDown.png" alt="" v-else>
-            </div>
-            <div class="left" @click="typeClick('size')">
-                <span :style="status.typeStatus=='size'?'color:#3CB850;':''">面积</span>
-                <img src="static/img/greenUp.png" alt="" v-if="status.typeStatus=='size'">
-                <img src="static/img/grayDown.png" alt="" v-else>
-            </div>
-            <div class="right" @click="typeClick('sort')">
-                <span :style="status.typeStatus=='sort'?'color:#3CB850;':''">排序</span>
-                <img src="static/img/greenUp.png" alt="" v-if="status.typeStatus=='sort'">
-                <img src="static/img/grayDown.png" alt="" v-else>
-            </div>
-        </div>
-        <div class="caseTypeMask" v-if="status.typeStatus!==''">
-            <!-- 风格 -->
-            <div class="typeContent" v-if="status.typeStatus=='style'">
-                <div class=" local" v-for="i in 5" :key="i">不限</div>
-            </div>
-            <!-- 户型 -->
-            <div class="typeContent" v-if="status.typeStatus=='homeSize'">
-                <div class=" local" v-for="i in 5" :key="i">
-                    欧美
-                </div>
-            </div>
-            <!-- 面积 -->
-            <div class="typeContent" v-if="status.typeStatus=='size'">
-                <div class=" local" v-for="i in 5" :key="i">
-                    50平以下
-                </div>
-            </div>
-            <!-- 排序 -->
-            <div v-if="status.typeStatus=='sort'" class="typeContentT">
-                <div class="sortType">默认排序</div>
-                <div class="sortType">收藏最多</div>
-                <div class="sortType">浏览最多</div>
-            </div>
-        </div>
-        <div class="caseContent">
-            <div class="single">
-                <div class="singleImg">
-                    <img src="static/img/banner1.png" alt="">
-                </div>
-                <div class="singleFloor1">
-                    <div class="text1">新中式</div>
-                    <div class="text2">
-                        <span>上海市|中商小区</span>
-                    </div>
-                </div>
-                <div class="singleFloor2">
-                    <div class="content1">
-                        <img src="static/img/grayStar.png" alt="">
-                        <span>3</span>
-                    </div>
-                    <div class="content1">
-                        <img src="static/img/yan.png" alt="">
-                        <span>154</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="case">
+    <div class="typeList">
+      <div class="left" @click="typeClick('style')">
+        <span :style="status.typeStatus=='style'?'color:#3CB850;':''">风格</span>
+        <img src="static/img/greenUp.png" alt="" v-if="status.typeStatus=='style'">
+        <img src="static/img/grayDown.png" alt="" v-else>
+      </div>
+      <div class="left" @click="typeClick('homeSize')">
+        <span :style="status.typeStatus=='homeSize'?'color:#3CB850;':''">户型</span>
+        <img src="static/img/greenUp.png" alt="" v-if="status.typeStatus=='homeSize'">
+        <img src="static/img/grayDown.png" alt="" v-else>
+      </div>
+      <div class="left" @click="typeClick('size')">
+        <span :style="status.typeStatus=='size'?'color:#3CB850;':''">面积</span>
+        <img src="static/img/greenUp.png" alt="" v-if="status.typeStatus=='size'">
+        <img src="static/img/grayDown.png" alt="" v-else>
+      </div>
+      <div class="right" @click="typeClick('sort')">
+        <span :style="status.typeStatus=='sort'?'color:#3CB850;':''">排序</span>
+        <img src="static/img/greenUp.png" alt="" v-if="status.typeStatus=='sort'">
+        <img src="static/img/grayDown.png" alt="" v-else>
+      </div>
     </div>
+    <div class="caseTypeMask" v-if="status.typeStatus!==''">
+      <!-- 风格 -->
+      <div class="typeContent" v-if="status.typeStatus=='style'">
+        <div class=" local" v-for="i in 5" :key="i">不限</div>
+      </div>
+      <!-- 户型 -->
+      <div class="typeContent" v-if="status.typeStatus=='homeSize'">
+        <div class=" local" v-for="i in 5" :key="i">
+          欧美
+        </div>
+      </div>
+      <!-- 面积 -->
+      <div class="typeContent" v-if="status.typeStatus=='size'">
+        <div class=" local" v-for="i in 5" :key="i">
+          50平以下
+        </div>
+      </div>
+      <!-- 排序 -->
+      <div v-if="status.typeStatus=='sort'" class="typeContentT">
+        <div class="sortType">默认排序</div>
+        <div class="sortType">收藏最多</div>
+        <div class="sortType">浏览最多</div>
+      </div>
+    </div>
+    <div class="caseContent">
+      <div class="single">
+        <div class="singleImg">
+          <img src="static/img/banner1.png" alt="">
+        </div>
+        <div class="singleFloor1">
+          <div class="text1">新中式</div>
+          <div class="text2">
+            <span>上海市|中商小区</span>
+          </div>
+        </div>
+        <div class="singleFloor2">
+          <div class="content1">
+            <img src="static/img/grayStar.png" alt="">
+            <span>3</span>
+          </div>
+          <div class="content1">
+            <img src="static/img/yan.png" alt="">
+            <span>154</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 export default {
@@ -108,6 +108,11 @@ export default {
     box-sizing: border-box;
     line-height: 0.48rem;
     background: #fff;
+    position: fixed;
+    top: 0.88rem;
+    left: 0;
+    width: 100%;
+
     .left {
       width: 25%;
       position: relative;

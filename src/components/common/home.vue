@@ -1,11 +1,11 @@
 <template>
-    <div class="home">
-        <keep-alive>
-            <!-- 防止重复复渲染dome -->
-            <router-view></router-view>
-        </keep-alive>
-        <Footer></Footer>
-    </div>
+  <div class="home">
+    <keep-alive>
+      <!-- 防止重复复渲染dome -->
+      <router-view></router-view>
+    </keep-alive>
+    <Footer></Footer>
+  </div>
 </template>
 <script>
 import Footer from "./footer.vue";
@@ -20,7 +20,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .home {
-  padding-bottom: 1.2rem;
+  padding-bottom: 0.98rem;
 }
 </style>
 

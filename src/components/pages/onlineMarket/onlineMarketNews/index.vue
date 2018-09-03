@@ -60,6 +60,7 @@ export default {
 </script>
 <style lang="scss">
 #headerNews {
+  background: #fff;
   .van-tabs--line .van-tabs__wrap {
     height: 0.72rem;
   }

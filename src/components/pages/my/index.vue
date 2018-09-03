@@ -23,7 +23,7 @@
       </div>
     </div>
     <!-- 分割距离 -->
-    <div class="grayBlank">
+    <div class="grayBlank" style=" border-bottom: 1px solid #d5d5d5;">
     </div>
     <router-link class="myNews" to="/myMessage">
       <img src="static/img/myxiaoxi.png" alt="" class="leftImg">
@@ -36,9 +36,9 @@
       <img src="static/img/fanhui.png" alt="" class="rightIcon">
     </div>
     <!-- 分割距离 -->
-    <div class="grayBlank">
+    <div class="grayBlank" style=" border-bottom: 1px solid #d5d5d5;">
     </div>
-    <router-link class="myNews" to="/myHome">
+    <router-link class="myNews borderTop" to="/myHome">
       <img src="static/img/myhome.png" alt="" class="leftImg">
       <span>我的家</span>
       <img src="static/img/fanhui.png" alt="" class="rightIcon">
@@ -62,6 +62,7 @@
 </template>
 <style lang="scss" scoped>
 .pages {
+  padding-top: 0;
   .header {
     height: 0.88rem;
     text-align: center;
@@ -149,10 +150,10 @@
       }
     }
   }
+
   .myNews {
     height: 0.88rem;
     background: #fff;
-    border-top: 1px solid #d5d5d5;
     border-bottom: 1px solid #d5d5d5;
     padding: 0 0.3rem;
     box-sizing: border-box;

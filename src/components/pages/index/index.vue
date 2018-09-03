@@ -1,17 +1,17 @@
 <template>
-  <div class="page">
+  <div class="page" @scroll="scrollHandle($event)" @touchmove="scrollHandle($event)">
     <header :class="showHeaderStyle?'header bgWhite':'header'">
       <div class="address">
         <span>上海市</span>
         <img src="static/img/weizhi.png" alt="">
       </div>
       <div class="headerIcon" v-if="!showHeaderStyle">
-        <img src="static/img/kefu.png" alt="">
-        <img src="static/img/xiaoxi.png" alt="">
+        <div class="iconDiv"><img src="static/img/kefu.png" alt=""></div>
+        <div class="iconDiv"><img src="static/img/xiaoxi.png" alt=""></div>
       </div>
       <div class="headerIcon" v-if="showHeaderStyle">
-        <img src="static/img/kefuB.png" alt="">
-        <img src="static/img/xiaoxiB.png" alt="">
+        <div class="iconDiv"><img src="static/img/kefuB.png" alt=""></div>
+        <div class="iconDiv"><img src="static/img/xiaoxiB.png" alt=""></div>
       </div>
     </header>
     <div class="banner">
@@ -28,7 +28,7 @@
       </div>
       <div class="navImg" @click="$router.push('boutiqueShop')">
         <img src="static/img/jingpindianpu.png" alt="">
-        <span>精品店铺</span>
+        <span>精品旺铺</span>
       </div>
       <div class="navImg" @click="$router.push('productClassif')">
         <img src="static/img/shangpinfenlei.png" alt="">
@@ -117,17 +117,41 @@ export default {
     };
   },
   mounted: function() {
-    window.onscroll = () => {
-      let header = document.getElementById("header");
-      let top = document.documentElement.scrollTop;
-      if (parseInt(top) > 100) {
-        this.showHeaderStyle = true;
-      } else {
-        this.showHeaderStyle = false;
-      }
-    };
+    this.scrollHandle();
+    // this.getData();
   },
-  methods: {}
+  methods: {
+    scrollHandle: function(e) {
+      document.addEventListener("touchmove", e => {
+        let header = document.getElementById("header");
+        let top =
+          window.pageYOffset ||
+          document.documentElement.scrollTop ||
+          document.body.scrollTop ||
+          0;
+        if (parseInt(top) > 100) {
+          this.showHeaderStyle = true;
+        } else {
+          this.showHeaderStyle = false;
+        }
+      });
+    },
+    getData: function() {
+      this.tool
+        .request({
+          url: "v3_index/index",
+          method: "post",
+          data: {
+            city_id: "1",
+            lat: "100.2",
+            lng: "0.3"
+          }
+        })
+        .then(res => {
+          console.log(res);
+        });
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>
@@ -136,7 +160,7 @@ export default {
   font-size: 0.35rem;
   .header {
     transition: all 0.3s ease-in-out;
-    height: 1rem;
+    height: 0.88rem;
     background: rgba(255, 255, 255, 0);
     position: fixed;
     top: 0;
@@ -167,16 +191,22 @@ export default {
       }
     }
     .headerIcon {
-      width: 1.8rem;
-      height: 0.6rem;
+      width: 1.3rem;
+      height: 100%;
       line-height: 0.6rem;
       text-align: center;
       display: flex;
       justify-content: space-between;
-      img {
-        width: 0.6rem;
-        height: 0.5rem;
-        display: inline-block;
+      .iconDiv {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        height: 100%;
+        img {
+          width: 0.38rem;
+          height: 0.3rem;
+          display: inline-block;
+        }
       }
     }
   }

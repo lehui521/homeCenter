@@ -1,36 +1,36 @@
 <template>
-    <div class="pages" id="decorationEncyclopedia">
-        <HeaderSame :headerObj="headerObj"></HeaderSame>
-        <div class="headerNav">
-            <van-tabs>
-                <van-tab v-for="index in 8" :title="'装修百科' + index" :key="index">
-                </van-tab>
-            </van-tabs>
-        </div>
-        <div class="typeNav">
-            <van-tabs>
-                <van-tab v-for="index in 8" :title="'厨房装修' + index" :key="index">
-                </van-tab>
-            </van-tabs>
-        </div>
-        <div class="content">
-            <div class="single" @click="$router.push('decorationEncyclopediaDetail')">
-                <div class="singleLeft">
-                    <div class="leftText1">
-                        集成墙饰多少钱一平方
-                    </div>
-                    <div class="singleText2">
-                        <span>2017-12-19</span>
-                        <img src="static/img/yan.png" alt="">
-                        <span>154</span>
-                    </div>
-                </div>
-                <div class="singleRight">
-                    <img src="static/img/banner1.png" alt="">
-                </div>
-            </div>
-        </div>
+  <div class="pages" id="decorationEncyclopedia">
+    <HeaderSame :headerObj="headerObj"></HeaderSame>
+    <div class="headerNav">
+      <van-tabs :line-width="50">
+        <van-tab v-for="index in 8" :title="'装修百科' + index" :key="index">
+        </van-tab>
+      </van-tabs>
     </div>
+    <div class="typeNav">
+      <van-tabs>
+        <van-tab v-for="index in 8" :title="'厨房装修' + index" :key="index">
+        </van-tab>
+      </van-tabs>
+    </div>
+    <div class="content">
+      <div class="single" @click="$router.push('decorationEncyclopediaDetail')">
+        <div class="singleLeft">
+          <div class="leftText1">
+            集成墙饰多少钱一平方
+          </div>
+          <div class="singleText2">
+            <span>2017-12-19</span>
+            <img src="static/img/yan.png" alt="">
+            <span>154</span>
+          </div>
+        </div>
+        <div class="singleRight">
+          <img src="static/img/banner1.png" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 import HeaderSame from "../../../common/sameHeader.vue";

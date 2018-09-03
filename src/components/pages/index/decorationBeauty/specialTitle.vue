@@ -181,7 +181,6 @@ export default {
     .floor2 {
       height: 2rem;
       width: 100%;
-      border: 1px solid red;
       box-sizing: border-box;
       padding-top: 0.3rem;
       padding-left: 0.2rem;

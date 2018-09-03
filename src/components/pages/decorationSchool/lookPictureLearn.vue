@@ -18,7 +18,6 @@ export default {};
 <style lang="scss" scoped>
 .lookPictureLearn {
   font-size: 0.3rem;
-  margin-bottom: 0.3rem;
   .title {
     text-align: center;
     padding: 0.36rem 0.2rem;
@@ -37,12 +36,13 @@ export default {};
     background: #f8f8f8;
     padding: 0.2rem;
     .list {
-      width: 3.45rem;
+      width: 3.47rem;
       border: 1px solid #efefef;
       padding: 0.1rem;
       box-sizing: border-box;
       box-shadow: #efefef 0 2px 5px 0;
       margin-bottom: 0.2rem;
+      background: #fff;
       img {
         width: 100%;
         height: 2.04rem;

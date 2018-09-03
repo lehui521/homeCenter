@@ -1,22 +1,22 @@
 <template>
-    <div class="pages">
-        <header class="header">
-            <div class="tabList">
-                <div class="line" id="line" :style="tabStyle"></div>
-                <div class="tab" @click="tabClick('dan')">单图</div>
-                <div class="tab" @click="tabClick('tao')">套图</div>
-                <div class="tab" @click="tabClick('zhuan')">专题</div>
-            </div>
-            <div class="back">
-                <img src="static/img/leftArrow.png" alt="" class="icon" @click="$router.go(-1)">
-            </div>
-        </header>
-        <div class="content">
-            <singleD v-if="tabActive=='dan'"></singleD>
-            <coverD v-if="tabActive=='tao'"></coverD>
-            <specialT v-if="tabActive=='zhuan'"></specialT>
-        </div>
+  <div class="pages">
+    <header class="header">
+      <div class="tabList">
+        <div class="line" id="line" :style="tabStyle"></div>
+        <div class="tab" @click="tabClick('dan')">单图</div>
+        <div class="tab" @click="tabClick('tao')">套图</div>
+        <div class="tab" @click="tabClick('zhuan')">专题</div>
+      </div>
+      <div class="back">
+        <img src="static/img/leftArrow.png" alt="" class="icon" @click="$router.go(-1)">
+      </div>
+    </header>
+    <div class="content">
+      <singleD v-if="tabActive=='dan'"></singleD>
+      <coverD v-if="tabActive=='tao'"></coverD>
+      <specialT v-if="tabActive=='zhuan'"></specialT>
     </div>
+  </div>
 </template>
 <script>
 import singleD from "./singleDragram.vue";
@@ -82,6 +82,7 @@ export default {
         bottom: -1px;
         transition: all 0.3s ease-in-out;
         z-index: 999;
+        bottom: 0;
       }
     }
     .back {
@@ -89,10 +90,12 @@ export default {
       left: 0;
       top: 0;
       height: 100%;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
       .icon {
         height: 0.32rem;
         margin-left: 0.32rem;
-        margin-bottom: 0.28rem;
       }
     }
   }

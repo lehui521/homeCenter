@@ -49,7 +49,7 @@ export default {
       headerObj: {
         title: "汇头条",
         img: "static/img/sousuo.png",
-        text: "headerNew"
+        text: "indexNews"
       }
     };
   },
@@ -60,6 +60,7 @@ export default {
 </script>
 <style lang="scss">
 #headerNews {
+  background: #fff;
   .van-tabs--line .van-tabs__wrap {
     height: 0.72rem;
   }
