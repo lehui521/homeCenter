@@ -1,6 +1,6 @@
 <template>
   <div class="storeChoice">
-    <div class="title" @click="$router.push('storeChoiceContent')">
+    <div class="title" @click="$router.push('productClassif')">
       <img src="static/img/dianpujingxuan.png" alt="">
       <img src="static/img/rightIcon.png" alt="" class="rightIcon">
     </div>

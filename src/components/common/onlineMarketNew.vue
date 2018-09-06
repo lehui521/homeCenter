@@ -1,19 +1,19 @@
 <template>
-  <div class="news">
-    <div class="left">
-      <img src="static/img/huitoutiao.png" alt="">
+    <div class="news">
+        <div class="left">
+            <img src="static/img/xinwentoutiao.png" alt="">
+        </div>
+        <div class="right">
+            <ul id="newsSwiper">
+                <li v-for="(item,index) in newArr" :key="index" @click="clickNews(item)" v-if="newArr.length!=0">{{item.title}}</li>
+                <li @click="clickNews(item)" v-if="newArr.length!=0">{{newArr[0].title}}</li>
+                <li v-if="newArr.length==0">暂无新闻</li>
+            </ul>
+            <div class="img">
+                <img src="static/img/rightIcon.png" alt="">
+            </div>
+        </div>
     </div>
-    <div class="right">
-      <ul id="newsSwiper">
-        <li v-for="(item,index) in newArr" :key="index" @click="clickNews(item)" v-if="newArr.length!=0">{{item.title}}</li>
-        <li @click="clickNews(item)" v-if="newArr.length!=0">{{newArr[0].title}}</li>
-        <li v-if="newArr.length==0">暂无新闻</li>
-      </ul>
-      <div class="img">
-        <img src="static/img/rightIcon.png" alt="">
-      </div>
-    </div>
-  </div>
 </template>
 <script>
 export default {

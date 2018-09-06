@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <header :class="showHeaderStyle?'header bgWhite':'header'">
-      <div class="address">
+      <div class="address" @click="$router.push('mapCity')">
         <span>上海红星美凯龙真北路商场</span>
         <img src="static/img/weizhi.png" alt="">
       </div>
@@ -96,7 +96,7 @@
 </template>
 <script>
 //汇头条
-import newSwipe from "../../common/newSwipe.vue";
+import newSwipe from "../../common/onlineMarketNew.vue";
 //折扣专区
 import discountA from "./discountArea.vue";
 //店铺精选
@@ -121,11 +121,7 @@ export default {
   },
   data: function() {
     return {
-      newArr: {
-        arr: ["asdsad", "dasdasdasd"],
-        img: "static/img/xinwentoutiao.png",
-        target: "onlineMarket"
-      },
+      newArr: [],
       showHeaderStyle: false
     };
   },
@@ -135,7 +131,7 @@ export default {
   created: function() {},
   methods: {
     scrollHandle: function(e) {
-      document.addEventListener("touchmove", e => {
+      document.addEventListener("scroll", e => {
         let header = document.getElementById("header");
         let top =
           window.pageYOffset ||

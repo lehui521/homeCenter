@@ -24,10 +24,6 @@
         <div class="discountImg">
           <div class="circle">
             <svgCircle :proNum="proNum"></svgCircle>
-            <div class="circleText">
-              <span>已抢</span>
-              <span>50%</span>
-            </div>
           </div>
           <div class="discountImgContent">
             <span class="goRecieveButton">立即领取</span>
@@ -47,7 +43,9 @@ import searchHeader from "../../../common/sameSearch.vue";
 export default {
   components: { searchHeader, svgCircle },
   data: function() {
-    return {};
+    return {
+      proNum: 30
+    };
   },
   methods: {
     handleSearch: function(res) {
@@ -166,60 +164,44 @@ export default {
         box-sizing: border-box;
         padding-top: 0.2rem;
         position: relative;
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+        border-left: 1px dashed #979797;
         .circle {
-          position: absolute;
-          top: 0.05rem;
           width: 100%;
           text-align: center;
-          height: 1.25rem;
-          .circleText {
-            position: absolute;
-            top: 0;
-            color: #fc124f;
-            font-size: 10px;
-            height: 100%;
-            width: 100%;
-            text-align: center;
-            top: 0;
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            span {
-              display: block;
-            }
-          }
+          height: 1rem;
+          margin-bottom: 0.06rem;
         }
         .discountImgContent {
-          border-left: 1px dashed #979797;
-          height: 100%;
           position: relative;
+          margin: auto;
           text-align: center;
           font-size: 0.18rem;
-          padding-top: 1.1rem;
-          box-sizing: border-box;
           .goUseButton {
-            display: block;
-            padding: 0.03rem 0.23rem;
-            // height: 0.28rem;
+            display: inline-block; // height: 0.28rem;
             // line-height: 0.28rem;
+            box-sizing: border-box;
             font-size: 0.18rem;
             color: #ffffff;
             background-image: linear-gradient(-90deg, #ff8b23 0%, #ff6d00 100%);
             border-radius: 100px;
-            width: 1rem;
-            margin: auto;
+            margin-top: 1.1rem;
+            width: 15vw;
+            height: 5vw;
+            line-height: 5vw;
           }
           .goRecieveButton {
             border-radius: 100px;
-            padding: 0.03rem 0.14rem;
-            display: block;
-            // height: 0.28rem;
+            display: inline-block; // height: 0.28rem;
             // line-height: 0.28rem;
             font-size: 0.18rem;
             color: #ffffff;
             background-image: linear-gradient(90deg, #fb0f39 0%, #fc124f 100%);
-            width: 1rem;
-            margin: auto;
+            width: 15vw;
+            height: 5vw;
+            line-height: 5vw;
           }
         }
         .recievedImg {
