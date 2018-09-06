@@ -114,9 +114,9 @@ export default {
         width: 35%;
         text-align: center;
         img {
-          width: 0.78rem;
-          height: 0.78rem;
-          margin-top: 0.34rem;
+          width: 0.6rem;
+          height: 0.6rem;
+          margin-top: 0.43rem;
         }
       }
       .navText {

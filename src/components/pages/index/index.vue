@@ -1,8 +1,8 @@
 <template>
   <div class="page" @scroll="scrollHandle($event)" @touchmove="scrollHandle($event)">
     <header :class="showHeaderStyle?'header bgWhite':'header'">
-      <div class="address">
-        <span>上海市</span>
+      <div class="address" @click="$router.push('mapCity')">
+        <span>{{cityData.name}}</span>
         <img src="static/img/weizhi.png" alt="">
       </div>
       <div class="headerIcon" v-if="!showHeaderStyle">
@@ -16,8 +16,11 @@
     </header>
     <div class="banner">
       <van-swipe :autoplay="3000">
-        <van-swipe-item v-for="(image, index) in bannerImgs" :key="index">
-          <img :src="image" style="width:100%;height:100%;" class="bannerImg" />
+        <van-swipe-item v-for="(image, index) in bannerImgs" :key="index" v-if="bannerImgs.length!=0">
+          <img :src="image.image" style="width:100%;height:100%;" class="bannerImg" />
+        </van-swipe-item>
+        <van-swipe-item v-else>
+          <img src="static/img/banner1.png" style="width:100%;height:100%;" class="bannerImg" />
         </van-swipe-item>
       </van-swipe>
     </div>
@@ -39,7 +42,7 @@
         <span>促销活动</span>
       </div>
     </div>
-    <newSwipe :newArr="newArr"></newSwipe>
+    <newSwipe :newArr="indexData.indexNew"></newSwipe>
     <!-- 分割距离 -->
     <div class="grayBlank">
     </div>
@@ -102,27 +105,22 @@ export default {
   },
   data: function() {
     return {
-      bannerImgs: [
-        "static/img/banner1.png",
-        "static/img/banner1.png",
-        "static/img/banner1.png",
-        "static/img/banner1.png"
-      ],
-      newArr: {
-        arr: ["asdasdasdasd", "asdasdasdfggg", "12321321321321"],
-        img: "static/img/huitoutiao.png",
-        target: "index"
+      bannerImgs: [],
+      newArr: {},
+      indexData: {
+        indexNew: [{ title: "adsadsa" }]
       },
-      showHeaderStyle: false
+      showHeaderStyle: false,
+      cityData: JSON.parse(localStorage.getItem("cityData"))
     };
   },
   mounted: function() {
     this.scrollHandle();
-    // this.getData();
+    this.getData();
   },
   methods: {
     scrollHandle: function(e) {
-      document.addEventListener("touchmove", e => {
+      window.addEventListener("scroll", e => {
         let header = document.getElementById("header");
         let top =
           window.pageYOffset ||
@@ -141,14 +139,17 @@ export default {
         .request({
           url: "v3_index/index",
           method: "post",
-          data: {
-            city_id: "1",
-            lat: "100.2",
-            lng: "0.3"
+          params: {
+            city_id: this.cityData.id,
+            lat: this.cityData.lat,
+            lng: this.cityData.lng
           }
         })
         .then(res => {
-          console.log(res);
+          if (res.status == 200) {
+            this.bannerImgs = res.data.banner; //首页轮播
+            this.indexData.indexNew = res.data.toutiao.list; //首页的头条
+          }
         });
     }
   }

@@ -48,10 +48,23 @@ export default {
 </script>
 <style lang="scss" scoped>
 .pages {
-  padding-top: 0.88rem;
+  padding-top: 2.64rem;
   background: #fff;
   .headerNav {
-    border-bottom: 1px solid #979797;
+    height: 0.88rem;
+    position: fixed;
+    top: 0.88rem;
+    width: 100%;
+    left: 0;
+    box-sizing: border-box;
+  }
+  .typeNav {
+    height: 0.88rem;
+    position: fixed;
+    top: 1.76rem;
+    width: 100%;
+    left: 0;
+    border-top: 1px solid #979797;
   }
   .content {
     .single {

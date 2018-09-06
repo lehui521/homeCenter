@@ -26,6 +26,10 @@ export default new Router({
             ]
         },
         {
+            path: '/mapCity',
+            component: resolve => require(['../components/pages/mapCity'], resolve)
+        },
+        {
             path: '/decorationBeauty',
             component: resolve => require(['../components/pages/index/decorationBeauty/index'], resolve)
         }, //装修美图
@@ -145,6 +149,10 @@ export default new Router({
             path: '/decorationCompanyContent',
             component: resolve => require(['../components/pages/onlineMarket/decorationCompanyContent'], resolve)
         }, //装修公司
+        {
+            path: '/decorationCompanyDetail',
+            component: resolve => require(['../components/pages/onlineMarket/decorationCompanyContent/decorationCompanyDetail'], resolve)
+        },
         {
             path: '/searchDecorationCompany',
             component: resolve => require(['../components/pages/onlineMarket/decorationCompanyContent/searchDecorationCompany'], resolve)

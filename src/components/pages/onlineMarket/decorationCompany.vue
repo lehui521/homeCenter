@@ -8,7 +8,7 @@
       <img src="static/img/discountBanner.png" alt="">
     </div>
     <div class="companyCenter">
-      <div class="company" v-for="(item,index) in [1,2,3]" :key="index">
+      <div class="company" v-for="(item,index) in [1,2,3]" :key="index" @click="$router.push('decorationCompanyDetail')">
         <div class="companyImg">
           <img src="static/img/shichangtuipian.png" alt="">
         </div>
@@ -25,11 +25,11 @@
             上海真北路520号
           </div>
           <div class="icon">
-            <div><img src="static/img/xin.png" alt=""></div>
+            <div class="iconImg"><img src="static/img/xin.png" alt=""></div>
             <div>
               <span>12345</span>
             </div>
-            <div><img src="static/img/yan.png" alt=""></div>
+            <div class="iconImg"><img src="static/img/yan.png" alt=""></div>
             <div>
               <span>65656</span>
             </div>
@@ -120,10 +120,16 @@ export default {};
           margin-top: 0.05rem;
           display: flex;
           justify-content: flex-start;
-          img {
-            height: 0.24rem;
-            margin-right: 0.1rem;
+          .iconImg {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            img {
+              height: 0.24rem;
+              margin-right: 0.1rem;
+            }
           }
+
           span {
             margin-right: 0.3rem;
           }

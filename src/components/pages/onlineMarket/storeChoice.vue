@@ -2,7 +2,9 @@
   <div class="storeChoice">
     <div class="title">
       <img src="static/img/dianpujingxuan.png" alt="">
-      <img src="static/img/rightIcon.png" alt="" class="rightIcon">
+      <div class="rightIcon">
+        <img src="static/img/rightIcon.png" alt="">
+      </div>
     </div>
     <div class="banner">
       <img src="static/img/discountBanner.png" alt="">
@@ -26,12 +28,19 @@ export default {};
   margin-bottom: 0.3rem;
   .title {
     text-align: center;
-    padding: 0.5rem 0.2rem;
+    padding: 0.36rem 0.2rem;
     img {
       height: 0.28rem;
     }
     .rightIcon {
       float: right;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      img {
+        height: 0.28rem;
+      }
     }
   }
   .banner {

@@ -48,6 +48,15 @@
     }
     /*FAFDFA*/
     
+    .van-circle__text {
+        color: #FC124F;
+    }
+    
+    .van-circle svg {
+        overflow: unset;
+        transform: rotate(180deg);
+    }
+    
     .van-tag {
         display: inline-block;
         padding: 0.04rem 0.08rem;
@@ -113,6 +122,7 @@
     #decorationEncyclopedia .van-tabs__line {
         background: #38ba50;
         bottom: 0.42rem;
+        box-sizing: border-box;
     }
     
     #decorationEncyclopedia .van-hairline--top-bottom::after {
@@ -138,6 +148,15 @@
     #decorationEncyclopedia .typeNav .van-tab--active span {
         color: #38ba50;
         border: 1px solid #38ba50;
+    }
+    
+    #decorationEncyclopedia .van-tabs__nav--line {
+        box-sizing: border-box;
+        padding-bottom: 0;
+    }
+    
+    #decorationEncyclopedia .van-tabs__line {
+        bottom: 0.1rem;
     }
     
     .van-picker__cancel,

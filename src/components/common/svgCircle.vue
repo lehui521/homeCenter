@@ -1,8 +1,5 @@
 <template>
-  <svg xmlns="http://www.w3.org/200/svg" height="100%" width="100%">
-    <circle cx="50%" cy="50%" :r="options.r" fill="none" stroke="#FFE4E1" stroke-width="4" stroke-linecap="round" style="transform-origin: center;" />
-    <circle class="circleProgress" id="progress_bar" cx="50%" cy="50%" :r="options.r" fill="none" stroke="#FC124F" stroke-width="5" :stroke-dasharray="proNum+',10000'" />
-  </svg>
+  <van-circle :rate="proNum" :clockwise="true" v-model="num" color="#FC124F" :speed="100" :text="text" class="circleStyle" size="1rem" layer-color="#FFE4E1" :stroke-width="90" />
 </template>
 <script>
 export default {
@@ -11,7 +8,9 @@ export default {
     return {
       options: {
         r: 0
-      }
+      },
+      num: 100,
+      text: "已领取30%"
     };
   },
   created: function() {
@@ -27,9 +26,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.circleProgress {
-  transform-origin: center;
-  transform: rotate(90deg);
+.circleStyle {
+  font-size: 0.22rem;
+  color: #fc124f;
+  height: 100% !important;
 }
 </style>
 

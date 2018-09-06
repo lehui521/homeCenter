@@ -1,6 +1,6 @@
 <template>
   <div class="learnDecoration">
-    <div class="title" @click="$router.push('decorationSchool')">
+    <div class="title" @click="$router.push('decorationEncyclopedia')">
       <img src="static/img/xuezhuangxiu.png" alt="">
       <img src="static/img/rightIcon.png" alt="" class="rightIcon">
     </div>

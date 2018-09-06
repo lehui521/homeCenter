@@ -59,11 +59,17 @@
         </div>
         <div class="singleFloor2">
           <div class="content1">
-            <img src="static/img/grayStar.png" alt="">
+            <div class="contentImg">
+              <img src="static/img/grayStar.png" alt="">
+            </div>
+
             <span>3</span>
           </div>
           <div class="content1">
-            <img src="static/img/yan.png" alt="">
+            <div class="contentImg">
+              <img src="static/img/yan.png" alt="">
+            </div>
+
             <span>154</span>
           </div>
         </div>
@@ -223,11 +229,16 @@ export default {
           font-size: 0.26rem;
           color: #999999;
           margin-right: 0.61rem;
-          img {
-            height: 0.25rem;
+          .contentImg {
             float: left;
-            margin-top: 0.02rem;
             margin-right: 0.1rem;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            img {
+              height: 0.25rem;
+            }
           }
         }
       }

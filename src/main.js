@@ -26,8 +26,10 @@ Vue.prototype.goBack = function() {
     }
 }
 Vue.use(VideoPlayer)
-    //axios
+
+//axios
 axios.defaults.baseURL = 'http://test.dfmeiju.com.cn/'; //
+Vue.prototype.$axios = axios;
 axios.interceptors.request.use(
     config => {
         let token = localStorage.getItem("token");
@@ -51,14 +53,21 @@ Vue.prototype.tool = {
     },
     request: function(opt) {
         return new Promise((resolve, reject) => {
-            Vue.prototype.tool.ajax(opt).then((res) => {
+            this.ajax(opt).then((res) => {
                 if (res && res.data) {
-                    if (res.data.code == 200) {
+                    if (res.data.status == 200) {
                         resolve(res.data);
+                    } else if (res.data.status == -1) {
+                        app.$dialog.alert({
+                            title: '提示',
+                            message: res.data.msg
+                        }).then(() => {
+                            // on close
+                        });
                     }
                 }
             }).catch((error) => {
-                Vue.prototype.$dialog.alert({
+                app.$dialog.alert({
                     title: '提示',
                     message: '服务器内部错误'
                 }).then(() => {
@@ -68,7 +77,7 @@ Vue.prototype.tool = {
         })
     }
 }
-new Vue({
+const app = new Vue({
     el: '#app',
     router,
     components: { App },

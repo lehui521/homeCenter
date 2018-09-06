@@ -50,10 +50,6 @@
         <div class="discountImg" v-else>
           <div class="circle">
             <svgCircle :proNum="proNum"></svgCircle>
-            <div class="circleText">
-              <span>已抢</span>
-              <span>50%</span>
-            </div>
           </div>
           <div class="discountImgContent">
             <span class="goRecieveButton">立即领取</span>
@@ -64,12 +60,12 @@
   </div>
 </template>
 <script>
-import svgCircle from "../../../common/svgCircle.vue";
 import HeaderSame from "../../../common/sameHeader.vue";
+import svgCircle from "../../../common/svgCircle.vue";
 export default {
   components: {
-    svgCircle,
-    HeaderSame
+    HeaderSame,
+    svgCircle
   },
   data: function() {
     return {
@@ -79,7 +75,7 @@ export default {
         text: "discountProduct"
       },
       showNav: false,
-      proNum: this.turnProgressNum(0.5)
+      proNum: 50
     };
   },
   methods: {
@@ -257,32 +253,17 @@ export default {
         box-sizing: border-box;
         padding-top: 0.2rem;
         position: relative;
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+        border-left: 1px dashed #979797;
         .circle {
-          position: absolute;
-          top: 0.1rem;
           width: 100%;
           text-align: center;
-          height: 1.25rem;
-          .circleText {
-            position: absolute;
-            top: 0;
-            color: #fc124f;
-            font-size: 10px;
-            height: 100%;
-            width: 100%;
-            text-align: center;
-            top: 0;
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            span {
-              display: block;
-            }
-          }
+          height: 1rem;
+          margin-bottom: 0.06rem;
         }
         .discountImgContent {
-          border-left: 1px dashed #979797;
-          height: 100%;
           position: relative;
           margin: auto;
           text-align: center;
@@ -307,7 +288,6 @@ export default {
             font-size: 0.18rem;
             color: #ffffff;
             background-image: linear-gradient(90deg, #fb0f39 0%, #fc124f 100%);
-            margin-top: 1.1rem;
             width: 15vw;
             height: 5vw;
             line-height: 5vw;
