@@ -2,10 +2,8 @@
   <div class="pages">
     <HeaderSame :headerObj="headerObj"></HeaderSame>
     <div class="headerNav">
-      <div class="nav" @click="clickNav">全部</div>
-      <div class="nav" @click="clickNav">地板</div>
-      <div class="nav" @click="clickNav">橱柜</div>
-      <div class="nav" @click="clickNav">石材</div>
+      <div :class="typeId==''?'navActive nav':'nav' " @click="clickNav(allParams)">全部</div>
+      <div :class="typeId==item.type_id?'navActive nav':'nav'" v-for="(item,i) in headerNavData" :key="i" @click="clickNav(item)">{{item.name || ''}}</div>
       <div class="navImg" @click="showNav=true">
         <img src="static/img/navDown.png" alt="">
       </div>
@@ -13,34 +11,31 @@
     <div class="mask" v-if="showNav">
       <div class="navPosition">
         <div class="floor1">
-          <span>全部</span>
+          <span>{{activeTypeName}}</span>
           <img src="static/img/navUp.png" alt="" @click="showNav=false">
         </div>
         <div class="floor2">
-          <span>全部</span>
-          <span>全部</span>
-          <span>全部</span>
-          <span>全部</span>
-          <span>全部</span>
+          <span @click="clickNav(allParams)" :class="typeId==''?'navActive2':''">全部</span>
+          <span :class="typeId==item.type_id?'navActive2':''" v-for="(item,i) in typeData" :key="i" @click="clickNav(item)">{{item.name}}</span>
         </div>
       </div>
     </div>
     <div class="banner">
-      <img src="static/img/banner1.png" alt="">
+      <img :src="bannerData.image || 'static/img/banner1.png'" alt="">
     </div>
     <div class="discountProduct">
-      <div class="product" v-for="i in 2" :key="i">
+      <div class="product" v-for="(item,i) in goodData" :key="i">
         <img src="static/img/banner1.png" alt="" class="discountProImg">
         <div class="producText">
-          <div class="text1">我乐橱柜&nbsp;&nbsp;简爱</div>
+          <div class="text1">{{item.shop_name}}&nbsp;&nbsp;{{item.name}}</div>
           <div class="text2">上海市灯具城</div>
           <div class="text3">
-            <span>￥2636</span>
+            <span>￥{{item.price}}</span>
             <s>￥3600</s>
           </div>
         </div>
         <!-- 已领取的样式 -->
-        <div class="discountImg" v-if="i==1">
+        <div class="discountImg" v-if="false">
           <div class="discountImgContent">
             <span class="goUseButton">去使用</span>
           </div>
@@ -49,7 +44,7 @@
         <!-- 未领取的样式 -->
         <div class="discountImg" v-else>
           <div class="circle">
-            <svgCircle :proNum="proNum"></svgCircle>
+            <svgCircle :proNum="item.bfb"></svgCircle>
           </div>
           <div class="discountImgContent">
             <span class="goRecieveButton">立即领取</span>
@@ -75,15 +70,45 @@ export default {
         text: "discountProduct"
       },
       showNav: false,
-      proNum: 50
+      proNum: 50,
+      typeId: "",
+      allParams: { type_id: "", name: "全部" },
+      activeTypeName: "全部",
+      bannerData: {},
+      typeData: [],
+      goodData: [],
+      headerNavData: []
     };
   },
+  created: function() {
+    this.getData();
+  },
   methods: {
-    turnProgressNum: function(num) {
-      let perimeter = Math.PI * 2 * 20 * num;
-      return perimeter.toFixed(2);
+    clickNav: function(res) {
+      this.typeId = res.type_id;
+      this.activeTypeName = res.name;
     },
-    clickNav: function() {}
+    getData: function() {
+      this.tool
+        .request({
+          url: "v3_coupons/index",
+          method: "post",
+          params: {
+            type_id: this.typeId
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            console.log(res);
+            this.bannerData = res.data.banner;
+            this.typeData = res.data.category;
+            this.goodData = res.data.goods;
+            for (var i in [1, 2, 3]) {
+              this.headerNavData.push(res.data.category[i]);
+            }
+          }
+        });
+    }
   }
 };
 </script>
@@ -125,7 +150,7 @@ export default {
         padding-left: 0.3rem;
         box-sizing: border-box;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
         flex-wrap: wrap;
         span {
           display: inline-block;
@@ -138,6 +163,12 @@ export default {
           margin-bottom: 0.3rem;
           text-align: center;
           line-height: 0.6rem;
+          margin-left: 0.16rem;
+          border: 1px solid #fff;
+        }
+        .navActive2 {
+          color: #3cb850 !important;
+          border: 1px solid #3cb850 !important;
         }
       }
     }
@@ -179,6 +210,10 @@ export default {
       line-height: 0.88rem;
       text-align: center;
     }
+    .navActive {
+      color: #3cb850;
+    }
+
     .navImg {
       width: 8%;
       text-align: center;

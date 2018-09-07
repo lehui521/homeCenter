@@ -58,6 +58,10 @@ export default new Router({
             component: resolve => require(['../components/pages/index/indexNew'], resolve)
         }, //首页汇头条
         {
+            path: '/headerNewDetail',
+            component: resolve => require(['../components/pages/index/indexNew/headerNewDetail'], resolve)
+        },
+        {
             path: '/searchIndexNew',
             component: resolve => require(['../components/pages/index/indexNew/searchIndexNews'], resolve)
         },

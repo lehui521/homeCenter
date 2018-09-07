@@ -1,5 +1,5 @@
 <template>
-  <van-circle :rate="proNum" :clockwise="true" v-model="num" color="#FC124F" :speed="100" :text="text" class="circleStyle" size="1rem" layer-color="#FFE4E1" :stroke-width="90" />
+  <van-circle :rate="parseInt(proNum.split('%')[0])" :clockwise="true" v-model="num" color="#FC124F" :speed="100" :text="text" class="circleStyle" size="1rem" layer-color="#FFE4E1" :stroke-width="90" />
 </template>
 <script>
 export default {
@@ -10,7 +10,7 @@ export default {
         r: 0
       },
       num: 100,
-      text: "已领取30%"
+      text: "已领取" + this.proNum
     };
   },
   created: function() {
