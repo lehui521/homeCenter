@@ -31,18 +31,6 @@ Vue.use(VideoPlayer)
 axios.defaults.baseURL = 'http://test.dfmeiju.com.cn/'; //
 Vue.prototype.$axios = axios;
 axios.interceptors.request.use(
-<<<<<<< HEAD
-  config => {
-    let token = localStorage.getItem("token");
-    if (token) {
-      config.headers.ticket = token;
-    }
-    return config
-  },
-  error => {
-    return Promise.reject(error)
-  });
-=======
     config => {
         let token = localStorage.getItem("token");
         if (token) {
@@ -53,7 +41,6 @@ axios.interceptors.request.use(
     error => {
         return Promise.reject(error)
     });
->>>>>>> 33d89f912ac9c6a838677e39490ace44a119628c
 Vue.prototype.tool = {
     ajax: function(opt) {
         let config = {
