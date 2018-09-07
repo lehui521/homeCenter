@@ -33,11 +33,8 @@ Vue.prototype.$axios = axios;
 axios.interceptors.request.use(
   config => {
     let token = localStorage.getItem("token");
-    config.headers = {
-      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-    };
     if (token) {
-      config.headers.Authorization = token;
+      config.headers.ticket = token;
     }
     return config
   },
