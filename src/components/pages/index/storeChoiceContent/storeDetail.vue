@@ -2,31 +2,31 @@
   <div class="pages">
     <HeaderSame :headerObj="headerObj"></HeaderSame>
     <div class="banner">
-      <img src="static/img/banner1.png" alt="">
+      <img :src="shopDetailData.image" alt="">
     </div>
     <div class="storeNameImg">
-      <img src="static/img/banner1.png" alt="" class="storeImg">
+      <img :src="shopDetailData.image" alt="" class="storeImg">
       <div class="storeName">
         <div class="name">
-          <span>我乐橱柜</span>
+          <span>{{shopDetailData.name}}</span>
           <img src="static/img/rightArrow.png" alt="">
           <span class="nameRight">简介</span>
         </div>
         <div class="brief">
-          <span>橱柜</span>
-          <span>|</span>
+          <span>{{shopDetailData.category_name}}</span>
+          <!-- <span>|</span>
           <span>简约</span>
           <span>|</span>
-          <span>家具</span>
+          <span>家具</span> -->
         </div>
         <div class="storeTag">
-          <span class="sTag">实木</span>
-          <span class="sTag">别墅</span>
+          <span class="sTag" v-for="(item,index) in shopDetailData.tags" :key="index">{{item}}</span>
+          <!-- <span class="sTag">别墅</span> -->
         </div>
       </div>
     </div>
     <div class="storeAddress">
-      <span>上海市普陀区真北路1109号D2047室</span>
+      <span>{{shopDetailData.address}}</span>
       <div class="addressleftImg ">
         <img src="static/img/dianhua.png" alt="">
       </div>
@@ -36,10 +36,10 @@
     </div>
     <div class="market">
       <span>所属市场：</span>
-      <span style="color:#999999;">上海市红星美凯龙真北路商场</span>
+      <span style="color:#999999;">{{shopDetailData.market_place}}</span>
     </div>
-    <div class="grayBlank"></div>
-    <div class="discount" @click="status.showCoupon=true">
+    <div class="grayBlank" v-if="couponData.length!=0"></div>
+    <div class="discount" @click="status.showCoupon=true" v-if="couponData.length!=0">
       <img src="static/img/juan.png" alt="" class="juan">
       <span>折扣劵</span>
       <img src="static/img/rightArrow.png" alt="" class="rightArrow">
@@ -52,25 +52,25 @@
       <p class="greenLine" :style="lineStyle"></p>
     </div>
     <div class="discountProduct" v-if="status.storeTabStatus==1">
-      <div class="product">
+      <div class="product" v-for="(item,i) in discountData" :key="i">
         <img src="static/img/banner1.png" alt="" class="discountProImg">
         <div class="producText" @click="$router.push('productDetail')">
-          <div class="text1">简爱</div>
-          <div class="text2">我乐橱柜</div>
+          <div class="text1">{{item.name}}</div>
+          <div class="text2">{{item.goodsname}}</div>
           <div class="text3">
-            <span>￥2636</span>
+            <span>￥{{item.price}}</span>
             <s>￥3600</s>
           </div>
         </div>
         <!-- 已领取的样式 -->
-        <div class="discountImg" v-if="false">
+        <div class="discountImg" v-if="item.status!=1">
           <div class="discountImgContent">
             <span class="goUseButton">去使用</span>
           </div>
           <img src="static/img/yilingqu.png" alt="" class="recievedImg">
         </div>
         <!-- 未领取的样式 -->
-        <div class="discountImg">
+        <div class="discountImg" v-if="item.status==1">
           <div class="circle">
             <svgCircle :proNum="proNum"></svgCircle>
           </div>
@@ -95,56 +95,66 @@
         </div>
       </div>
       <!-- 排序 -->
-      <div class="sort" :style="status.typeStatus=='sort'?'height:2.28rem;':''">
-        <div @click="clickSort('default')" :style="status.sortTypeStatus=='default'?'color:#3cb850':''">默认排序</div>
-        <div @click="clickSort('newP')" :style="status.sortTypeStatus=='newP'?'color:#3cb850':''">新品优先</div>
-        <div @click="clickSort('price')" :style="status.sortTypeStatus=='price'?'color:#3cb850':''">
+      <div class="sort" :style="status.typeStatus=='sort'?'height:3.16rem;':''">
+        <div @click="clickSort('sort_asc')" :style="queryData.order=='sort_asc'?'color:#3cb850':''">默认排序</div>
+        <div @click="clickSort('add_time_desc')" :style="queryData.order=='add_time_desc'?'color:#3cb850':''">新品优先</div>
+        <div @click="clickSort('price')">
           <!-- <span class="priceS" :style="status.sortTypeStatus=='price'?'border:1px solid #3cb850;color:#3cb850':''">最低价</span> -->
-          <input type="text" class="sort-input" placeholder="最低价">
+          <input type="text" class="sort-input" placeholder="最低价" v-model="queryData.minPrice">
           <span>——</span>
-          <input type="text" class="sort-input" placeholder="最高价">
+          <input type="text" class="sort-input" placeholder="最高价" v-model="queryData.maxPrice">
           <!-- <span class="priceS" :style="status.sortTypeStatus=='price'?'border:1px solid #3cb850;color:#3cb850':''">最高价</span> -->
+        </div>
+        <div class="btn">
+          <div class="cancelBtn" @click="status.typeStatus=''">取消</div>
+          <div class="ensureBtn" @click="getProductData">确定</div>
         </div>
       </div>
       <!-- 价格 -->
-      <div class="sort" :style="status.typeStatus=='price'?'height:1.53rem;':''">
-        <div @click="clickPrice('height')" :style="status.priceTypeStatus=='height'?'color:#3cb850':''">由高到低</div>
-        <div @click="clickPrice('low')" :style="status.priceTypeStatus=='low'?'color:#3cb850':''">由低到高</div>
+      <div class="sort" :style="status.typeStatus=='price'?'height:2.42rem;':''">
+        <div @click="clickPrice('price_desc')" :style="queryData.order=='price_desc'?'color:#3cb850':''">由高到低</div>
+        <div @click="clickPrice('price_asc')" :style="queryData.order=='price_asc'?'color:#3cb850':''">由低到高</div>
+        <div class="btn">
+          <div class="cancelBtn" @click="status.typeStatus=''">取消</div>
+          <div class="ensureBtn" @click="getProductData">确定</div>
+        </div>
       </div>
       <div class="productList">
-        <div class="list" v-for="(item,index) in [1,2,3,4]" :key="index" @click="$router.push('productDetail')">
-          <div class="price">￥5555</div>
-          <img src="static/img/banner1.png" alt="">
+        <div class="list" v-for="(item,index) in productData" :key="index" @click="$router.push('productDetail')">
+          <div class="price">￥{{item.price}}</div>
+          <img :src="item.image" alt="">
           <div class="listName">
-            秋夕-现代橱柜
+            {{item.category_name}}
           </div>
         </div>
       </div>
     </div>
+    <!-- 商家活动 -->
     <div class="storeActive" v-if="status.storeTabStatus==3">
-      <div class="active" @click="$router.push('productDetail')">
+      <div class="active" @click="$router.push('productDetail')" v-for="(item,index) in storeActiveData" :key="index">
         <div class="activeImg">
-          <img src="static/img/banner1.png" alt="">
+          <img :src="item.image?item.image:'static/img/banner1.png'" alt="">
         </div>
         <div class="textA">
-          <span class="textA1">我乐橱柜国庆促销 | </span>
-          <span class="textA2">橱柜</span>
+          <span class="textA1">{{item.title}} | </span>
+          <span class="textA2">{{item.detail}}</span>
           <img src="static/img/rightArrow.png" alt="" class="textAImg">
           <span class="textA3">了解详情</span>
         </div>
       </div>
     </div>
     <footer class="footer">
-      <div class="attention">关注</div>
+      <div class="attention" @click="clickFocus(200)" v-if="collectStatus==-1">关注</div>
+      <div class="attention" @click="clickFocus(-1)" v-if="collectStatus==200">取消关注</div>
       <div class="phoneSeller">联系商家</div>
     </footer>
     <van-popup v-model="status.showCoupon" position="bottom" :overlay="true">
       <div class="couponTitle">优惠券</div>
-      <div class="couponImg">
+      <div class="couponImg" v-for="(item ,i) in couponData" :key="i">
         <div class="left">
           <div class="leftText">
             <div class="leftText1">
-              我乐橱柜
+              {{item.name}}
             </div>
             <div class="leftText2">
               上海家饰佳徐汇店
@@ -178,10 +188,16 @@ export default {
   },
   data: function() {
     return {
+      queryData: {
+        shopId: this.$route.query.shop_id || "5",
+        ticket:
+          this.$route.query.ticket || "JFWsM0I3ESlfC4CrUIXKtVz_bY_b423g_c_c",
+        minPrice: "",
+        maxPrice: "",
+        order: "sort_asc"
+      },
       status: {
         typeStatus: "", //类型状态
-        sortTypeStatus: "default", //排序状态
-        priceTypeStatus: "height",
         storeTabStatus: 1, //切换状态
         showCoupon: false //优惠券的显示状态
       },
@@ -192,18 +208,56 @@ export default {
       storeTabStyle: "color:#333333;",
       lineStyle: "",
       shopDetailData: {}, //店铺详情数据
-      proNum: 30 //进度条数值
+      productData: [], //全部商品
+      discountData: [], //折扣商品
+      couponData: [], //优惠劵
+      storeActiveData: [], //店铺活动
+      collectStatus: 200,
+      proNum: "3%" //进度条数值
     };
   },
   created: function() {
     this.getData();
+    this.getStoreActive();
+    this.getProductData();
+    this.getDiscountCoupon();
+    this.getCopons();
+    this.judgeCollection();
   },
   methods: {
     clickSort: function(sort) {
-      this.status.sortTypeStatus = sort;
+      this.queryData.order = sort;
+      this.queryData.minPrice = "";
+      this.queryData.maxPrice = "";
     },
     clickPrice: function(price) {
-      this.status.priceTypeStatus = price;
+      this.queryData.order = price;
+      this.queryData.minPrice = "";
+      this.queryData.maxPrice = "";
+    },
+    clickFocus: function(num) {
+      this.tool
+        .request({
+          url: num == 200 ? "favorite/add" : num == -1 ? "favorite/remove" : "",
+          method: "post",
+          params: {
+            type_id: this.queryData.shopId,
+            type: "shop",
+            ticket: this.queryData.ticket
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.$dialog
+              .alert({
+                title: "提示",
+                message: num == 200 ? "关注成功" : "取消成功"
+              })
+              .then(() => {
+                this.judgeCollection();
+              });
+          }
+        });
     },
     typeClick: function(res) {
       if (this.status.typeStatus == res) {
@@ -213,18 +267,97 @@ export default {
       if (this.status.typeStatus == "sort") {
       }
     },
+    judgeCollection: function() {
+      this.tool
+        .request({
+          url: "favorite/status",
+          method: "post",
+          params: {
+            type: "shop",
+            type_id: this.queryData.shopId,
+            ticket: this.queryData.ticket
+          }
+        })
+        .then(res => {
+          this.collectStatus = res.status;
+        });
+    },
     getData: function() {
       this.tool
         .request({
           url: "shop/info",
           method: "post",
           params: {
-            shop_id: "5"
+            shop_id: this.queryData.shopId
           }
         })
         .then(res => {
           if (res.status == 200) {
             this.shopDetailData = res.data.shop_info;
+            this.shopDetailData.tags = res.data.shop_info.tags.split(";");
+          }
+        });
+    },
+    getStoreActive: function() {
+      this.tool
+        .request({
+          url: "shop/activity",
+          method: "post",
+          params: {
+            shop_id: this.queryData.shopId
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.storeActiveData = res.data.active_info;
+          }
+        });
+    },
+    getProductData: function() {
+      this.tool
+        .request({
+          url: "shop/shopgoods",
+          method: "post",
+          params: {
+            shop_id: this.queryData.shopId,
+            min_price: this.queryData.minPrice,
+            max_price: this.queryData.maxPrice,
+            order: this.queryData.order
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.productData = res.data.list;
+          }
+        });
+    },
+    getDiscountCoupon: function() {
+      this.tool
+        .request({
+          url: "shop/goodscoupons",
+          method: "post",
+          params: {
+            shop_id: this.queryData.shopId
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.discountData = res.data.goodscoupons;
+          }
+        });
+    },
+    getCopons: function() {
+      this.tool
+        .request({
+          url: "shop/shopcoupons",
+          method: "post",
+          params: {
+            shop_id: this.queryData.shopId
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.couponData = res.data.shopcoupons;
           }
         });
     },
@@ -440,7 +573,7 @@ export default {
       .discountImg {
         width: 30%;
         box-sizing: border-box;
-        padding-top: 0.2rem;
+        padding-top: 0.1rem;
         position: relative;
         display: flex;
         justify-content: flex-start;
@@ -520,6 +653,26 @@ export default {
       overflow: hidden;
       height: 0px;
       width: 100%;
+      .btn {
+        margin-top: 0.1rem;
+        height: 0.88rem;
+        line-height: 0.88rem;
+        display: flex;
+        justify-content: space-between;
+        .cancelBtn {
+          font-size: 0.3rem;
+          text-align: center;
+          color: #3cb850;
+          width: 50%;
+        }
+        .ensureBtn {
+          background: #3cb850;
+          color: #fff;
+          font-size: 0.3rem;
+          text-align: center;
+          width: 50%;
+        }
+      }
       .sort-input {
         // border: 1px solid #eee;
         display: inline-block;

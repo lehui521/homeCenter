@@ -99,7 +99,7 @@ export default {
         this.imgsArr = this.imgsArr.concat(this.imgsArr);
         this.loading = false;
         this.finished = true;
-      }, 1000);
+      }, 500);
 
       //   this.imgsArr = this.imgsArr.concat(this.imgsArr);
       console.log(5555);

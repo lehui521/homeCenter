@@ -187,7 +187,7 @@ export default {
     };
   },
   created: function() {
-    // this.getData();
+    this.getData();
   },
   methods: {
     clickTab: function(res) {
@@ -196,7 +196,8 @@ export default {
     getData: function() {
       this.tool
         .request({
-          url: "v3_user/coupon"
+          url: "v3_user/coupon",
+          ticket: ""
         })
         .then(res => {
           if (res.status == 200) {

@@ -19,7 +19,9 @@
 export default {
   props: ["newArr"],
   data: function() {
-    return {};
+    return {
+      cityData: JSON.parse(localStorage.getItem("cityData"))
+    };
   },
   created: function() {},
   mounted: function() {
@@ -40,7 +42,9 @@ export default {
       }, 2300);
     },
     clickNews: function(res) {
-      this.$router.push("indexNew");
+      this.$router.push(
+        "indexNew?city_id=" + this.cityData.id + "&news_id=" + res.news_id
+      );
     }
   }
 };
