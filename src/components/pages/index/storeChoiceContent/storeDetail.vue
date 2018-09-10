@@ -10,7 +10,7 @@
         <div class="name">
           <span>{{shopDetailData.name}}</span>
           <img src="static/img/rightArrow.png" alt="">
-          <span class="nameRight">简介</span>
+          <span class="nameRight" @click="$router.push('storeIntroduction?shop_id='+queryData.shopId)">简介</span>
         </div>
         <div class="brief">
           <span>{{shopDetailData.category_name}}</span>
@@ -53,13 +53,13 @@
     </div>
     <div class="discountProduct" v-if="status.storeTabStatus==1">
       <div class="product" v-for="(item,i) in discountData" :key="i">
-        <img src="static/img/banner1.png" alt="" class="discountProImg">
+        <img :src="item.image || 'static/img/banner1.png'" alt="" class="discountProImg">
         <div class="producText" @click="$router.push('productDetail')">
           <div class="text1">{{item.name}}</div>
           <div class="text2">{{item.goodsname}}</div>
           <div class="text3">
-            <span>￥{{item.price}}</span>
-            <s>￥3600</s>
+            <span>￥{{item.zkprice}}</span>
+            <s>￥{{item.price}}</s>
           </div>
         </div>
         <!-- 已领取的样式 -->
@@ -146,10 +146,10 @@
     <footer class="footer">
       <div class="attention" @click="clickFocus(200)" v-if="collectStatus==-1">关注</div>
       <div class="attention" @click="clickFocus(-1)" v-if="collectStatus==200">取消关注</div>
-      <div class="phoneSeller">联系商家</div>
+      <div class="phoneSeller" @click="callStore">联系商家</div>
     </footer>
     <van-popup v-model="status.showCoupon" position="bottom" :overlay="true">
-      <div class="couponTitle">优惠券</div>
+      <div class="couponTitle">折扣券</div>
       <div class="couponImg" v-for="(item ,i) in couponData" :key="i">
         <div class="left">
           <div class="leftText">
@@ -234,6 +234,9 @@ export default {
       this.queryData.order = price;
       this.queryData.minPrice = "";
       this.queryData.maxPrice = "";
+    },
+    callStore: function() {
+      window.location.href = "tel://" + this.shopDetailData.contact;
     },
     clickFocus: function(num) {
       this.tool
@@ -573,7 +576,7 @@ export default {
       .discountImg {
         width: 30%;
         box-sizing: border-box;
-        padding-top: 0.1rem;
+        margin-top: 0.2rem;
         position: relative;
         display: flex;
         justify-content: flex-start;
@@ -617,8 +620,8 @@ export default {
         }
         .recievedImg {
           position: absolute;
-          height: 1.22rem;
-          width: 1.22rem;
+          height: 1.01rem;
+          width: 1.01rem;
           top: 0;
           right: 0;
         }

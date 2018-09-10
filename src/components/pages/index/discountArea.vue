@@ -1,6 +1,6 @@
 <template>
   <div class="discountArea">
-    <div class="title" @click="$router.push('discountAreaContent')">
+    <div class="title">
       <img src="static/img/zhekouzhuanqu.png" alt="">
       <img src="static/img/rightIcon.png" alt="" class="rightIcon">
     </div>
@@ -9,14 +9,14 @@
     </div>
     <div class="center">
       <div class="leftImg">
-        <img src="static/img/discountLeft.png" alt="" @click="$router.push('productDetail')">
+        <img src="static/img/discountLeft.png" alt="">
       </div>
       <div class="rightImg">
         <div>
-          <img src="static/img/discountRight1.png" alt="" @click="$router.push('productDetail')">
+          <img src="static/img/discountRight1.png" alt="">
         </div>
         <div>
-          <img src="static/img/discountRight2.png" alt="" @click="$router.push('productDetail')">
+          <img src="static/img/discountRight2.png" alt="">
         </div>
       </div>
     </div>
@@ -60,10 +60,12 @@ export default {};
     }
     .leftImg {
       border: 1px solid #efefef;
-      box-shadow: #dbdbdb 1px 2px 5px;
+      box-shadow: #dbdbdb 1px 1px 4px;
+
       img {
         width: 100%;
         height: 4.1rem;
+        border-radius: 0.4rem;
       }
     }
     .rightImg {
@@ -73,12 +75,13 @@ export default {};
       div {
         height: 48%;
         width: 100%;
-        box-shadow: #dbdbdb 1px 2px 5px;
+        box-shadow: #dbdbdb 1px 1px 4px;
         border: 1px solid #efefef;
         img {
           width: 100%;
           height: 100%;
           margin-bottom: 0.1rem;
+          border-radius: 0.4rem;
         }
       }
     }

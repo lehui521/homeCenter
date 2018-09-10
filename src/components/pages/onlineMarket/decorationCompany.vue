@@ -97,7 +97,7 @@ export default {};
           font-weight: 500;
           span {
             display: inline-block;
-            padding: 2px 10px;
+            padding: 1px 7px;
             border-radius: 30px;
             background: #38ba50;
             color: #fff;

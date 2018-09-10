@@ -47,7 +47,7 @@ export default {
   data: function() {
     return {
       headerObj: {
-        title: "汇头条",
+        title: this.$route.query.market_id ? "新闻头条" : "汇头条",
         img: "static/img/sousuo.png",
         text: "indexNews"
       },
@@ -108,35 +108,13 @@ export default {
 </script>
 <style lang="scss">
 #headerNews {
-  background: #fff;
-  .van-tabs--line .van-tabs__wrap {
-    height: 0.72rem;
-  }
-  .van-tab {
-    line-height: 0.72rem;
-    font-size: 0.26rem;
-    background: #43474d;
-    color: #fff;
-    padding: 0 0.3rem;
-  }
-  .van-tabs__line {
-    height: 0;
-  }
-  .van-tab--active {
-    background: #1f2326;
-    color: #3cb850;
-  }
-
-  .van-tabs__nav {
-    display: -webkit-box;
-  }
-}
-.pages {
   padding-top: 1.6rem;
   position: fixed;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
+  overflow-y: scroll;
+  background: #fff;
   .headerNav {
     height: 0.72rem;
     position: fixed;
@@ -199,6 +177,29 @@ export default {
         }
       }
     }
+  }
+  .van-tabs--line .van-tabs__wrap {
+    height: 0.72rem;
+    width: 100%;
+  }
+  .van-tab {
+    line-height: 0.72rem;
+    font-size: 0.26rem;
+    background: #43474d;
+    color: #fff;
+    padding: 0 0.3rem;
+  }
+  .van-tabs__line {
+    height: 0;
+  }
+  .van-tab--active {
+    background: #1f2326;
+    color: #3cb850;
+  }
+
+  .van-tabs__nav {
+    display: flex;
+    justify-content: space-between;
   }
 }
 </style>

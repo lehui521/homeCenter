@@ -2,8 +2,8 @@
   <div class="pages" id="decorationEncyclopedia">
     <HeaderSame :headerObj="headerObj"></HeaderSame>
     <div class="headerNav">
-      <van-tabs>
-        <van-tab v-for="index in 8" :title="'装修百科' + index" :key="index">
+      <van-tabs :line-width="50">
+        <van-tab v-for="index in 8" :title="'材料百科' + index" :key="index">
         </van-tab>
       </van-tabs>
     </div>
@@ -14,7 +14,7 @@
       </van-tabs>
     </div>
     <div class="content">
-      <div class="single" @click="$router.push('materialEncyclopediaDetail')">
+      <div class="single" @click="$router.push('decorationEncyclopediaDetail')">
         <div class="singleLeft">
           <div class="leftText1">
             集成墙饰多少钱一平方
@@ -48,10 +48,33 @@ export default {
 </script>
 <style lang="scss" scoped>
 .pages {
-  padding-top: 0.88rem;
+  padding-top: 2.64rem;
   background: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
   .headerNav {
-    border-bottom: 1px solid #979797;
+    height: 0.88rem;
+    position: fixed;
+    top: 0.88rem;
+    width: 100%;
+    left: 0;
+    box-sizing: border-box;
+    background: #fff;
+    z-index: 9999;
+  }
+  .typeNav {
+    height: 0.88rem;
+    position: fixed;
+    top: 1.76rem;
+    width: 100%;
+    left: 0;
+    border-top: 1px solid #e5e5e5;
+    background: #fff;
+    z-index: 9999;
   }
   .content {
     .single {
@@ -59,7 +82,7 @@ export default {
       justify-content: flex-start;
       padding: 0.2rem 0.19rem;
       box-sizing: border-box;
-      border-bottom: 1px solid #979797;
+      border-bottom: 1px solid #e5e5e5;
       .singleLeft {
         width: 100%;
         position: relative;

@@ -16,65 +16,62 @@
   </div>
 </template>
 <script>
-  import HeaderSame from "../../common/sameHeader.vue";
+import HeaderSame from "../../common/sameHeader.vue";
 
-  export default {
-    data() {
-      return {
-        headerObj: {
-          title: "关于我们",
-          img: ""
-        },
+export default {
+  components: { HeaderSame },
+  data() {
+    return {
+      headerObj: {
+        title: "关于我们",
+        img: ""
       }
-    },
-    methods: {
-
-    },
-    created() {
-
-    }
-  }
-
+    };
+  },
+  methods: {},
+  created() {}
+};
 </script>
 <style lang="scss" scoped>
-  .page {
-    position: absolute;
-    bottom: 0;
-    top: 0;
-    left: 0;
-    right: 0;
-    font-size: 14px;
-    padding-top: 0.88rem;
-    background: #fff;
-    .header {}
-    .content {
-      .content-body {
-        padding: 10vw 0;
-        text-align: center;
-        border-bottom: 1px solid #eee;
-        .content-body-text {
-          font-size: 18px;
-          font-weight: bold;
-          margin-top: 3vw;
-        }
-        .content-body-version {
-          font-size: 16px;
-          margin-top: 2vw;
-          color: #333;
-        }
+.page {
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  font-size: 14px;
+  padding-top: 0.88rem;
+  background: #fff;
+  .header {
+  }
+  .content {
+    .content-body {
+      padding: 10vw 0;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+      .content-body-text {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 3vw;
       }
-      .content-text {
-        text-indent: 2em;
-        padding-top: 4vw;
-      }
-      .agreement {
-        margin-top: 5vw;
-        text-align: center;
-        text-decoration: underline;
-        color: green;
+      .content-body-version {
+        font-size: 16px;
+        margin-top: 2vw;
+        color: #333;
       }
     }
-    .footer {}
+    .content-text {
+      text-indent: 2em;
+      padding-top: 4vw;
+    }
+    .agreement {
+      margin-top: 5vw;
+      text-align: center;
+      text-decoration: underline;
+      color: #6cc895;
+    }
   }
-
+  .footer {
+  }
+}
 </style>

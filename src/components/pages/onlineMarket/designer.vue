@@ -105,7 +105,7 @@ export default {};
             font-weight: 500;
             span {
               display: inline-block;
-              padding: 2px 10px;
+              padding: 1px 7px;
               border-radius: 30px;
               background: #38ba50;
               color: #fff;
@@ -131,12 +131,18 @@ export default {};
             color: #999999;
             span {
               display: inline-block;
-              border-right: 1px solid #d5d5d5;
-              padding-right: 5px;
+              // padding-right: 5px;
               box-sizing: border-box;
+              position: relative;
             }
-            span:last-child {
-              border-right: 0;
+            span::after {
+              content: "|";
+              display: inline-block;
+              margin-left: 0.1rem;
+            }
+            span:last-child::after {
+              content: "";
+              margin-left: 0;
             }
           }
         }

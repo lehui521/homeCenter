@@ -55,7 +55,7 @@ export default {
   padding-top: 1.8rem;
   .header {
     height: 0.88rem;
-    border-bottom: 1px solid #d5d5d5;
+    border-bottom: 1px solid #e5e5e5;
     position: fixed;
     top: 0;
     z-index: 999;
@@ -101,6 +101,7 @@ export default {
   }
   .content {
     height: 100%;
+    box-sizing: border-box;
   }
 }
 </style>

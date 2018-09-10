@@ -1,28 +1,28 @@
 <template>
-    <div class="pages" id="updateMember">
-        <HeaderSame :headerObj="headerObj"></HeaderSame>
-        <div class="content">
-            <van-cell title="修改个人头像" is-link class="single" @click="uploadImg">
-                <img src="static/img/touxiang.jpg" alt="" class="touImg">
-            </van-cell>
-            <van-cell title="昵称" is-link class="single" value="杨文" @click="$router.push('updateMemberName')">
-            </van-cell>
-            <van-cell title="性别" is-link class="single" value="男" @click="showSex=true">
-            </van-cell>
-            <van-cell title="所在城市" is-link class="single" value="合肥" @click="showCity=true">
-            </van-cell>
-            <van-cell title="手机" class="single" value="1525211369">
-            </van-cell>
-        </div>
-        <!-- 所有的城市 -->
-        <van-popup v-model="showCity" position="bottom" :overlay="true">
-            <van-picker :columns="citys" @change="onChange" show-toolbar @cancel="showCity=false" @confirm="showCity=false" />
-        </van-popup>
-        <!-- 性别 -->
-        <van-popup v-model="showSex" position="bottom" :overlay="true">
-            <van-picker :columns="sexData" @change="onChange" show-toolbar @cancel="showSex=false" @confirm="clickConfirm" />
-        </van-popup>
+  <div class="pages" id="updateMember">
+    <HeaderSame :headerObj="headerObj"></HeaderSame>
+    <div class="content">
+      <van-cell title="修改个人头像" is-link class="single" @click="uploadImg">
+        <img src="static/img/touxiang.jpg" alt="" class="touImg">
+      </van-cell>
+      <van-cell title="昵称" is-link class="single" value="杨文" @click="$router.push('updateMemberName')">
+      </van-cell>
+      <van-cell title="性别" is-link class="single" value="男" @click="showSex=true">
+      </van-cell>
+      <van-cell title="所在城市" is-link class="single" value="合肥" @click="showCity=true">
+      </van-cell>
+      <van-cell title="手机" class="single" value="1525211369">
+      </van-cell>
     </div>
+    <!-- 所有的城市 -->
+    <van-popup v-model="showCity" position="bottom" :overlay="true">
+      <van-picker :columns="citys" @change="onChange" show-toolbar @cancel="showCity=false" @confirm="showCity=false" confirm-button-text="确定" />
+    </van-popup>
+    <!-- 性别 -->
+    <van-popup v-model="showSex" position="bottom" :overlay="true">
+      <van-picker :columns="sexData" @change="onChange" show-toolbar @cancel="showSex=false" @confirm="clickConfirm" />
+    </van-popup>
+  </div>
 </template>
 <script>
 import HeaderSame from "../../common/sameHeader.vue";
@@ -82,7 +82,7 @@ export default {
       color: #666666;
       letter-spacing: 0;
       padding: 0;
-      border-bottom: 1px solid #979797;
+      border-bottom: 0.01rem solid #e5e5e5;
       line-height: 1.08rem;
       padding-right: 0.3rem;
       box-sizing: border-box;

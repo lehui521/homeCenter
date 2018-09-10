@@ -10,7 +10,7 @@ export default {
         r: 0
       },
       num: 100,
-      text: "已领取" + this.proNum
+      text: "已抢" + this.proNum
     };
   },
   created: function() {

@@ -21,7 +21,7 @@
               2018.7.12-2019.12.12
             </div>
             <div class="leftButton" @click="status.showSubtraction=true">
-              立即领取
+              立即使用
             </div>
           </div>
           <img src="static/img/couponBg.png" alt="" class="couponLeftImg">
@@ -46,7 +46,7 @@
               2018.7.12-2019.12.12
             </div>
             <div class="leftButton discountColor" @click="status.showDiscount=true">
-              立即领取
+              立即使用
             </div>
           </div>
           <img src="static/img/zhekouBg.png" alt="" class="couponLeftImg">

@@ -53,12 +53,14 @@
       </div>
     </div>
     <van-list v-model="loading" :finished="finished" @load="getData" style="height:100%;" :offset="10">
-      <vueWaterfallEasy :imgsArr="imgsArr" :loadingDotCount="0">
+      <vueWaterfallEasy :imgsArr="imgsArr" :loadingDotCount="0" class="singleCover">
         <template slot-scope="props">
           <div class="blank"></div>
           <div class="title">{{props.value.info}}
             <div class="imgNum">
-              <img src="static/img/numImg.png" alt="">
+              <div class="imgN">
+                <img src="static/img/numImg.png" alt="">
+              </div>
               <span>10</span>
             </div>
           </div>
@@ -220,17 +222,22 @@ export default {
     right: 0.16rem;
     height: 0.38rem;
     padding: 0 0.1rem;
-    border-radius: 4px;
-    border: 1px solid #ffffff;
-    font-size: 0.24rem;
+    border-radius: 1px;
+    font-size: 0.23rem;
     color: #ffffff;
     letter-spacing: 0;
     line-height: 0.38rem;
-    img {
+    .imgN {
       width: 0.28rem;
       float: left;
-      margin-top: 0.05rem;
       margin-right: 0.05rem;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+    }
+    img {
+      width: 0.28rem;
     }
   }
 }

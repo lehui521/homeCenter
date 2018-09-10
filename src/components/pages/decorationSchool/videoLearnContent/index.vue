@@ -1,12 +1,12 @@
 <template>
-    <div class="pages">
-        <div class="header">
-            <span>视频列表</span>
-            <img src="static/img/fenxiangB.png" alt="" class="share">
-            <img src="static/img/grayStar.png" alt="" class="star">
-            <img src="static/img/leftArrow.png" alt="" class="back" @click="$router.go(-1)">
-        </div>
+  <div class="pages">
+    <div class="header">
+      <span>视频列表</span>
+      <!-- <img src="static/img/fenxiangB.png" alt="" class="share">
+            <img src="static/img/grayStar.png" alt="" class="star"> -->
+      <img src="static/img/leftArrow.png" alt="" class="back" @click="$router.go(-1)">
     </div>
+  </div>
 </template>
 <script>
 export default {};

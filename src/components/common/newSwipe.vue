@@ -30,18 +30,23 @@ export default {
   methods: {
     swiperNew: function() {
       let num = 0;
+      let time = 2300;
       let news = document.getElementById("newsSwiper");
       setInterval(() => {
         num += 1;
         news.style.transition = "all 0.3s ease-in-out";
-        if (num > this.newArr.length) {
-          num = 0;
-          news.style.transition = "all 0s linear";
+        if (num >= this.newArr.length) {
+          setTimeout(() => {
+            num = 0;
+            news.style.transition = "all 0s linear";
+            news.style.top = 0;
+          }, 300);
         }
         news.style.top = -0.6 * num + "rem";
-      }, 2300);
+      }, time);
     },
     clickNews: function(res) {
+      alert("aaa");
       this.$router.push(
         "indexNew?city_id=" + this.cityData.id + "&news_id=" + res.news_id
       );

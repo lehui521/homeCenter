@@ -6,13 +6,13 @@
       <span :style="clickStatus=='/'?'color:#49C05F;':''">首页</span>
     </div>
     <div @click="handleClick('/onlineMarket')" class="footerItem">
-      <img src="static/img/onlineMart.png" alt="" v-if="clickStatus!='/onlineMarket'">
-      <img src="static/img/onlineMartA.png" alt="" v-if="clickStatus=='/onlineMarket'">
+      <img src="static/img/onlineMart.png" alt="" v-if="clickStatus!='/onlineMarket'" class="onlineMarket">
+      <img src="static/img/onlineMartA.png" alt="" v-if="clickStatus=='/onlineMarket'" class="onlineMarket">
       <span :style="clickStatus=='/onlineMarket'?'color:#49C05F;':''">网上市场</span>
     </div>
     <div @click="handleClick('/decorationSchool')" class="footerItem">
-      <img src="static/img/decorate.png" alt="" v-if="clickStatus!='/decorationSchool'">
-      <img src="static/img/decorateA.png" alt="" v-if="clickStatus=='/decorationSchool'">
+      <img src="static/img/decorate.png" alt="" v-if="clickStatus!='/decorationSchool'" class="decorationSchool">
+      <img src="static/img/decorateA.png" alt="" v-if="clickStatus=='/decorationSchool'" class="decorationSchool">
       <span :style="clickStatus=='/decorationSchool'?'color:#49C05F;':''">装修学堂</span>
     </div>
     <div @click="handleClick('/my')" class="footerItem">
@@ -74,11 +74,18 @@ export default {
     flex-direction: column;
     display: flex;
     align-items: center;
+
     img {
       display: block;
       width: 0.4rem;
       height: 0.46rem;
       margin-top: 0.1rem;
+    }
+    .decorationSchool {
+      width: 0.35rem;
+    }
+    .onlineMarket {
+      width: 0.45rem;
     }
     span {
       display: block;

@@ -232,8 +232,8 @@ export default {
     .name {
       font-size: 0.3rem;
       font-weight: 500;
-      height: 0.8rem;
-      line-height: 0.8rem;
+      height: 0.6rem;
+      line-height: 0.6rem;
       color: #444444;
       .icon {
         float: right;
@@ -244,7 +244,7 @@ export default {
       img {
         height: 0.24rem;
         float: right;
-        margin-top: 0.27rem;
+        margin-top: 0.17rem;
       }
     }
     .describe {
@@ -275,7 +275,7 @@ export default {
     }
   }
   .tag {
-    margin-top: 0.2rem;
+    // margin-top: 0.2rem;
   }
   .phone {
     margin-top: 0.2rem;

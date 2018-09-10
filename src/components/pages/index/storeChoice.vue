@@ -56,11 +56,10 @@ export default {};
     box-sizing: border-box;
     padding: 0 0.2rem;
     .list {
-      border: 1px solid #efefef;
       width: 3.46rem;
       padding: 0.1rem;
       box-sizing: border-box;
-      box-shadow: #dedede 2px 2px 5px;
+      box-shadow: #dedede 1px 1px 4px;
       margin-top: 0.2rem;
       img {
         width: 3.26rem;

@@ -1,18 +1,18 @@
 <template>
-    <div class="pages">
-        <div class="header">
-            <span>百科详情</span>
-            <img src="static/img/greenStar.png" alt="" class="star">
-            <img src="static/img/fenxiang.png" alt="" class="share">
-            <img src="static/img/leftArrow.png" alt="" class="back" @click="$router.go(-1)">
-        </div>
-        <div class="title">
-            详情的标题
-        </div>
-        <div class="detailContent">
-            集成墙饰多少钱一平方撒比较 快nasal看书来看你啦说的是的 了你了大半年离开 阿乐开怀啦 爱上看啊就是按逻辑啊可的风 是你 爱上
-        </div>
+  <div class="pages">
+    <div class="header">
+      <span>百科详情</span>
+      <img src="static/img/greenStar.png" alt="" class="star">
+      <img src="static/img/fenxiangB.png" alt="" class="share">
+      <img src="static/img/leftArrow.png" alt="" class="back" @click="$router.go(-1)">
     </div>
+    <div class="title">
+      详情的标题
+    </div>
+    <div class="detailContent">
+      集成墙饰多少钱一平方撒比较 快nasal看书来看你啦说的是的 了你了大半年离开 阿乐开怀啦 爱上看啊就是按逻辑啊可的风 是你 爱上
+    </div>
+  </div>
 </template>
 <script>
 export default {};
@@ -22,6 +22,12 @@ export default {};
 .pages {
   padding-top: 0.88rem;
   background: #fff;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
   .header {
     height: 0.88rem;
     position: fixed;
@@ -56,8 +62,8 @@ export default {};
     color: #333333;
     text-align: center;
     padding: 0.25rem 0;
-    border-bottom: 1px solid #979797;
-    border-top: 1px solid #979797;
+    border-bottom: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
     background: #fff;
   }
   .detailContent {

@@ -50,6 +50,14 @@ export default new Router({
             component: resolve => require(['../components/pages/index/salesPromotion/index'], resolve)
         }, //促销活动
         {
+            path: '/marketAD',
+            component: resolve => require(['../components/pages/index/salesPromotion/marketAD'], resolve)
+        },
+        {
+            path: '/storeAD',
+            component: resolve => require(['../components/pages/index/salesPromotion/storeAD'], resolve)
+        },
+        {
             path: '/searchSalesPro',
             component: resolve => require(['../components/pages/index/salesPromotion/searchSalesPro'], resolve)
         }, //促销搜索
@@ -85,6 +93,10 @@ export default new Router({
             path: '/storeDetail',
             component: resolve => require(['../components/pages/index/storeChoiceContent/storeDetail'], resolve)
         }, //店铺详情
+        {
+            path: '/storeIntroduction',
+            component: resolve => require(['../components/pages/index/storeChoiceContent/storeIntroduction'], resolve)
+        },
         {
             path: '/searchStoreChoice',
             component: resolve => require(['../components/pages/index/storeChoiceContent/searchStoreChoice'], resolve)

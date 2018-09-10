@@ -26,9 +26,9 @@
     <div class="grayBlank" style=" border-bottom: 1px solid #d5d5d5;">
     </div>
     <router-link class="myNews" to="/myMessage">
-      <img src="static/img/myxiaoxi.png" alt="" class="leftImg">
+      <img src="static/img/myxiaoxi.png" alt="" class="leftImg new">
       <span>消息</span>
-      <img src="static/img/fanhui.png" alt="" class="rightIcon">
+      <img src="static/img/fanhui.png" alt="" class="rightIcon ">
     </router-link>
     <div class="myNews" @click="$router.push('myCoupon')">
       <img src="static/img/myyouhuiquan.png" alt="" class="leftImg">
@@ -177,6 +177,9 @@
       height: 0.24rem;
       float: right;
       margin-top: 0.32rem;
+    }
+    .new {
+      height: 0.43rem;
     }
   }
 }

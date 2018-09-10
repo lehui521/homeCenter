@@ -60,10 +60,12 @@ export default {};
     }
     .leftImg {
       border: 1px solid #efefef;
-      box-shadow: #dbdbdb 1px 2px 5px;
+      box-shadow: #dbdbdb 1px 1px 4px;
+
       img {
         width: 100%;
         height: 4.1rem;
+        border-radius: 0.4rem;
       }
     }
     .rightImg {
@@ -73,12 +75,13 @@ export default {};
       div {
         height: 48%;
         width: 100%;
-        box-shadow: #dbdbdb 1px 2px 5px;
+        box-shadow: #dbdbdb 1px 1px 4px;
         border: 1px solid #efefef;
         img {
           width: 100%;
           height: 100%;
           margin-bottom: 0.1rem;
+          border-radius: 0.4rem;
         }
       }
     }

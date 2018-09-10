@@ -25,13 +25,13 @@
     </div>
     <div class="discountProduct">
       <div class="product" v-for="(item,i) in goodData" :key="i">
-        <img src="static/img/banner1.png" alt="" class="discountProImg">
+        <img :src="item.image" alt="" class="discountProImg">
         <div class="producText">
           <div class="text1">{{item.shop_name}}&nbsp;&nbsp;{{item.name}}</div>
           <div class="text2">上海市灯具城</div>
           <div class="text3">
-            <span>￥{{item.price}}</span>
-            <s>￥3600</s>
+            <span>￥{{item.zkprice}}</span>
+            <s>￥{{item.price}}</s>
           </div>
         </div>
         <!-- 已领取的样式 -->
@@ -47,7 +47,7 @@
             <svgCircle :proNum="item.bfb"></svgCircle>
           </div>
           <div class="discountImgContent">
-            <span class="goRecieveButton">立即领取</span>
+            <span class="goRecieveButton" @click="recieveCoupon">立即领取</span>
           </div>
         </div>
       </div>
@@ -77,7 +77,11 @@ export default {
       bannerData: {},
       typeData: [],
       goodData: [],
-      headerNavData: []
+      headerNavData: [],
+      queryData: {
+        ticket:
+          this.$route.query.ticket || "JFWsM0I3ESlfC4CrUIXKtVz_bY_b423g_c_c"
+      }
     };
   },
   created: function() {
@@ -87,6 +91,27 @@ export default {
     clickNav: function(res) {
       this.typeId = res.type_id;
       this.activeTypeName = res.name;
+    },
+    recieveCoupon: function(res) {
+      this.tool
+        .request({
+          url: "shop/receivegoodscoupons",
+          method: "post",
+          params: {
+            coupon_id: res.coupon_id,
+            ticket: this.queryData.ticket
+          }
+        })
+        .then(res => {
+          this.$dialog
+            .alert({
+              title: "提示",
+              message: res.msg
+            })
+            .then(() => {
+              this.getData();
+            });
+        });
     },
     getData: function() {
       this.tool
@@ -99,10 +124,10 @@ export default {
         })
         .then(res => {
           if (res.status == 200) {
-            console.log(res);
             this.bannerData = res.data.banner;
             this.typeData = res.data.category;
             this.goodData = res.data.goods;
+            this.headerNavData = [];
             for (var i in [1, 2, 3]) {
               this.headerNavData.push(res.data.category[i]);
             }
@@ -286,7 +311,7 @@ export default {
       .discountImg {
         width: 30%;
         box-sizing: border-box;
-        padding-top: 0.2rem;
+        margin-top: 0.2rem;
         position: relative;
         display: flex;
         justify-content: flex-start;

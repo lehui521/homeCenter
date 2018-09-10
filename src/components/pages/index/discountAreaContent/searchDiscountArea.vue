@@ -162,7 +162,7 @@ export default {
       .discountImg {
         width: 30%;
         box-sizing: border-box;
-        padding-top: 0.2rem;
+        margin-top: 0.2rem;
         position: relative;
         display: flex;
         justify-content: flex-start;

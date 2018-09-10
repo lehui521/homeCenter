@@ -50,6 +50,12 @@ export default {
 .pages {
   padding-top: 2.64rem;
   background: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
   .headerNav {
     height: 0.88rem;
     position: fixed;
@@ -57,6 +63,8 @@ export default {
     width: 100%;
     left: 0;
     box-sizing: border-box;
+    z-index: 9999;
+    background: #fff;
   }
   .typeNav {
     height: 0.88rem;
@@ -64,7 +72,9 @@ export default {
     top: 1.76rem;
     width: 100%;
     left: 0;
-    border-top: 1px solid #979797;
+    border-top: 1px solid #e5e5e5;
+    z-index: 9999;
+    background: #fff;
   }
   .content {
     .single {
@@ -72,7 +82,7 @@ export default {
       justify-content: flex-start;
       padding: 0.2rem 0.19rem;
       box-sizing: border-box;
-      border-bottom: 1px solid #979797;
+      border-bottom: 1px solid #e5e5e5;
       .singleLeft {
         width: 100%;
         position: relative;

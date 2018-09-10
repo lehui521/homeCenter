@@ -246,6 +246,7 @@ export default {
       justify-content: space-between;
       border-bottom: 1px solid #d5d5d5;
       padding: 15px 8px;
+      padding-bottom: 0.11rem;
       .marketImg {
         width: 40%;
         box-sizing: border-box;
