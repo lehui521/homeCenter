@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import axios from 'axios';
+import VueLazyload from 'vue-lazyload'
 
 Vue.config.productionTip = false
 
@@ -12,7 +13,12 @@ import 'vant/lib/vant-css/index.css';
 import '../static/css/main.css'
 
 Vue.use(Vant); //引入vant组件
-
+Vue.use(VueLazyload, {
+    preLoad: 1.3,
+    error: 'static/img/error.jpg',
+    loading: 'static/img/error.jpg',
+    attempt: 1
+})
 
 import VideoPlayer from 'vue-video-player'
 require('video.js/dist/video-js.css')

@@ -1,6 +1,6 @@
 <template>
   <div class="discountArea">
-    <div class="title">
+    <div class="title" @click="$router.push('discountAreaContent')">
       <img src="static/img/zhekouzhuanqu.png" alt="">
       <img src="static/img/rightIcon.png" alt="" class="rightIcon">
     </div>

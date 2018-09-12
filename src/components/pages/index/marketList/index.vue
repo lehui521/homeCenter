@@ -234,6 +234,8 @@ export default {
       border-bottom: 1px solid #d5d5d5;
       padding: 15px 8px;
       background: #fff;
+      padding-bottom: 2px;
+      padding-top: 4px;
       .marketImg {
         width: 40%;
         box-sizing: border-box;

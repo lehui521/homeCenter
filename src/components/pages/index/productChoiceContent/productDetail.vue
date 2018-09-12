@@ -59,34 +59,37 @@
     </footer>
     <van-popup v-model="showProductCoupon" position="bottom" :overlay="true">
       <div class="couponTitle">优惠券</div>
-      <div class="couponImg" v-for="(item ,i) in couponData" :key="i">
-        <div class="left">
-          <div class="leftText">
-            <div class="leftText1">
-              {{item.name}}
+      <div class="couponContent">
+        <div class="couponImg" v-for="(item ,i) in couponData" :key="i">
+          <div class="left">
+            <div class="leftText">
+              <div class="leftText1">
+                {{item.name}}
+              </div>
+              <div class="leftText2">
+                {{item.shop_name}}
+              </div>
+              <div class="leftText3">
+                2018.7.12-2019.12.12
+              </div>
+              <div class="leftButton" v-if="item.lqstatus==2">
+                立即领取
+              </div>
+              <div class="leftButton" v-if="item.lqstatus==1">
+                已领取
+              </div>
             </div>
-            <div class="leftText2">
-              {{item.shop_name}}
-            </div>
-            <div class="leftText3">
-              2018.7.12-2019.12.12
-            </div>
-            <div class="leftButton" v-if="item.lqstatus==2">
-              立即领取
-            </div>
-            <div class="leftButton" v-if="item.lqstatus==1">
-              已领取
-            </div>
+            <img src="static/img/zhekouBg.png" alt="" class="couponLeftImg">
           </div>
-          <img src="static/img/couponBg.png" alt="" class="couponLeftImg">
+          <div class="right">
+            <img src="static/img/zhekou.png" alt="" class="rightImg">
+            <div class="rightText1">30元</div>
+            <div class="rightText2">满30元可用</div>
+          </div>
         </div>
-        <div class="right">
-          <img src="static/img/manjian.png" alt="" class="rightImg">
-          <div class="rightText1">30元</div>
-          <div class="rightText2">满30元可用</div>
-        </div>
+        <div class="couponButton" @click="status.showCoupon=false">完成</div>
       </div>
-      <div class="couponButton" @click="status.showCoupon=false">完成</div>
+
     </van-popup>
   </div>
 </template>
@@ -508,6 +511,16 @@ export default {
     color: #ffffff;
     line-height: 1rem;
     background: #3cb850;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    z-index: 99999;
+  }
+  .couponContent {
+    height: 7rem;
+    margin-bottom: 1rem;
+    overflow-y: scroll;
   }
 }
 </style>

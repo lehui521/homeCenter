@@ -53,7 +53,7 @@
       </div>
     </div>
     <van-list v-model="loading" :finished="finished" @load="getData" style="height:100%;" :offset="10">
-      <vueWaterfallEasy :imgsArr="imgsArr" class="content" :loadingDotCount="0">
+      <vueWaterfallEasy :imgsArr="imgsArr" class="content" :loadingDotCount="0" :mobileGap="16">
         <div slot="waterfall-over">已经到底了</div>
       </vueWaterfallEasy>
     </van-list>
@@ -118,6 +118,9 @@ export default {
 <style lang="scss" scoped>
 .singleDragram {
   height: 100%;
+  padding-top: 0.2rem;
+  box-sizing: border-box;
+  background: #f8f8f8;
   .TypeList {
     position: fixed;
     z-index: 999;

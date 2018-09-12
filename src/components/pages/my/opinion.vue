@@ -70,7 +70,7 @@ export default {
     .item-input {
       width: 100%;
       border: none;
-      text-indent: 2em;
+      text-indent: 0.3rem;
     }
   }
   .footer {

@@ -30,7 +30,6 @@
             </div>
             <div class="marketHot">
               <div class="icon"><img src="static/img/re.png" alt=""></div>
-
               <span>市场新开业，品牌大放价</span>
             </div>
           </div>
@@ -65,6 +64,8 @@ export default {};
       border-bottom: 1px solid #e9ecf3;
       padding: 15px 8px;
       padding-left: 0;
+      padding-bottom: 2px;
+      padding-top: 4px;
       .marketImg {
         width: 40%;
         box-sizing: border-box;

@@ -2,7 +2,7 @@
   <div class="pages">
     <searchHeader @searchClick="handleSearch"></searchHeader>
     <!-- 内容 -->
-    <div class="discountProduct" v-if="true">
+    <div class="discountProduct" v-if="showStatus==1">
       <div class="product">
         <img src="static/img/banner1.png" alt="" class="discountProImg">
         <div class="producText">
@@ -31,7 +31,7 @@
         </div>
       </div>
     </div>
-    <div class="noProduct" v-else>
+    <div class="noProduct" v-if="showStatus==2">
       <img src="static/img/noProduct.png" alt="">
       <div class="text">未搜索到相关商品</div>
     </div>
@@ -44,12 +44,40 @@ export default {
   components: { searchHeader, svgCircle },
   data: function() {
     return {
-      proNum: 30
+      proNum: "3%",
+      searchData: [],
+      showStatus: 0
     };
   },
   methods: {
     handleSearch: function(res) {
-      console.log(res);
+      this.tool
+        .request({
+          url: "v3_user/searchcoupon",
+          method: "post",
+          params: {
+            keyword: res
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.searchData = res.data;
+            if (this.searchData.length == 0) {
+              this.showStatus = 2;
+            } else {
+              this.showStatus = 1;
+            }
+          } else {
+            this.$dialog
+              .alert({
+                title: "提示",
+                message: res.msg
+              })
+              .then(() => {
+                this.showStatus = 0;
+              });
+          }
+        });
     }
   }
 };

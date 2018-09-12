@@ -23,6 +23,7 @@
     "svg-progress-bar": "^0.1.17",
     "vant": "^1.1.14",
     "vue": "^2.5.2",
+    "vue-lazyload": "^1.2.6",
     "vue-router": "^3.0.1",
     "vue-video": "^0.1.7",
     "vue-video-player": "^5.0.2",

@@ -5,7 +5,7 @@
         <van-icon name="search" />
       </div>
       <div class="input">
-        <input type="text" placeholder="请输入搜索内容" @keyup.enter.native="searchHandle">
+        <input type="text" v-model="svalue" placeholder="请输入搜索内容" @keyup.enter="searchHandle">
       </div>
     </div>
     <div class="cancel" @click="$router.go(-1)">取消</div>
@@ -16,12 +16,13 @@
 export default {
   data: function() {
     return {
-      searchData: ""
+      searchData: "",
+      svalue: ""
     };
   },
   methods: {
     searchHandle: function() {
-      this.$emit("searchClick", this.searchData);
+      this.$emit("searchClick", this.svalue);
     }
   }
 };

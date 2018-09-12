@@ -11,7 +11,7 @@
       </van-cell>
       <van-cell title="所在城市" is-link class="single" value="合肥" @click="showCity=true">
       </van-cell>
-      <van-cell title="手机" class="single" value="1525211369">
+      <van-cell title="手机" class="single" value="152****369">
       </van-cell>
     </div>
     <!-- 所有的城市 -->

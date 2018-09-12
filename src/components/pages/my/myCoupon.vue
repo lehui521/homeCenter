@@ -2,50 +2,50 @@
   <div class="pages">
     <HeaderSame :headerObj="headerObj"></HeaderSame>
     <div class="tabList">
-      <div class="tab" @click="clickTab('noUse')" :style="status.tabStatus=='noUse'?status.tabStyle:''">未使用</div>
-      <div class="tab" @click="clickTab('used')" :style="status.tabStatus=='used'?status.tabStyle:''">已使用</div>
-      <div class="tab" @click="clickTab('overdue')" :style="status.tabStatus=='overdue'?status.tabStyle:''">已过期</div>
+      <div class="tab" @click="clickTab(0)" :style="queryData.status==0?status.tabStyle:''">未使用</div>
+      <div class="tab" @click="clickTab(1)" :style="queryData.status==1?status.tabStyle:''">已使用</div>
+      <div class="tab" @click="clickTab(2)" :style="queryData.status==2?status.tabStyle:''">已过期</div>
     </div>
-    <div class="couponList" v-if="status.tabStatus=='noUse'">
+    <div class="couponList" v-if="queryData.status==0">
       <!-- 满减券 -->
-      <div class="couponImg">
+      <div class="couponImg" v-for="(item,i) in couponData" :key="i" v-if="item.type==1">
         <div class="left">
           <div class="leftText">
             <div class="leftText1">
-              我乐橱柜
+              {{item.goods_name}}
             </div>
             <div class="leftText2">
-              上海家饰佳徐汇店
+              {{item.market}}
             </div>
             <div class="leftText3">
-              2018.7.12-2019.12.12
+              {{item.begin_time}}-{{item.end_time}}
             </div>
-            <div class="leftButton" @click="status.showSubtraction=true">
+            <div class="leftButton" @click="status.showSubtraction=true;tanCouponDetail=item">
               立即使用
             </div>
           </div>
-          <img src="static/img/couponBg.png" alt="" class="couponLeftImg">
+          <img src="static/img/manjianTan.png" alt="" class="couponLeftImg">
         </div>
         <div class="right">
           <img src="static/img/manjian.png" alt="" class="rightImg">
-          <div class="rightText1">30元</div>
-          <div class="rightText2">满30元可用</div>
+          <div class="rightText1">{{item.coupon}}元</div>
+          <div class="rightText2">满{{item.full}}元可用</div>
         </div>
       </div>
       <!-- 折扣券 -->
-      <div class="couponImg disCountBorder">
+      <div class="couponImg disCountBorder" v-for="(item,i) in couponData" :key="i" v-if="item.type==2">
         <div class="left">
           <div class="leftText">
             <div class="leftText1">
-              我乐橱柜
+              {{item.goods_name}}
             </div>
             <div class="leftText2">
-              上海家饰佳徐汇店
+              {{item.market}}
             </div>
             <div class="leftText3">
-              2018.7.12-2019.12.12
+              {{item.begin_time}}-{{item.end_time}}
             </div>
-            <div class="leftButton discountColor" @click="status.showDiscount=true">
+            <div class="leftButton discountColor" @click="status.showDiscount=true;tanCouponDetail=item">
               立即使用
             </div>
           </div>
@@ -53,23 +53,24 @@
         </div>
         <div class="right">
           <img src="static/img/zhekou.png" alt="" class="rightImg">
-          <div class="rightText1 discountColor">9.5折</div>
+          <div class="rightText1 discountColor">{{item.coupon/10}}折</div>
         </div>
       </div>
     </div>
     <!-- 弹出使用弹框 -->
     <van-popup v-model="status.showSubtraction">
       <div class="topImg">
+        <img src="static/img/manjianTan.png" alt="" style="width:100%;height:100%;">
         <span class="cancel" @click="status.showSubtraction=false">×</span>
         <div class="topText">
-          <div class="text1">￥100</div>
-          <div class="text2">满1000元可用</div>
+          <div class="text1">￥{{tanCouponDetail.coupon}}</div>
+          <div class="text2">满{{tanCouponDetail.full}}元可用</div>
           <div class="text3">满减劵</div>
         </div>
         <div class="bottomText">
           <div class="text1">
             有效期：
-            <span style="color:#666666;">2018.6.12-2018.12.11</span>
+            <span style="color:#666666;">{{tanCouponDetail.begin_time}}-{{tanCouponDetail.end_time}}</span>
           </div>
           <div class="text1">
             适用范围：
@@ -80,22 +81,23 @@
             <span style="color:#666666;">不可与其他优惠券叠加使用</span>
           </div>
           <div class="topImg-btn">
-            <img src="static/img/redution.png" alt="">
+            <img src="static/img/redution.png" alt="" @click="useClick">
           </div>
         </div>
       </div>
     </van-popup>
     <van-popup v-model="status.showDiscount">
-      <div class="topImg" style="background-image:url(../../static/img/zhekouTan.png)">
+      <div class="topImg">
+        <img src="static/img/zhekouTan.png" alt="" style="width:100%;height:100%;">
         <span class="cancel" @click="status.showDiscount=false">×</span>
         <div class="topText">
-          <div class="text1">9折</div>
+          <div class="text1">{{tanCouponDetail.coupon/10}}折</div>
           <div class="text3">折扣劵</div>
         </div>
         <div class="bottomText">
           <div class="text1">
             有效期：
-            <span style="color:#666666;">2018.6.12-2018.12.11</span>
+            <span style="color:#666666;">{{tanCouponDetail.begin_time}}-{{tanCouponDetail.end_time}}</span>
           </div>
           <div class="text1">
             适用范围：
@@ -106,23 +108,23 @@
             <span style="color:#666666;">不可与其他优惠券叠加使用</span>
           </div>
           <div class="topImg-btn">
-            <img src="static/img/discount.png" alt="">
+            <img src="static/img/discount.png" alt="" @click="useClick">
           </div>
         </div>
       </div>
     </van-popup>
-    <div class="couponList" v-if="status.tabStatus=='used'">
-      <div class="couponImg borderUsedColor">
+    <div class="couponList" v-if="queryData.status==1">
+      <div class="couponImg borderUsedColor" v-for="(item,i) in couponData" :key="i">
         <div class="left">
           <div class="leftText">
             <div class="leftText1">
-              我乐橱柜
+              {{item.goods_name}}
             </div>
             <div class="leftText2">
-              上海家饰佳徐汇店
+              {{item.market}}
             </div>
             <div class="leftText3">
-              2018.7.12-2019.12.12
+              {{item.begin_time}}-{{item.end_time}}
             </div>
             <div class="leftButton usedColor">
               已使用
@@ -138,18 +140,18 @@
       </div>
     </div>
     <!-- 已过期 -->
-    <div class="couponList" v-if="status.tabStatus=='overdue'">
-      <div class="couponImg borderUsedColor">
+    <div class="couponList" v-if="queryData.status==2">
+      <div class="couponImg borderUsedColor" v-for="(item,i) in couponData" :key="i">
         <div class="left">
           <div class="leftText">
             <div class="leftText1">
-              我乐橱柜
+              {{item.goods_name}}
             </div>
             <div class="leftText2">
-              上海家饰佳徐汇店
+              {{item.market}}
             </div>
             <div class="leftText3">
-              2018.7.12-2019.12.12
+              {{item.begin_time}}-{{item.end_time}}
             </div>
             <div class="leftButton usedColor">
               已过期
@@ -178,12 +180,18 @@ export default {
         title: "我的优惠劵",
         img: ""
       },
+      queryData: {
+        status: 0,
+        ticket:
+          this.$route.query.ticket || "JFWsM0I3ESlfC4CrUIXKtVz_bY_b423g_c_c"
+      },
       status: {
-        tabStatus: "noUse",
         tabStyle: "color:#fff;background:#33bf82;",
         showSubtraction: false, //满减
         showDiscount: false //折扣
-      }
+      },
+      couponData: [],
+      tanCouponDetail: {}
     };
   },
   created: function() {
@@ -191,17 +199,57 @@ export default {
   },
   methods: {
     clickTab: function(res) {
-      this.status.tabStatus = res;
+      this.queryData.status = res;
+      this.getData();
+    },
+    useClick: function() {
+      this.tool
+        .request({
+          url: "v3_user/usecoupon",
+          method: "post",
+          params: {
+            ticket: this.queryData.ticket,
+            id: this.tanCouponDetail.id,
+            coupon_id: this.tanCouponDetail.coupon_id
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.$dialog
+              .alert({
+                title: "提示",
+                message: "使用成功"
+              })
+              .then(() => {
+                this.getData();
+                status.showSubtraction = false;
+              });
+          } else {
+            this.$dialog
+              .alert({
+                title: "提示",
+                message: res.msg
+              })
+              .then(() => {
+                this.getData();
+                status.showSubtraction = false;
+              });
+          }
+        });
     },
     getData: function() {
       this.tool
         .request({
           url: "v3_user/coupon",
-          ticket: ""
+          method: "post",
+          params: {
+            status: this.queryData.status,
+            ticket: this.queryData.ticket
+          }
         })
         .then(res => {
           if (res.status == 200) {
-            console.log(res);
+            this.couponData = res.data;
           }
         });
     }
@@ -334,7 +382,7 @@ export default {
   .topImg {
     height: 7.2rem;
     width: 6rem;
-    background-image: url(../../../../static/img/manjianTan.png);
+
     background-repeat: no-repeat;
     background-size: cover;
     border: 1px solid rgba(0, 0, 0, 0);
@@ -344,10 +392,14 @@ export default {
       color: #fff;
       right: 0.6rem;
       font-size: 23px;
+      z-index: 999;
     }
     .topText {
       width: 100%;
       text-align: center;
+      position: absolute;
+      top: 0;
+      left: 0;
       .text1 {
         margin-top: 0.58rem;
         font-size: 0.64rem;

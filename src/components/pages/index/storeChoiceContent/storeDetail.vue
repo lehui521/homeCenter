@@ -63,19 +63,19 @@
           </div>
         </div>
         <!-- 已领取的样式 -->
-        <div class="discountImg" v-if="item.status!=1">
+        <div class="discountImg" v-if="item.lqstatus==1">
           <div class="discountImgContent">
             <span class="goUseButton">去使用</span>
           </div>
           <img src="static/img/yilingqu.png" alt="" class="recievedImg">
         </div>
         <!-- 未领取的样式 -->
-        <div class="discountImg" v-if="item.status==1">
+        <div class="discountImg" v-if="item.lqstatus==2 || !item.lqstatus">
           <div class="circle">
-            <svgCircle :proNum="proNum"></svgCircle>
+            <svgCircle :proNum="item.bfb"></svgCircle>
           </div>
           <div class="discountImgContent">
-            <span class="goRecieveButton">立即领取</span>
+            <span class="goRecieveButton" @click="recieveCoupon(item)">立即领取</span>
           </div>
         </div>
       </div>
@@ -136,7 +136,7 @@
           <img :src="item.image?item.image:'static/img/banner1.png'" alt="">
         </div>
         <div class="textA">
-          <span class="textA1">{{item.title}} | </span>
+          <span class="textA1">{{item.title}} </span>
           <span class="textA2">{{item.detail}}</span>
           <img src="static/img/rightArrow.png" alt="" class="textAImg">
           <span class="textA3">了解详情</span>
@@ -148,32 +148,35 @@
       <div class="attention" @click="clickFocus(-1)" v-if="collectStatus==200">取消关注</div>
       <div class="phoneSeller" @click="callStore">联系商家</div>
     </footer>
-    <van-popup v-model="status.showCoupon" position="bottom" :overlay="true">
+    <van-popup v-model="status.showCoupon" position="bottom" :overlay="true" class="tanDiscount">
       <div class="couponTitle">折扣券</div>
-      <div class="couponImg" v-for="(item ,i) in couponData" :key="i">
-        <div class="left">
-          <div class="leftText">
-            <div class="leftText1">
-              {{item.name}}
+      <div class="couponContent">
+        <div class="couponImg" v-for="(item ,i) in couponData" :key="i">
+          <div class="left">
+            <div class="leftText">
+              <div class="leftText1">
+                乐橱柜
+              </div>
+              <div class="leftText2">
+                上海家饰佳徐汇店
+              </div>
+              <div class="leftText3">
+                {{item.begin_time}} - {{item.end_time}}
+              </div>
+              <div class="leftButton">
+                立即领取
+              </div>
             </div>
-            <div class="leftText2">
-              上海家饰佳徐汇店
-            </div>
-            <div class="leftText3">
-              2018.7.12-2019.12.12
-            </div>
-            <div class="leftButton">
-              立即领取
-            </div>
+            <img src="static/img/couponBg.png" alt="" class="couponLeftImg">
           </div>
-          <img src="static/img/couponBg.png" alt="" class="couponLeftImg">
-        </div>
-        <div class="right">
-          <img src="static/img/manjian.png" alt="" class="rightImg">
-          <div class="rightText1">30元</div>
-          <div class="rightText2">满30元可用</div>
+          <div class="right">
+            <img src="static/img/manjian.png" alt="" class="rightImg">
+            <div class="rightText1">30元</div>
+            <div class="rightText2">满30元可用</div>
+          </div>
         </div>
       </div>
+
       <div class="couponButton" @click="status.showCoupon=false">完成</div>
     </van-popup>
   </div>
@@ -235,8 +238,43 @@ export default {
       this.queryData.minPrice = "";
       this.queryData.maxPrice = "";
     },
-    callStore: function() {
+    callStore: function(item) {
       window.location.href = "tel://" + this.shopDetailData.contact;
+    },
+    recieveCoupon: function(item) {
+      //领取优惠
+      this.tool
+        .request({
+          url: "shop/receivegoodscoupons",
+          method: "post",
+          params: {
+            coupon_id: item.id,
+            type: item.type,
+            id: item.goods_id,
+            ticket: this.queryData.ticket
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.$dialog
+              .alert({
+                title: "提示",
+                message: "领取成功"
+              })
+              .then(() => {
+                this.getDiscountCoupon();
+              });
+          } else {
+            this.$dialog
+              .alert({
+                title: "提示",
+                message: res.msg
+              })
+              .then(() => {
+                this.getDiscountCoupon();
+              });
+          }
+        });
     },
     clickFocus: function(num) {
       this.tool
@@ -820,6 +858,8 @@ export default {
         .textA2 {
           font-size: 0.22rem;
           color: #999999;
+          padding-left: 0.1rem;
+          border-left: 1px solid #333333;
         }
         .textA3 {
           font-size: 0.24rem;
@@ -931,6 +971,16 @@ export default {
     color: #ffffff;
     line-height: 1rem;
     background: #3cb850;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    z-index: 99999;
+  }
+  .couponContent {
+    height: 7rem;
+    margin-bottom: 1rem;
+    overflow-y: scroll;
   }
 }
 </style>

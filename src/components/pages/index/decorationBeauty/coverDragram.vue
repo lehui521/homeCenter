@@ -53,7 +53,7 @@
       </div>
     </div>
     <van-list v-model="loading" :finished="finished" @load="getData" style="height:100%;" :offset="10">
-      <vueWaterfallEasy :imgsArr="imgsArr" :loadingDotCount="0" class="singleCover">
+      <vueWaterfallEasy :imgsArr="imgsArr" :loadingDotCount="0" class="singleCover" :mobileGap="16">
         <template slot-scope="props">
           <div class="blank"></div>
           <div class="title">{{props.value.info}}
@@ -133,6 +133,9 @@ export default {
 <style lang="scss" scoped>
 .coverDragram {
   height: 100%;
+  padding-top: 0.2rem;
+  background: #f8f8f8;
+  box-sizing: border-box;
   .TypeList {
     position: fixed;
     z-index: 999;
@@ -219,9 +222,9 @@ export default {
     background: rgba(0, 0, 0, 0.5);
     position: absolute;
     bottom: 1rem;
-    right: 0.16rem;
+    right: 0.3rem;
     height: 0.38rem;
-    padding: 0 0.1rem;
+    padding: 0 0.03rem;
     border-radius: 1px;
     font-size: 0.23rem;
     color: #ffffff;
