@@ -44,24 +44,23 @@
           <div class="floor1">距离最近</div>
         </div>
       </div>
-      <div class="market" v-for="(item,index) in [1,2,3]" :key="index">
+      <div class="market" v-for="(item,index) in storeData" :key="index">
         <div class="marketImg">
-          <img src="static/img/shichangtuipian.png" alt="">
+          <img v-lazy="item.image" alt="">
         </div>
         <div class="marketText">
           <div class="marketName">
-            <span class="name">上海家饰佳徐汇店</span>
-            <span>64m</span>
+            <span class="name">{{item.name}}</span>
+            <span>{{item.distance}}</span>
           </div>
           <div class="marketTag">
-            <van-tag type="success" plain>家具</van-tag>
-            <van-tag type="success" plain>灯饰</van-tag>
+            <van-tag type="success" plain>{{item.category_name}}</van-tag>
           </div>
           <div class="marketPhone">
             <span>15252111236</span>
           </div>
           <div class="marketAddress">
-            <span>上海市徐汇区凯旋路552号</span>
+            <span>{{item.address}}</span>
           </div>
         </div>
       </div>
@@ -82,8 +81,34 @@ export default {
       status: {
         typeStatus: "",
         showTypeStatus: false
+      },
+      queryData: {
+        page: 1,
+        page_size: 10,
+        keywords: "",
+        category_id: "",
+        market_id: "",
+        order: "",
+        city_id: JSON.parse(localStorage.getItem("cityData")).city_id
       }
     };
+  },
+  created: function() {
+    if (localStorage.getItem("marketData")) {
+      this.queryData.market_id = JSON.parse(
+        localStorage.getItem("marketData")
+      ).market_id;
+    } else {
+      return this.$dialog
+        .alert({
+          title: "提示",
+          message: "请选择市场"
+        })
+        .then(() => {
+          this.$router.push("marketList");
+        });
+    }
+    this.getData();
   },
   methods: {
     typeClick: function(res) {
@@ -92,6 +117,19 @@ export default {
         return (this.status.typeStatus = "");
       }
       this.status.typeStatus = res;
+    },
+    getData: function() {
+      this.tool
+        .request({
+          url: "shop/list",
+          method: "post",
+          params: this.queryData
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.storeData = res.data.list;
+          }
+        });
     }
   }
 };

@@ -25,6 +25,14 @@
         font-family: "PingFang SC", "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
     }
     
+    p {
+        width: 100%;
+    }
+    
+    p img {
+        width: 100%;
+    }
+    
     ul,
     li {
         padding: 0;
@@ -107,6 +115,13 @@
     /*vant*/
     
     #marketList .van-checkbox__icon--round .van-icon {
+        border-radius: 0.08rem;
+        height: 0.3rem;
+        width: 0.3rem;
+        line-height: normal;
+    }
+    
+    #marketList .van-radio__icon--round .van-icon {
         border-radius: 0.08rem;
         height: 0.3rem;
         width: 0.3rem;

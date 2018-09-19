@@ -5,8 +5,8 @@
     </header>
     <div class="banner">
       <van-swipe :autoplay="3000">
-        <van-swipe-item v-for="(image, index) in bannerImgs" :key="index">
-          <img :src="image" style="width:100%;height:100%;" class="bannerImg" />
+        <van-swipe-item v-for="(image, index) in decorationSchoolData.banner" :key="index">
+          <img v-lazy="image.image" style="width:100%;height:100%;height: 2.4rem;" class="bannerImg" />
         </van-swipe-item>
       </van-swipe>
     </div>
@@ -51,12 +51,12 @@
     <!-- 分割距离 -->
     <div class="grayBlank">
     </div>
-    <lookP></lookP>
-    <videoL></videoL>
+    <lookP :list="decorationSchoolData.designData"></lookP>
+    <videoL :list="decorationSchoolData.videoData"></videoL>
     <!-- 分割距离 -->
     <div class="grayBlank">
     </div>
-    <ownerD></ownerD>
+    <ownerD :list="decorationSchoolData.recordData"></ownerD>
   </div>
 </template>
 <script>
@@ -74,8 +74,34 @@ export default {
         "static/img/zhuangxiuBanner.png",
         "static/img/zhuangxiuBanner.png",
         "static/img/zhuangxiuBanner.png"
-      ]
+      ],
+      decorationSchoolData: {
+        banner: [],
+        designData: [],
+        videoData: [],
+        recordData: []
+      }
     };
+  },
+  created: function() {
+    this.getData();
+  },
+  methods: {
+    getData: function() {
+      this.tool
+        .request({
+          url: "v3_fitment/index",
+          method: "post"
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.decorationSchoolData.banner = res.data.banner;
+            this.decorationSchoolData.designData = res.data.design;
+            this.decorationSchoolData.videoData = res.data.video;
+            this.decorationSchoolData.recordData = res.data.record;
+          }
+        });
+    }
   }
 };
 </script>

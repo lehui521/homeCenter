@@ -9,106 +9,137 @@
           <van-icon name="search" />
         </div>
         <div class="input">
-          <input type="text" placeholder="请输入市场名称" @keyup.enter.native="search" @focus="status.searchStatus=false" @blur="status.searchStatus=true">
+          <input type="text" v-model="queryData.market_name" placeholder="请输入市场名称" @keyup.enter.native="search" @focus="inputFocusClick" @blur="inputBlurClick">
         </div>
       </div>
     </div>
-    <div v-if="status.searchStatus">
-      <div class="banner">
-        <img src="static/img/banner1.png" alt="">
-      </div>
-      <div class="typeList">
-        <div class="left" @click="typeClick('type')">
-          <span :style="status.typeStatus=='type'?'color:#3CB850;':''">主营业务</span>
-          <img src="static/img/greenUp.png" alt="" v-if="status.typeStatus=='type'">
-          <img src="static/img/grayDown.png" alt="" v-else>
-        </div>
-        <div class="right" @click="typeClick('sort')">
-          <span :style="status.typeStatus=='sort'?'color:#3CB850;':''">排序</span>
-          <img src="static/img/greenUp.png" alt="" v-if="status.typeStatus=='sort'">
-          <img src="static/img/grayDown.png" alt="" v-else>
-        </div>
-      </div>
+    <load-list @scrollEnd="scrollEnd">
       <div class="content">
-        <div class="market" v-for="(item,index) in [1,2,3]" :key="index">
-          <div class="marketImg">
-            <img src="static/img/shichangtuipian.png" alt="">
+        <div class="banner">
+          <img v-lazy="marketData.banner.image" alt="">
+        </div>
+        <div class="typeList">
+          <div class="left" @click="typeClick('type')">
+            <span :style="status.typeStatus=='type'?'color:#3CB850;':''">主营业务</span>
+            <img src="static/img/greenUp.png" alt="" v-if="status.typeStatus=='type'">
+            <img src="static/img/grayDown.png" alt="" v-else>
           </div>
-          <div class="marketText">
-            <div class="marketName">
-              <span class="name">上海家饰佳徐汇店</span>
-              <span>64m</span>
-            </div>
-            <div class="marketTag">
-              <van-tag type="success" plain>家具</van-tag>
-              <van-tag type="success" plain>灯饰</van-tag>
-            </div>
-            <div class="marketPhone">
-              <div class="icon">
-                <img src="static/img/dianhua.png" alt="">
+          <div class="right" @click="typeClick('sort')">
+            <span :style="status.typeStatus=='sort'?'color:#3CB850;':''">排序</span>
+            <img src="static/img/greenUp.png" alt="" v-if="status.typeStatus=='sort'">
+            <img src="static/img/grayDown.png" alt="" v-else>
+          </div>
+        </div>
+        <div class="contentBox">
+          <div class="typeMask" v-if="status.typeStatus!==''">
+            <div class="grayMask" @click="status.typeStatus=''"></div>
+            <div class="maskContent" v-if="status.typeStatus=='type'">
+              <van-radio-group v-model="queryData.business_id">
+                <van-cell-group>
+                  <van-cell clickable title="不限" class="singleCheck">
+                    <van-radio name="" />
+                  </van-cell>
+                  <van-cell v-for="(item,index) in mainType" clickable :key="index" :title="item.tag_name" class="singleCheck">
+                    <van-radio :name="item.tag_id" />
+                  </van-cell>
+                </van-cell-group>
+              </van-radio-group>
+              <div class="singleButton">
+                <button @click="ensureChange">确定</button>
               </div>
-              <span>15252111236</span>
             </div>
-            <div class="marketAddress">
-              <div class="icon">
-                <img src="static/img/dizhi.png" alt="">
+            <div class="maskContent" v-if="status.typeStatus=='sort'">
+              <div class="singleTop">不限</div>
+              <van-checkbox-group v-model="result">
+                <van-cell-group>
+                  <van-cell v-for="item in [1,2,3]" clickable :key="item" :title="`建材 ${item}`" class="singleCheck">
+                    <van-checkbox :name="item" ref="checkboxes" />
+                  </van-cell>
+                </van-cell-group>
+              </van-checkbox-group>
+              <div class="singleButton">
+                <button>确定</button>
               </div>
-              <span>上海市徐汇区凯旋路552号</span>
             </div>
-            <div class="marketHot">
-              <div class="icon">
-                <img src="static/img/re.png" alt="">
+          </div>
+          <div class="market" v-for="(item,index) in marketData.list" :key="index" @click="jumpOnlineMarket(item)">
+            <div class="marketImg">
+              <img v-lazy="item.cover" alt="">
+            </div>
+            <div class="marketText">
+              <div class="marketName">
+                <span class="name">{{item.name}}</span>
+                <span>{{item.distance}}</span>
               </div>
-              <span>市场新开业，品牌大放价</span>
+              <div class="marketTag">
+                <van-tag type="success" plain v-for="(tag,i) in item.cate_name" :key="i">{{tag}}</van-tag>
+              </div>
+              <div class="marketPhone">
+                <div class="icon">
+                  <img src="static/img/dianhua.png" alt="">
+                </div>
+                <span>{{item.contact}}</span>
+              </div>
+              <div class="marketAddress">
+                <div class="icon">
+                  <img src="static/img/dizhi.png" alt="">
+                </div>
+                <span>{{item.address}}</span>
+              </div>
+              <div class="marketHot">
+                <div class="icon">
+                  <img src="static/img/re.png" alt="">
+                </div>
+                <span>{{item.hot_title}}</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="typeMask" v-if="status.typeStatus!==''">
-        <div class="maskContent" v-if="status.typeStatus=='type'">
-          <div class="singleTop">不限</div>
-          <van-checkbox-group v-model="result">
-            <van-cell-group>
-              <van-cell v-for="item in [1,2,3]" clickable :key="item" :title="`复选框 ${item}`" class="singleCheck">
-                <van-checkbox :name="item" ref="checkboxes" />
-              </van-cell>
-            </van-cell-group>
-          </van-checkbox-group>
-          <div class="singleButton">
-            <button>确定</button>
-          </div>
-        </div>
-        <div class="maskContent" v-if="status.typeStatus=='sort'">
-          <div class="singleTop">不限</div>
-          <van-checkbox-group v-model="result">
-            <van-cell-group>
-              <van-cell v-for="item in [1,2,3]" clickable :key="item" :title="`建材 ${item}`" class="singleCheck">
-                <van-checkbox :name="item" ref="checkboxes" />
-              </van-cell>
-            </van-cell-group>
-          </van-checkbox-group>
-          <div class="singleButton">
-            <button>确定</button>
-          </div>
-        </div>
-      </div>
-    </div>
+    </load-list>
 
   </div>
 </template>
 <script>
+import loadList from "../../../common/load.vue";
 export default {
+  components: { loadList },
   data: function() {
     return {
+      loading: false,
+      finished: false,
       status: {
         typeStatus: "",
         showTypeStatus: false,
         searchStatus: true
       },
-      result: []
+      result: "",
+      queryData: {
+        city_id: JSON.parse(localStorage.getItem("cityData")).id,
+        lng: JSON.parse(localStorage.getItem("cityData")).lng,
+        lat: JSON.parse(localStorage.getItem("cityData")).lat,
+        market_name: "",
+        business_id: "",
+        page: 1,
+        page_size: 10
+      },
+      marketData: {
+        banner: {},
+        list: []
+      },
+      dataList: [],
+      mainType: []
     };
   },
+  created: function() {
+    this.getData();
+    this.getMainType();
+  },
   methods: {
+    ensureChange: function() {
+      this.getData();
+      this.status.typeStatus = "";
+    },
     search: function() {},
     typeClick: function(res) {
       this.status.showTypeStatus = true;
@@ -116,6 +147,61 @@ export default {
         return (this.status.typeStatus = "");
       }
       this.status.typeStatus = res;
+    },
+    inputFocusClick: function() {
+      this.status.searchStatus = false;
+    },
+    inputBlurClick: function() {
+      if (this.queryData.market_name == "") {
+        this.status.searchStatus = true;
+      }
+    },
+    scrollEnd: function(num) {
+      this.queryData.page = num;
+      this.tool
+        .request({
+          url: "v3_market/choose",
+          method: "post",
+          params: this.queryData
+        })
+        .then(res => {
+          if (res.status == 200) {
+            for (var i in res.data.list.list) {
+              this.marketData.list.push(res.data.list.list[i]);
+            }
+          }
+        });
+    },
+    getData: function() {
+      this.tool
+        .request({
+          url: "v3_market/choose",
+          method: "post",
+          params: this.queryData
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.marketData.banner = res.data.banner;
+            this.marketData.list = res.data.list.list;
+          }
+        });
+    },
+    getMainType: function() {
+      this.tool
+        .request({
+          url: "v3_market/getMainBusiness",
+          method: "post"
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.mainType = res.data.list;
+          }
+        });
+    },
+    jumpOnlineMarket: function(res) {
+      let str = JSON.stringify(res);
+      localStorage.setItem("marketData", str);
+      this.$router.push("onlineMarket");
     }
   }
 };
@@ -123,6 +209,12 @@ export default {
 <style lang="scss" scoped>
 .pages {
   padding-top: 0.88rem;
+  height: 100%;
+  box-sizing: border-box;
+  position: relative;
+  .content {
+    padding: 0;
+  }
   .header {
     height: 0.88rem;
     position: fixed;
@@ -130,6 +222,7 @@ export default {
     left: 0;
     background: #fff;
     width: 100%;
+    z-index: 9999;
     .back {
       height: 100%;
       display: flex;
@@ -143,7 +236,6 @@ export default {
       }
     }
   }
-
   .searchInput {
     width: 5.6rem;
     height: 0.56rem;
@@ -180,6 +272,7 @@ export default {
   .banner {
     width: 100%;
     height: 1.92rem;
+    z-index: 999;
     img {
       width: 100%;
       height: 100%;
@@ -227,7 +320,78 @@ export default {
       }
     }
   }
-  .content {
+  .contentBox {
+    width: 100%;
+    position: relative;
+    .typeMask {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      left: 0;
+      height: 100%;
+      z-index: 9999;
+      .grayMask {
+        position: absolute;
+        background: rgba(0, 0, 0, 0.5);
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 99;
+      }
+      .maskContent {
+        background: #fff;
+        width: 100%;
+        padding-left: 0.3rem;
+        box-sizing: border-box;
+        z-index: 99999;
+        position: absolute;
+        top: 0;
+        left: 0;
+        .singleTop {
+          height: 0.9rem;
+          border-bottom: 1px solid #dddddd;
+          font-size: 0.3rem;
+          color: #737373;
+          letter-spacing: 0;
+          background: #fff;
+          width: 100%;
+          line-height: 0.9rem;
+          padding-left: 0.1rem;
+          box-sizing: border-box;
+        }
+        .singleButton {
+          height: 0.9rem;
+          font-size: 0.3rem;
+          padding-top: 0.1rem;
+          button {
+            width: 6.9rem;
+            height: 0.8rem;
+            border: 0;
+            background: #3cb953;
+            line-height: 0.8rem;
+            text-align: center;
+            color: #fff;
+            font-size: 0.3rem;
+            border-radius: 4px;
+          }
+        }
+        .singleCheck {
+          font-size: 0.3rem;
+          color: #737373;
+          padding: 0;
+          height: 0.9rem;
+          border-bottom: 1px solid #dddddd;
+          line-height: 0.9rem;
+          padding-left: 0.1rem;
+          box-sizing: border-box;
+          padding-right: 0.4rem;
+        }
+      }
+    }
+    .content {
+      padding: 0;
+    }
     .market {
       display: flex;
       justify-content: space-between;
@@ -240,8 +404,10 @@ export default {
         width: 40%;
         box-sizing: border-box;
         padding: 0.1rem;
+        height: 2.2rem;
         img {
           width: 100%;
+          height: 100%;
         }
       }
       .marketText {
@@ -351,59 +517,6 @@ export default {
     }
     .market:last-of-type {
       border-bottom: 0;
-    }
-  }
-  .typeMask {
-    position: fixed;
-    top: 3.7rem;
-    background: rgba(0, 0, 0, 0.5);
-    width: 100%;
-    left: 0;
-    height: 100%;
-    .maskContent {
-      background: #fff;
-      width: 100%;
-      padding-left: 0.3rem;
-      box-sizing: border-box;
-      .singleTop {
-        height: 0.9rem;
-        border-bottom: 1px solid #dddddd;
-        font-size: 0.3rem;
-        color: #737373;
-        letter-spacing: 0;
-        background: #fff;
-        width: 100%;
-        line-height: 0.9rem;
-        padding-left: 0.1rem;
-        box-sizing: border-box;
-      }
-      .singleButton {
-        height: 0.9rem;
-        font-size: 0.3rem;
-        padding-top: 0.1rem;
-        button {
-          width: 6.9rem;
-          height: 0.8rem;
-          border: 0;
-          background: #3cb953;
-          line-height: 0.8rem;
-          text-align: center;
-          color: #fff;
-          font-size: 0.3rem;
-          border-radius: 4px;
-        }
-      }
-      .singleCheck {
-        font-size: 0.3rem;
-        color: #737373;
-        padding: 0;
-        height: 0.9rem;
-        border-bottom: 1px solid #dddddd;
-        line-height: 0.9rem;
-        padding-left: 0.1rem;
-        box-sizing: border-box;
-        padding-right: 0.4rem;
-      }
     }
   }
 }

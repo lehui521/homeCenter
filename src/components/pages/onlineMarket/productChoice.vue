@@ -5,24 +5,29 @@
       <img src="static/img/rightIcon.png" alt="" class="rightIcon">
     </div>
     <div class="banner">
-      <img src="static/img/discountBanner.png" alt="">
+      <img v-lazy="banner.image" alt="">
     </div>
     <div class="center">
-      <div class="list" v-for="(item,index) in [1,2,3,4]" :key="index">
-        <div class="price">￥5555</div>
+      <div class="list" v-for="(item,index) in list" :key="index">
+        <div class="price">￥{{item.price}}</div>
         <img src="static/img/shichangtuipian.png" alt="">
         <div class="listName">
-          秋夕-现代橱柜
+          {{item.brand_name}}
         </div>
         <div class="text">
-          <span class="name">上海恒大陶瓷市场</span>
+          <span class="name">{{item.market_name}}</span>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-export default {};
+export default {
+  props: ["banner", "list"],
+  data: function() {
+    return {};
+  }
+};
 </script>
 <style lang="scss" scoped>
 .productChoice {

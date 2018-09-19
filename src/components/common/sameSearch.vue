@@ -39,6 +39,7 @@ export default {
   box-sizing: border-box;
   display: flex;
   justify-content: flex-start;
+  z-index: 9999;
   .searchInput {
     width: 6rem;
     height: 0.56rem;

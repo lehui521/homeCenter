@@ -1,6 +1,6 @@
 <template>
   <div class="pages">
-    <HeaderSame :headerObj="headerObj"></HeaderSame>
+    <HeaderSame :headerObj="headerObj" :params="params"></HeaderSame>
     <div class="typeList">
       <div class="left" @click="typeClick('price')">
         <span :style="status.typeStatus=='price'?'color:#3CB850;':''">价格</span>
@@ -14,23 +14,32 @@
       </div>
     </div>
     <div class="typeMask" v-if="status.typeStatus!==''">
+      <div class="grayMask" @click="status.typeStatus=''"></div>
       <div class="priceType" v-if="status.typeStatus=='price'">
-        <div class="single">由高到低</div>
-        <div class="single">由低到高</div>
+        <div :class="queryData.category_id==3?'single singleActive':'single'" @click="clickType(3)">由高到低</div>
+        <div :class="queryData.category_id==4?'single singleActive':'single'" @click="clickType(4)">由低到高</div>
+        <div class="button">
+          <div class="cancel" @click="status.typeStatus=''">取消</div>
+          <div class="ensure">确定</div>
+        </div>
       </div>
       <div class="sortType" v-if="status.typeStatus=='sort'">
-        <div class="single">默认排序</div>
-        <div class="single">新品优先</div>
-        <div class="single singleActive">
-          <span class="low">最低价</span>
+        <div :class="queryData.category_id==0?'single singleActive':'single'" @click="clickType(0)">默认排序</div>
+        <div :class="queryData.category_id==1?'single singleActive':'single'" @click="clickType(1)">新品优先</div>
+        <div class="single">
+          <input type="text" class="low" v-model="queryData.min_price" placeholder="最低价">
           <span>——</span>
-          <span class="height">最高价</span>
+          <input type="text" class="height" v-model="queryData.max_price" placeholder="最高价">
+        </div>
+        <div class="button">
+          <div class="cancel" @click="status.typeStatus=''">取消</div>
+          <div class="ensure">确定</div>
         </div>
       </div>
     </div>
     <!-- 内容 -->
     <div class="productChoiceContent">
-      <div class="list" v-for="(item,index) in [1,2,3,4]" :key="index" @click="$router.push('productDetail')">
+      <div class="list" v-for="(item,index) in productData" :key="index" @click="$router.push('productDetail')">
         <div class="price">￥5555</div>
         <img src="static/img/shichangtuipian.png" alt="">
         <div class="listName">
@@ -54,11 +63,43 @@ export default {
         img: "static/img/sousuo.png",
         text: "productChoice"
       },
+      params: {
+        typeId: this.$route.query.typeId
+      },
       status: {
         typeStatus: "",
         showTypeStatus: false
-      }
+      },
+      queryData: {
+        page: 1,
+        page_size: 10,
+        keywords: "",
+        category_id: "",
+        market_id: "",
+        city_id: JSON.parse(localStorage.getItem("cityData")).city_id,
+        type_id: this.$route.query.typeId,
+        min_price: "",
+        max_price: ""
+      },
+      productData: []
     };
+  },
+  created: function() {
+    if (localStorage.getItem("marketData")) {
+      this.queryData.market_id = JSON.parse(
+        localStorage.getItem("marketData")
+      ).market_id;
+    } else {
+      return this.$dialog
+        .alert({
+          title: "提示",
+          message: "请选择市场"
+        })
+        .then(() => {
+          this.$router.push("marketList");
+        });
+    }
+    this.getData();
   },
   methods: {
     typeClick: function(res) {
@@ -67,6 +108,22 @@ export default {
         return (this.status.typeStatus = "");
       }
       this.status.typeStatus = res;
+    },
+    clickType: function(res) {
+      this.queryData.category_id = res;
+    },
+    getData: function() {
+      this.tool
+        .request({
+          url: "goods/list",
+          method: "post",
+          params: this.queryData
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.productData = res.data.list;
+          }
+        });
     }
   }
 };
@@ -120,16 +177,44 @@ export default {
   .typeMask {
     position: fixed;
     top: 1.78rem;
-    background: rgba(0, 0, 0, 0.5);
     width: 100%;
     height: 100%;
     z-index: 9999;
+    .grayMask {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.5);
+    }
     .priceType {
       text-align: center;
       font-size: 0.24rem;
       color: #666666;
       letter-spacing: 0;
       background: #fff;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 999;
+      .button {
+        display: flex;
+        justify-content: flex-start;
+        width: 100%;
+        div {
+          width: 50%;
+          text-align: center;
+          height: 0.88rem;
+          line-height: 0.88rem;
+          font-size: 0.3rem;
+        }
+        .ensure {
+          background: #3cb850;
+          color: #fff;
+        }
+      }
       .single {
         border-bottom: 1px solid #d5d5d5;
         height: 0.74rem;
@@ -145,6 +230,27 @@ export default {
       color: #666666;
       letter-spacing: 0;
       background: #fff;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 999;
+      .button {
+        display: flex;
+        justify-content: flex-start;
+        width: 100%;
+        div {
+          width: 50%;
+          text-align: center;
+          height: 0.88rem;
+          line-height: 0.88rem;
+          font-size: 0.3rem;
+        }
+        .ensure {
+          background: #3cb850;
+          color: #fff;
+        }
+      }
       .single {
         border-bottom: 1px solid #d5d5d5;
         height: 0.74rem;

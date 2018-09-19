@@ -8,7 +8,7 @@
       </van-tabs>
     </div>
     <div class="newsContent">
-      <div class="recommendNew" @click="$router.push('headerNewDetail')">
+      <div class="recommendNew" @click="jumpNewDetail(newData.topNew)">
         <div class="leftText">
           <div class="text1">{{newData.topNew.title}}</div>
           <div class="text2">{{newData.topNew.date}} · {{newData.topNew.click}}次阅读</div>
@@ -27,7 +27,7 @@
             <span>20{{item.group_title.date}}</span>
           </div>
         </div>
-        <div class="recommendNew" v-for="(newN,index) in item.list" :key="index" @click="$router.push('headerNewDetail')">
+        <div class="recommendNew" v-for="(newN,index) in item.list" :key="index" @click="jumpNewDetail(newN)">
           <div class="leftText">
             <div class="text1">{{newN.title}}</div>
             <div class="text2">{{newN.add_time}} · {{newN.click}}次阅读</div>
@@ -64,6 +64,9 @@ export default {
     this.getNavData();
   },
   methods: {
+    jumpNewDetail: function(res) {
+      this.$router.push("headerNewDetail?newId=" + res.news_id);
+    },
     tabClick: function(res, title) {
       for (var i in this.navData) {
         if (title == this.navData[i].name) {
@@ -139,11 +142,16 @@ export default {
         width: 60%;
         color: #333333;
         position: relative;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        .text1 {
+          height: auto;
+          word-wrap: break-word;
+        }
         .text2 {
           font-size: 0.24rem;
           color: #333333;
-          position: absolute;
-          bottom: 0;
         }
       }
       .rightText {

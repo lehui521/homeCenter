@@ -1,25 +1,25 @@
 <template>
-    <div class="pages">
-        <HeaderSame :headerObj="headerObj"></HeaderSame>
-        <div class="content">
-            <div class="moneyImg">
-
-            </div>
-            <div class="moneyInput">
-                <input type="text" placeholder="请输入要兑换的金额">
-                <span>兑换</span>
-            </div>
-            <div class="cellMoneyContent">
-                <div class="single" v-for="i in 6" :key="i">
-                    <div class="text1">用户扣减</div>
-                    <div class="text2">
-                        <span class="date">2018</span>
-                        <span class="reduce">-4</span>
-                    </div>
-                </div>
-            </div>
+  <div class="pages">
+    <HeaderSame :headerObj="headerObj"></HeaderSame>
+    <div class="content">
+      <div class="moneyImg">
+        金币：{{point}}
+      </div>
+      <div class="moneyInput">
+        <input type="text" placeholder="请输入要兑换的金额" v-model="inputPoint">
+        <span @click="exchangeMoney">兑换</span>
+      </div>
+      <div class="cellMoneyContent">
+        <div class="single" v-for="(item,i) in pointData" :key="i">
+          <div class="text1">{{item.reason}}</div>
+          <div class="text2">
+            <span class="date">{{item.add_time}}</span>
+            <span class="reduce">{{item.type==2?'-':''}}{{item.point}}</span>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </template>
 <script>
 import HeaderSame from "../../common/sameHeader.vue";
@@ -30,8 +30,63 @@ export default {
       headerObj: {
         title: "金币",
         img: ""
-      }
+      },
+      queryData: {
+        ticket: localStorage.getItem("ticket"),
+        page: 1,
+        page_size: 20
+      },
+      pointData: [],
+      point: "",
+      inputPoint: ""
     };
+  },
+  created: function() {
+    this.getData();
+  },
+  methods: {
+    getData: function() {
+      this.tool
+        .request({
+          url: "point/list",
+          method: "post",
+          params: this.queryData
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.pointData = res.data.list;
+            this.point = res.data.total_point;
+          }
+        });
+    },
+    exchangeMoney: function() {
+      this.tool
+        .request({
+          url: "point/reduce",
+          method: "post",
+          params: {
+            ticket: this.queryData.ticket,
+            point: this.inputPoint
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.$dialog
+              .alert({
+                title: "提示",
+                message: "兑换成功"
+              })
+              .then(() => {
+                this.getData();
+              });
+          } else {
+            this.$toast({
+              type: "text",
+              message: res.msg
+            });
+          }
+        });
+    }
   }
 };
 </script>
@@ -43,7 +98,9 @@ export default {
     .moneyImg {
       width: 100%;
       height: 2.4rem;
-      border: 1px solid red;
+      text-align: center;
+      line-height: 2.4rem;
+      font-size: 0.36rem;
     }
     .moneyInput {
       font-size: 0.2rem;

@@ -5,25 +5,27 @@
       <img src="static/img/rightIcon.png" alt="" class="rightIcon">
     </div>
     <div class="banner">
-      <img src="static/img/discountBanner.png" alt="">
+      <img v-lazy="banner.image" alt="">
     </div>
     <div class="center">
-      <div class="leftImg">
-        <img src="static/img/discountLeft.png" alt="">
+      <div class="leftImg" v-for="(item,i) in list" :key="i" v-if="i==0">
+        <img v-lazy="item.image" alt="">
       </div>
       <div class="rightImg">
-        <div>
-          <img src="static/img/discountRight1.png" alt="">
+        <div v-for="(item,i) in list" :key="i" v-if="i!=0">
+          <img v-lazy="item.image" alt="">
         </div>
-        <div>
+        <!-- <div>
           <img src="static/img/discountRight2.png" alt="">
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
 </template>
 <script>
-export default {};
+export default {
+  props: ["banner", "list"]
+};
 </script>
 <style lang="scss" scoped>
 .discountArea {

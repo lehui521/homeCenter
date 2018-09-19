@@ -1,17 +1,53 @@
 <template>
-    <div class="pages">
-        <div class="header">
-            <span>编辑姓名</span>
-            <span class="share">保存</span>
-            <img src="static/img/leftArrow.png" alt="" class="back" @click="$router.go(-1)">
-        </div>
-        <div class="inputName">
-            <input type="text" placeholder="请输入新名称">
-        </div>
+  <div class="pages">
+    <div class="header">
+      <span>编辑姓名</span>
+      <span class="share" @click="updateMemberName">保存</span>
+      <img src="static/img/leftArrow.png" alt="" class="back" @click="$router.go(-1)">
     </div>
+    <div class="inputName">
+      <input type="text" placeholder="请输入新名称" v-model="memberName">
+    </div>
+  </div>
 </template>
 <script>
-export default {};
+export default {
+  data: function() {
+    return {
+      memberName: ""
+    };
+  },
+  methods: {
+    updateMemberName: function() {
+      this.tool
+        .request({
+          url: "/user/setting",
+          method: "post",
+          params: {
+            nickname: this.memberName,
+            ticket: localStorage.getItem("ticket")
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.$dialog
+              .alert({
+                title: "提示",
+                message: "修改成功"
+              })
+              .then(() => {
+                this.$router.go(-1);
+              });
+          } else {
+            this.$toast({
+              type: "text",
+              message: res.msg
+            });
+          }
+        });
+    }
+  }
+};
 </script>
 <style lang="scss" scoped>
 .pages {

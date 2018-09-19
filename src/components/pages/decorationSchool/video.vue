@@ -1,8 +1,8 @@
 <template>
-    <div class="mask">
-        <span class="closeIcon" @click="$router.go(-1)">X</span>
-        <video-player class="video-player vjs-custom-skin" ref="videoPlayer" :playsinline="false" :options="playerOptions" style="height:100%;"></video-player>
-    </div>
+  <div class="mask">
+    <span class="closeIcon" @click="$router.go(-1)">X</span>
+    <video-player class="video-player vjs-custom-skin" ref="videoPlayer" :playsinline="false" :options="playerOptions" style="height:100%;"></video-player>
+  </div>
 </template>
 <script>
 export default {
@@ -20,7 +20,7 @@ export default {
         sources: [
           {
             type: "",
-            src: "static/img/1.mp4" //url地址
+            src: this.$route.query.url //url地址
           }
         ],
         poster: "", //你的封面地址

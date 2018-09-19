@@ -2,14 +2,13 @@
   <div class="pages">
     <HeaderSame :headerObj="headerObj"></HeaderSame>
     <div class="newTitle">
-      2018年最佳演员和最佳歌手和最佳骚气奖
+      {{newDataDetail.title}}
     </div>
     <div class="newSource">
       <span>来源：安居客</span>
-      <span class="text">发布时间：2018年07月25日</span>
+      <span class="text">发布时间：{{newDataDetail.update_time}}</span>
     </div>
-    <div class="newContent">
-      大家好上的oh对于撒i的撒谎的合适的客户卡德加爱上贺卡好的借口卡客户数据肯定好看按客户的卡换卡尽快哈刷卡机的撒谎的和的
+    <div class="newContent" v-html="newDataDetail.content">
     </div>
   </div>
 </template>
@@ -22,9 +21,31 @@ export default {
       headerObj: {
         title: "汇头条",
         img: "static/img/fenxiang.png",
-        text: "headerNewDetail"
-      }
+        text: "headerNewDetail",
+        type: "H5"
+      },
+      newDataDetail: {}
     };
+  },
+  created: function() {
+    this.getData();
+  },
+  methods: {
+    getData: function() {
+      this.tool
+        .request({
+          url: "news/info",
+          method: "post",
+          params: {
+            news_id: this.$route.query.newId
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.newDataDetail = res.data;
+          }
+        });
+    }
   }
 };
 </script>
@@ -58,6 +79,12 @@ export default {
     line-height: 0.5rem;
     padding: 0 0.2rem;
     box-sizing: border-box;
+    width: 100%;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+    }
   }
 }
 </style>

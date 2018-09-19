@@ -3,23 +3,26 @@
     <HeaderSame :headerObj="headerObj"></HeaderSame>
     <div class="content">
       <div class="left">
-        <div :class="navIndex==i?'singleActive single':'single'" v-for="i in 20" :key="i" @click="leftNavClick(i)">
+        <div :class="navIndex==-1?'singleActive single':'single'" @click="leftNavClick(recommendData,-1)">
           <span>推荐</span>
+        </div>
+        <div :class="navIndex==index?'singleActive single':'single'" v-for="(item,index) in goodData" :key="index" @click="leftNavClick(item,index)">
+          <span>{{item.name}}</span>
         </div>
       </div>
       <div class="right">
-        <div class="banner">
-          <img src="static/img/banner1.png" alt="">
+        <div class="banner" v-if="itemData.image">
+          <img v-lazy="itemData.image" alt="">
         </div>
         <div class="hotTitle">
           热门分类
         </div>
         <div class="rightContent">
-          <div class="singleRight" v-for="i in 4" :key="i">
+          <div class="singleRight" v-for="(citem,i) in itemData.types" :key="i" @click="jumpProduct(citem)">
             <div class="singleImg">
-              <img src="static/img/banner1.png" alt="">
+              <img v-lazy="citem.image" alt="">
             </div>
-            <div class="singleName">瓷砖</div>
+            <div class="singleName">{{citem.name}}</div>
           </div>
         </div>
       </div>
@@ -36,12 +39,50 @@ export default {
         title: "商品分类",
         img: ""
       },
-      navIndex: 1
+      navIndex: -1,
+      goodData: [],
+      itemData: {
+        types: []
+      },
+      recommendData: {
+        types: []
+      }
     };
   },
+  created: function() {
+    this.getData();
+    this.getRecommendData();
+  },
   methods: {
-    leftNavClick: function(index) {
+    leftNavClick: function(item, index) {
       this.navIndex = index;
+      this.itemData = item;
+    },
+    getData: function() {
+      this.tool
+        .request({
+          url: "goods/category"
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.goodData = res.data;
+          }
+        });
+    },
+    getRecommendData: function() {
+      this.tool
+        .request({
+          url: "goods/recommend_category"
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.itemData.types = res.data;
+            this.recommendData.types = res.data;
+          }
+        });
+    },
+    jumpProduct: function(res) {
+      this.$router.push("productChoiceContent?typeId=" + res.type_id);
     }
   }
 };

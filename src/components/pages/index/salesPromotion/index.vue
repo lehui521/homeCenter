@@ -1,8 +1,8 @@
 <template>
   <div class="pages">
     <HeaderSame :headerObj="headerObj"></HeaderSame>
-    <div class="banner" v-for="(item,i) in detail.banner" :key="i" v-if="i==1">
-      <img :src="item.image" alt="">
+    <div class="banner" v-for="(item,i) in detail.banner" :key="i" v-if="i==0">
+      <img v-lazy="item.image" alt="">
     </div>
     <div class="grayBlank"></div>
     <tab-list :tabArr="tabArr" @tabClick="handleClickTab"></tab-list>

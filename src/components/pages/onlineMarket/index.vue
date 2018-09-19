@@ -1,8 +1,8 @@
 <template>
   <div class="page">
     <header :class="showHeaderStyle?'header bgWhite':'header'">
-      <div class="address" @click="$router.push('mapCity')">
-        <span>上海红星美凯龙真北路商场</span>
+      <div class="address" @click="$router.push('marketList')">
+        <span>{{marketData.name}}</span>
         <img src="static/img/weizhi.png" alt="">
       </div>
       <div class="headerIcon" v-if="!showHeaderStyle">
@@ -13,7 +13,7 @@
       </div>
     </header>
     <div class="banner">
-      <img src="static/img/banner1.png" style="width:100%;height:100%;" class="bannerImg" />
+      <img v-lazy="marketData.cover" style="width:100%;height:100%;" class="bannerImg" />
     </div>
     <div class="indexNav">
       <div class="navImg" @click="$router.push('marketMap')">
@@ -38,7 +38,7 @@
     </div>
     <div class="marketDetail">
       <div class="name">
-        <span>上海红星美凯龙真北路商场</span>
+        <span>{{marketData.name}}</span>
         <img src="static/img/rightIcon.png" alt="" class="rightIcon">
         <span class="icon">简介</span>
       </div>
@@ -47,51 +47,51 @@
         <u class="text2">全文</u>
       </div>
       <div class="tag">
-        <van-tag type="success" plain>建材</van-tag>
-        <van-tag type="success" plain>家居</van-tag>
+        <van-tag type="success" plain v-for="(item,i) in marketData.cate_name" :key="i">{{item}}</van-tag>
+        <!-- <van-tag type="success" plain>家居</van-tag>
         <van-tag type="success" plain>灯饰</van-tag>
-        <van-tag type="success" plain>五金</van-tag>
+        <van-tag type="success" plain>五金</van-tag> -->
       </div>
       <div class="phone">
         <img src="static/img/dianhua.png" alt="">
-        <span>15252111236</span>
+        <span>{{marketData.contact}}</span>
       </div>
       <div class="Maddress">
         <img src="static/img/dizhi.png" alt="">
-        <span class="address">上海市徐汇区凯旋路552号
+        <span class="address">{{marketData.address}}
         </span>
-        <span class="distance">1.79km</span>
+        <span class="distance">{{marketData.distance}}</span>
       </div>
     </div>
     <!-- 分割距离 -->
     <div class="grayBlank">
     </div>
-    <newSwipe :newArr="newArr"></newSwipe>
+    <newSwipe :newArr="marketListData.marketNew"></newSwipe>
     <!-- 分割距离 -->
     <div class="grayBlank">
     </div>
-    <discountA></discountA>
+    <discountA :banner="marketListData.discountData.banner" :list="marketListData.discountData.list"></discountA>
     <!-- 分割距离 -->
     <div class="grayBlank">
     </div>
-    <storeC></storeC>
+    <storeC :banner="marketListData.storeData.banner" :list="marketListData.storeData.list"></storeC>
     <!-- 分割距离 -->
     <div class="grayBlank">
     </div>
-    <productC></productC>
+    <productC :banner="marketListData.productData.banner" :list="marketListData.productData.list"></productC>
     <!-- 分割距离 -->
     <div class="grayBlank">
     </div>
-    <brandC></brandC>
+    <brandC :banner="marketListData.brandData.banner" :list="marketListData.brandData.list"></brandC>
     <!-- 分割距离 -->
     <div class="grayBlank">
     </div>
-    <decorationC>
+    <decorationC :banner="marketListData.companyData.banner" :list="marketListData.companyData.list">
     </decorationC>
     <!-- 分割距离 -->
     <div class="grayBlank">
     </div>
-    <Designer></Designer>
+    <Designer :list="marketListData.degsinData"></Designer>
   </div>
 </template>
 <script>
@@ -121,14 +121,53 @@ export default {
   },
   data: function() {
     return {
-      newArr: [],
-      showHeaderStyle: false
+      showHeaderStyle: false,
+      marketData: {},
+      marketListData: {
+        banner: [],
+        marketNew: [],
+        discountData: {
+          banner: {},
+          list: []
+        },
+        storeData: {
+          banner: {},
+          list: []
+        },
+        productData: {
+          banner: {},
+          list: []
+        },
+        brandData: {
+          banner: {},
+          list: []
+        },
+        companyData: {
+          banner: {},
+          list: []
+        },
+        degsinData: []
+      }
     };
   },
   mounted: function() {
     this.scrollHandle();
   },
-  created: function() {},
+  created: function() {
+    if (!localStorage.getItem("marketData")) {
+      return this.$dialog
+        .alert({
+          title: "提示",
+          message: "请选择市场"
+        })
+        .then(() => {
+          this.$router.push("marketList");
+        });
+    } else {
+      this.marketData = JSON.parse(localStorage.getItem("marketData"));
+    }
+    this.getData();
+  },
   methods: {
     scrollHandle: function(e) {
       document.addEventListener("scroll", e => {
@@ -144,6 +183,46 @@ export default {
           this.showHeaderStyle = false;
         }
       });
+    },
+    getData: function() {
+      this.tool
+        .request({
+          url: "v3_market/index",
+          method: "post",
+          params: {
+            market_id: this.marketData.market_id,
+            lng: this.marketData.lng,
+            lat: this.marketData.lat
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.marketListData.banner = res.data.banner;
+            this.marketListData.marketNew = res.data.toutiao.list;
+
+            this.marketListData.discountData.banner =
+              res.data.discount_data.banner;
+            this.marketListData.discountData.list =
+              res.data.discount_data.list.list;
+            //店铺精选
+            this.marketListData.storeData.banner = res.data.shop_data.banner;
+            this.marketListData.storeData.list = res.data.shop_data.list.list;
+            //商品精选
+            this.marketListData.productData.banner = res.data.goods_data.banner;
+            this.marketListData.productData.list =
+              res.data.goods_data.list.list;
+            //品牌精选
+            this.marketListData.brandData.banner = res.data.brand_data.banner;
+            this.marketListData.brandData.list = res.data.brand_data.list.list;
+            //装修公司
+            this.marketListData.companyData.banner =
+              res.data.company_data.banner;
+            this.marketListData.companyData.list =
+              res.data.company_data.list.list;
+
+            this.marketListData.degsinData = res.data.degsin_data.list.list;
+          }
+        });
     }
   }
 };

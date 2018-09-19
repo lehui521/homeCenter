@@ -5,35 +5,33 @@
       <img src="static/img/rightIcon.png" alt="" class="rightIcon">
     </div>
     <div class="banner">
-      <img src="static/img/discountBanner.png" alt="">
+      <img v-lazy="banner.image" alt="">
     </div>
     <div class="companyCenter">
-      <div class="company" v-for="(item,index) in [1,2,3]" :key="index" @click="$router.push('decorationCompanyDetail')">
+      <div class="company" v-for="(item,index) in list" :key="index" @click="$router.push('decorationCompanyDetail')">
         <div class="companyImg">
-          <img src="static/img/shichangtuipian.png" alt="">
+          <img v-lazy="item.avatar" alt="">
         </div>
         <div class="companyContent">
           <div class="name">
-            境远装饰
+            {{item.name}}
             <span>找TA</span>
           </div>
           <div class="tag">
-            <van-tag type="success" plain>推荐</van-tag>
-            <van-tag type="success" plain>认证</van-tag>
+            <van-tag type="success" plain v-for="(tag,i) in item.tag_title" :key="i">{{tag}}</van-tag>
           </div>
           <div class="address">
-            上海真北路520号
+            {{item.address}}
           </div>
           <div class="icon">
             <div class="iconImg"><img src="static/img/xin.png" alt=""></div>
             <div>
-              <span>12345</span>
+              <span>{{item.star_rank}}</span>
             </div>
             <div class="iconImg"><img src="static/img/yan.png" alt=""></div>
             <div>
-              <span>65656</span>
+              <span>{{item.view_total}}</span>
             </div>
-
           </div>
         </div>
       </div>
@@ -41,7 +39,9 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  props: ["banner", "list"]
+};
 </script>
 <style lang="scss" scoped>
 .decorationCompany {

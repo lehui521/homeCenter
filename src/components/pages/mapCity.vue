@@ -1,47 +1,47 @@
 <template>
-    <div class="wrapper">
-        <header class="header">
-            <div class="closeImg" @click="$router.go(-1)">
-                <img src="static/img/close.png" alt="">
+  <div class="pages">
+    <header class="header">
+      <div class="closeImg" @click="$router.go(-1)">
+        <img src="static/img/close.png" alt="">
+      </div>
+      <span>选择城市</span>
+    </header>
+    <div class="content" ref="wrapper">
+      <div>
+        <div class="floor1" ref="GPS">GPS定位城市</div>
+        <div class="floor2">定位失败</div>
+        <div class="hotCity">
+          <div class="title" res="HOT">
+            <div>热门城市</div>
+            <div class="titleRight">
+              <img src="static/img/shape.png" alt="">
+              <span>加盟家品汇</span>
             </div>
-            <span>选择城市</span>
-        </header>
-        <div class="content" ref="wrapper">
-            <div>
-                <div class="floor1" ref="GPS">GPS定位城市</div>
-                <div class="floor2">定位失败</div>
-                <div class="hotCity">
-                    <div class="title" res="HOT">
-                        <div>热门城市</div>
-                        <div class="titleRight">
-                            <img src="static/img/shape.png" alt="">
-                            <span>加盟家品汇</span>
-                        </div>
-                    </div>
-                    <div class="citys">
-                        <div class="singleCity" v-for="(item,index) in hotCity" :key="index" @click="clickCityHot(item)">
-                            {{item.city_name}}
-                        </div>
-                    </div>
-                </div>
-                <div class="allCity" v-for="(item,index) in allCity" :key="index" v-show="item.length!==0" :ref="index">
-                    <div class="title">{{index}}</div>
-                    <div class="cityArr">
-                        <div class="cellCity" v-for="(city,i) in item" :key="i" @click="clickCityAll(city)">
-                            {{city.name}}
-                        </div>
-                    </div>
-                </div>
+          </div>
+          <div class="citys">
+            <div class="singleCity" v-for="(item,index) in hotCity" :key="index" @click="clickCityHot(item)">
+              {{item.city_name}}
             </div>
+          </div>
         </div>
-        <div class="letters">
-            <div @click="clickLetter('GPS')">GPS</div>
-            <div @click="clickLetter('HOT')">热门</div>
-            <div v-for="(item,index) in letters" :key="index" @click="clickLetter(item)">
-                {{item}}
+        <div class="allCity" v-for="(item,index) in allCity" :key="index" v-show="item.length!==0" :ref="index">
+          <div class="title">{{index}}</div>
+          <div class="cityArr">
+            <div class="cellCity" v-for="(city,i) in item" :key="i" @click="clickCityAll(city)">
+              {{city.name}}
             </div>
+          </div>
         </div>
+      </div>
     </div>
+    <div class="letters">
+      <div @click="clickLetter('GPS')">GPS</div>
+      <div @click="clickLetter('HOT')">热门</div>
+      <div v-for="(item,index) in letters" :key="index" @click="clickLetter(item)">
+        {{item}}
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 import Bscroll from "better-scroll";
@@ -111,11 +111,11 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.wrapper {
+.pages {
   padding-top: 0.88rem;
   height: 100%;
-  box-sizing: border-box;
   position: relative;
+  box-sizing: border-box;
   .header {
     height: 0.88rem;
     text-align: center;
@@ -143,7 +143,8 @@ export default {
   }
   .content {
     box-sizing: border-box;
-    height: 1rem;
+    width: 100%;
+    height: 100%;
     .floor1 {
       height: 0.6rem;
       line-height: 0.6rem;

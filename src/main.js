@@ -15,8 +15,8 @@ import '../static/css/main.css'
 Vue.use(Vant); //引入vant组件
 Vue.use(VueLazyload, {
     preLoad: 1.3,
-    error: 'static/img/error.jpg',
-    loading: 'static/img/error.jpg',
+    error: '../static/img/zwf.png',
+    loading: '../static/img/zwf.png',
     attempt: 1
 })
 
@@ -34,7 +34,7 @@ Vue.prototype.goBack = function() {
 Vue.use(VideoPlayer)
 
 //axios
-axios.defaults.baseURL = 'http://test.dfmeiju.com.cn/'; //"https://www.dfmeiju.com.cn"
+axios.defaults.baseURL = 'https://test.dfmeiju.com.cn'; //"https://www.dfmeiju.com.cn"
 // axios.defaults.baseURL = "https://www.dfmeiju.com.cn";
 Vue.prototype.$axios = axios;
 axios.interceptors.request.use(
@@ -60,14 +60,20 @@ Vue.prototype.tool = {
     },
     request: function(opt) {
         return new Promise((resolve, reject) => {
+            app.$toast.loading({
+                duration: 0, // 持续展示 toast
+                forbidClick: true, // 禁用背景点击
+                loadingType: 'spinner',
+            })
             this.ajax(opt).then((res) => {
                 if (res && res.data) {
                     if (res.data.status == 200) {
                         resolve(res.data);
+                        app.$toast.clear()
                     } else {
                         resolve(res.data);
+                        app.$toast.clear()
                     }
-
                 }
             }).catch((error) => {
                 app.$dialog.alert({

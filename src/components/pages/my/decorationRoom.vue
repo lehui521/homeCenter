@@ -1,38 +1,38 @@
 <template>
-  <div class="page">
-    <div class="header">
-      <span>{{headerObj.title}}</span>
-      <img src="static/img/leftArrow.png" alt="" class="back" @click="$router.go(-1)">
-      <span v-if="!editStatus" class="header-right" @click="test()">编辑</span>
-      <span v-if="editStatus" class="header-right" @click="test()">取消</span>
-    </div>
-    <div class="content">
-      <van-checkbox-group v-model="testBoxValue" @change="checkBoxChange">
-        <div class="item" v-for="(item,index) in systemData" :key="index" @click="$router.push('systemMessageDetail?messageId='+item.message_id)">
-          <div class="van-check" :class="{'van-checked':editStatus}" v-if="editStatus">
-            <van-checkbox :key="index" :name="item.message_id">
-            </van-checkbox>
-          </div>
-          <div class="date">
-            <p>{{item.add_time}}</p>
-          </div>
-          <div class="unchecked" :class="{'checked':editStatus}">
-            <slide :key="index" :id="item.message_id" @sendFu="getData" :type="3">
-              <div class="item-body">
-                <p class="item-body-text">{{item.title}}</p>
-                <img class="item-body-img" v-lazy="item.image" alt="">
-                <div class="toDetil">查看详情</div>
-              </div>
-            </slide>
-          </div>
+    <div class="page">
+        <div class="header">
+            <span>{{headerObj.title}}</span>
+            <img src="static/img/leftArrow.png" alt="" class="back" @click="$router.go(-1)">
+            <span v-if="!editStatus" class="header-right" @click="test()">编辑</span>
+            <span v-if="editStatus" class="header-right" @click="test()">取消</span>
         </div>
-      </van-checkbox-group>
+        <div class="content">
+            <van-checkbox-group v-model="testBoxValue" @change="checkBoxChange">
+                <div class="item" v-for="(item,index) in systemData" :key="index">
+                    <div class="van-check" :class="{'van-checked':editStatus}" v-if="editStatus">
+                        <van-checkbox :key="index" :name="item.message_id">
+                        </van-checkbox>
+                    </div>
+                    <div class="date">
+                        <p>{{item.add_time}}</p>
+                    </div>
+                    <div class="unchecked" :class="{'checked':editStatus}">
+                        <slide :key="index" :id="item.message_id" @sendFu="getData" :type="2">
+                            <div class="item-body">
+                                <p class="item-body-text">{{item.title}}</p>
+                                <img class="item-body-img" v-lazy="item.image" alt="">
+                                <div class="toDetil">查看详情</div>
+                            </div>
+                        </slide>
+                    </div>
+                </div>
+            </van-checkbox-group>
+        </div>
+        <div class="footer">
+            <button class="footer-btn" @click="deleteMore">一键删除</button>
+            <button class="footer-btn" @click="readMore">一键设置已读</button>
+        </div>
     </div>
-    <div class="footer">
-      <button class="footer-btn" @click="deleteMore">一键删除</button>
-      <button class="footer-btn" @click="readMore">一键设置已读</button>
-    </div>
-  </div>
 </template>
 <script>
 import HeaderSame from "../../common/sameHeader.vue";
@@ -41,7 +41,7 @@ export default {
   data() {
     return {
       headerObj: {
-        title: "系统消息",
+        title: "装修客厅",
         img: ""
       },
       testBoxValue: [],
@@ -79,7 +79,7 @@ export default {
               method: "post",
               params: {
                 ticket: localStorage.getItem("ticket"),
-                type: 3,
+                type: 2,
                 message_ids: data
               }
             })
@@ -111,7 +111,7 @@ export default {
           method: "post",
           params: {
             ticket: localStorage.getItem("ticket"),
-            type: 3,
+            type: 2,
             message_ids: data
           }
         })
@@ -131,7 +131,7 @@ export default {
           method: "post",
           params: {
             ticket: localStorage.getItem("ticket"),
-            type: 3
+            type: 2
           }
         })
         .then(res => {

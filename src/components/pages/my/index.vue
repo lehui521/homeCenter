@@ -4,21 +4,22 @@
       我的
     </header>
     <div class="member">
-      <div class="left">
+      <div v-if="!showMember" class="noLogin" @click="$router.push('login')">登录 / 注册</div>
+      <div class="left" v-if="showMember">
         <div class="leftImg">
-          <img src="static/img/touxiang.jpg" alt="">
+          <img v-lazy="memberInfo.avatar" alt="">
         </div>
         <div class="leftText">
           <div class="name">
-            <p class="nameC">heheda</p>
+            <p class="nameC">{{memberInfo.nickname}}</p>
             <p class="button" @click="$router.push('updateMemberInfo')">编辑资料</p>
           </div>
         </div>
       </div>
-      <div class="right" @click="$router.push('registerDetail')">
-        <div class="rightImg1"></div>
-        <div class="rightImg2">
-          <span>55</span>
+      <div class="right" v-if="showMember">
+        <div class="rightImg1" @click="registerClick"></div>
+        <div class="rightImg2" @click="$router.push('registerDetail')">
+          <span>{{memberInfo.points}}</span>
         </div>
       </div>
     </div>
@@ -60,6 +61,74 @@
     </router-link>
   </div>
 </template>
+<script>
+export default {
+  data: function() {
+    return {
+      memberInfo: {},
+      showMember: false
+    };
+  },
+  created: function() {
+    if (localStorage.getItem("ticket")) {
+      this.showMember = true;
+    } else {
+      return (this.showMember = false);
+    }
+    this.getData();
+  },
+  methods: {
+    registerClick: function() {
+      this.tool
+        .request({
+          url: "sign/add",
+          method: "post",
+          params: {
+            ticket: localStorage.getItem("ticket")
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.$dialog
+              .alert({
+                title: "提示",
+                message: res.msg
+              })
+              .then(() => {
+                this.getData();
+              });
+          } else {
+            this.$toast({
+              type: "text",
+              message: res.msg
+            });
+          }
+        });
+    },
+    getData: function() {
+      this.tool
+        .request({
+          url: "/user/info",
+          method: "post",
+          params: {
+            ticket: localStorage.getItem("ticket")
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.memberInfo = res.data;
+          } else {
+            this.$dialog.alert({
+              title: "提示",
+              message: res.msg
+            });
+          }
+        });
+    }
+  }
+};
+</script>
+
 <style lang="scss" scoped>
 .pages {
   padding-top: 0;
@@ -77,6 +146,16 @@
     display: flex;
     justify-content: space-between;
     background: #fff;
+    .noLogin {
+      text-align: center;
+      font-size: 0.38rem;
+      margin: auto;
+      background: #4bc161;
+      color: #fff;
+      width: 2.8rem;
+      line-height: 0.8rem;
+      border-radius: 0.6rem;
+    }
     .left {
       width: 50%;
       display: flex;

@@ -1,62 +1,64 @@
 <template>
-    <div class="pages">
-        <HeaderSame :headerObj="headerObj"></HeaderSame>
-        <div class="banner">
-            <img src="static/img/banner1.png" alt="">
-        </div>
-        <div class="storeNameImg">
-            <img src="static/img/banner1.png" alt="" class="storeImg">
-            <div class="storeName">
-                <div class="name">
-                    <span>我乐橱柜</span>
-                    <img src="static/img/rightArrow.png" alt="">
-                    <span class="nameRight">简介</span>
-                </div>
-                <div class="storeTag">
-                    <span class="sTag">实木</span>
-                    <span class="sTag">别墅</span>
-                </div>
-                <div class="brief">
-                    上海市红星美凯龙真北路商场
-                </div>
-            </div>
-        </div>
-        <div class="storeAddress">
-            <span>上海市普陀区真北路1109号D2047室</span>
-            <div class="addressleftImg ">
-                <img src="static/img/dianhua.png" alt="">
-            </div>
-            <div class="addressrightImg" style="border-right:1px solid #e9e9e9;">
-                <img src="static/img/dizhi.png" alt="">
-            </div>
-        </div>
-        <div class="cellDesigner">
-            <span class="text1">设计师团队</span>
-            <div class="rightArrow">
-                <img src="static/img/rightArrow.png" alt="">
-            </div>
-            <span class="text2">1位设计师</span>
-        </div>
-        <div class="designer">
-            <div class="floor1Box">
-                <div class="imgRight">
-                    <img src="static/img/touxiang.jpg" alt="">
-                </div>
-                <div class="textLeft">
-                    <div class="nameTop">
-                        <span>张三</span>
-                        <span class="tag">找TA</span>
-                    </div>
-                    <div class="nameBottom">8年设计经验</div>
-                    <div class="nameTag">
-                        <span>现代</span>
-                        <span>北欧</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <decorationCompany></decorationCompany>
+  <div class="pages">
+    <HeaderSame :headerObj="headerObj"></HeaderSame>
+    <div class="banner">
+      <img src="static/img/banner1.png" alt="">
     </div>
+    <div class="storeNameImg">
+      <img src="static/img/banner1.png" alt="" class="storeImg">
+      <div class="storeName">
+        <div class="name" @click="$router.push('companyIntroduction')">
+          <span>我乐橱柜</span>
+          <div class="nameImg">
+            <img src="static/img/rightArrow.png" alt="">
+          </div>
+          <span class="nameRight">简介</span>
+        </div>
+        <div class="storeTag">
+          <span class="sTag">实木</span>
+          <span class="sTag">别墅</span>
+        </div>
+        <div class="brief">
+          上海市红星美凯龙真北路商场
+        </div>
+      </div>
+    </div>
+    <div class="storeAddress">
+      <span>上海市普陀区真北路1109号D2047室</span>
+      <div class="addressleftImg ">
+        <img src="static/img/dianhua.png" alt="">
+      </div>
+      <div class="addressrightImg" style="border-right:1px solid #e9e9e9;">
+        <img src="static/img/dizhi.png" alt="">
+      </div>
+    </div>
+    <div class="cellDesigner">
+      <span class="text1">设计师团队</span>
+      <div class="rightArrow">
+        <img src="static/img/rightArrow.png" alt="">
+      </div>
+      <span class="text2">1位设计师</span>
+    </div>
+    <div class="designer">
+      <div class="floor1Box">
+        <div class="imgRight">
+          <img src="static/img/touxiang.jpg" alt="">
+        </div>
+        <div class="textLeft">
+          <div class="nameTop">
+            <span>张三</span>
+            <span class="tag">找TA</span>
+          </div>
+          <div class="nameBottom">8年设计经验</div>
+          <div class="nameTag">
+            <span>现代</span>
+            <span>北欧</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <decorationCompany></decorationCompany>
+  </div>
 </template>
 <script>
 import HeaderSame from "../../../common/sameHeader.vue";
@@ -113,10 +115,15 @@ export default {
           margin-top: 0.03rem;
           margin-right: 0.1rem;
         }
-        img {
-          height: 0.24rem;
+        .nameImg {
+          height: 100%;
           float: right;
-          margin-top: 0.08rem;
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          img {
+            height: 0.24rem;
+          }
         }
       }
       .brief {

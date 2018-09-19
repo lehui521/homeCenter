@@ -1,35 +1,68 @@
 <template>
-    <div class="pages">
-        <searchHeader @searchClick="handleSearch"></searchHeader>
-        <!-- 内容 -->
-        <div class="productChoiceContent" v-if="true">
-            <div class="list" v-for="(item,index) in [1,2,3,4]" :key="index">
-                <div class="price">￥5555</div>
-                <img src="static/img/shichangtuipian.png" alt="">
-                <div class="listName">
-                    秋夕-现代橱柜
-                </div>
-                <div class="text">
-                    <span class="name">九牧恒大店</span>
-                </div>
-            </div>
+  <div class="pages">
+    <searchHeader @searchClick="handleSearch"></searchHeader>
+    <!-- 内容 -->
+    <div class="productChoiceContent" v-if="showProductStatus==1">
+      <div class="list" v-for="(item,index) in productData" :key="index">
+        <div class="price">￥5555</div>
+        <img src="static/img/shichangtuipian.png" alt="">
+        <div class="listName">
+          秋夕-现代橱柜
         </div>
-        <div class="noProduct" v-else>
-            <img src="static/img/noProduct.png" alt="">
-            <div class="text">未搜索到相关商品</div>
+        <div class="text">
+          <span class="name">九牧恒大店</span>
         </div>
+      </div>
     </div>
+    <div class="noProduct" v-if="showProductStatus==0">
+      <img src="static/img/noProduct.png" alt="">
+      <div class="text">未搜索到相关商品</div>
+    </div>
+  </div>
 </template>
 <script>
 import searchHeader from "../../../common/sameSearch.vue";
 export default {
   components: { searchHeader },
   data: function() {
-    return {};
+    return {
+      queryData: {
+        page: 1,
+        page_size: 10,
+        keywords: "",
+        category_id: "",
+        market_id: JSON.parse(localStorage.getItem("marketData")).market_id,
+        city_id: JSON.parse(localStorage.getItem("cityData")).city_id,
+        type_id: this.$route.query.typeId,
+        min_price: "",
+        max_price: ""
+      },
+      productData: [],
+      showProductStatus: 2
+    };
   },
   methods: {
     handleSearch: function(res) {
-      console.log(res);
+      this.queryData.keywords = res;
+      this.getData();
+    },
+    getData: function() {
+      this.tool
+        .request({
+          url: "goods/list",
+          method: "post",
+          params: this.queryData
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.productData = res.data.list;
+            if (this.productData.length == 0) {
+              this.showProductStatus = 0;
+            } else {
+              this.showProductStatus = 1;
+            }
+          }
+        });
     }
   }
 };

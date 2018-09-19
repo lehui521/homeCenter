@@ -5,15 +5,17 @@
       <img src="static/img/rightIcon.png" alt="" class="rightIcon">
     </div>
     <div class="content">
-      <div class="list" v-for="(item,index) in [1,2,3,4]" :key="index">
-        <img src="static/img/shichangtuipian.png" alt="">
-        <div class="text">令人愉悦的纯净白</div>
+      <div class="list" v-for="(item,index) in list" :key="index">
+        <img v-lazy="item.cover" alt="">
+        <div class="text">{{item.title}}</div>
       </div>
     </div>
   </div>
 </template>
 <script>
-export default {};
+export default {
+  props: ["list"]
+};
 </script>
 <style lang="scss" scoped>
 .lookPictureLearn {

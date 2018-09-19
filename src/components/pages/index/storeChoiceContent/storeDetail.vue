@@ -2,7 +2,12 @@
   <div class="pages">
     <HeaderSame :headerObj="headerObj"></HeaderSame>
     <div class="banner">
-      <img :src="shopDetailData.image" alt="">
+      <!-- <img :src="shopDetailData.image" alt=""> -->
+      <van-swipe :autoplay="3000" style="height:100%;">
+        <van-swipe-item v-for="(image, index) in shopDetailData.image_list" :key="index">
+          <img v-lazy="image" style="width:100%;height:100%;" class="bannerImg" />
+        </van-swipe-item>
+      </van-swipe>
     </div>
     <div class="storeNameImg">
       <img :src="shopDetailData.image" alt="" class="storeImg">
@@ -289,14 +294,11 @@ export default {
         })
         .then(res => {
           if (res.status == 200) {
-            this.$dialog
-              .alert({
-                title: "提示",
-                message: num == 200 ? "关注成功" : "取消成功"
-              })
-              .then(() => {
-                this.judgeCollection();
-              });
+            this.$toast({
+              type: "text",
+              message: num == 200 ? "关注成功" : "取消成功"
+            });
+            this.judgeCollection();
           }
         });
     },

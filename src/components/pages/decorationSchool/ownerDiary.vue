@@ -5,24 +5,22 @@
       <img src="static/img/rightIcon.png" alt="" class="rightIcon">
     </div>
     <div class="content">
-      <div class="diary">
-        <img src="static/img/shichangtuipian.png" alt="">
+      <div class="diary" v-for="(item,index) in list" :key="index">
+        <img v-lazy="item.image" alt="">
         <div class="diaryTitle">
-          学林苑我的家
+          {{item.name}}
         </div>
         <div class="diaryText">
-          <span>20-25万/</span>
-          <span>半包/</span>
-          <span>60m²以下/</span>
-          <span>两居/</span>
-          <span>宜家</span>
+          {{item.house_detail}}
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-export default {};
+export default {
+  props: ["list"]
+};
 </script>
 <style lang="scss" scoped>
 .ownerDiary {

@@ -46,7 +46,6 @@ export default {
       }, time);
     },
     clickNews: function(res) {
-      alert("aaa");
       this.$router.push(
         "indexNew?city_id=" + this.cityData.id + "&news_id=" + res.news_id
       );

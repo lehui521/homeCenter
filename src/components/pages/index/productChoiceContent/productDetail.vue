@@ -176,14 +176,11 @@ export default {
         })
         .then(res => {
           if (res.status == 200) {
-            this.$dialog
-              .alert({
-                title: "提示",
-                message: num == 200 ? "收藏成功" : "取消成功"
-              })
-              .then(() => {
-                this.judgeCollection();
-              });
+            this.$toast({
+              type: "text",
+              message: num == 200 ? "收藏成功" : "取消成功"
+            });
+            this.judgeCollection();
           }
         });
     },

@@ -1,10 +1,10 @@
 <template>
-    <div class="pages">
-        <HeaderSame :headerObj="headerObj"></HeaderSame>
-        <div class="content">
-            <div class="cntentImg"></div>
-        </div>
+  <div class="pages">
+    <HeaderSame :headerObj="headerObj"></HeaderSame>
+    <div class="content">
+      <div class="cntentImg"></div>
     </div>
+  </div>
 </template>
 <script>
 import HeaderSame from "../../../common/sameHeader.vue";
@@ -13,7 +13,8 @@ export default {
   data: function() {
     return {
       headerObj: {
-        title: "商家活动"
+        title: "商家活动",
+        type: "H5"
       }
     };
   },

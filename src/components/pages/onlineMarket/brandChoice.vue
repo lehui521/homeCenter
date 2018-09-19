@@ -5,17 +5,19 @@
       <img src="static/img/rightIcon.png" alt="" class="rightIcon">
     </div>
     <div class="banner">
-      <img src="static/img/banner2.png" alt="">
+      <img v-lazy="banner.image" alt="">
     </div>
     <div class="center">
-      <div v-for="(item,index) in [1,2,3,4,5,6,7,8,9]" :key="index" @click="$router.push('brandDetail')">
-        <img src="static/img/songxia.png" alt="">
+      <div v-for="(item,index) in list" :key="index" @click="$router.push('brandDetail')">
+        <img v-lazy="item.image" alt="">
       </div>
     </div>
   </div>
 </template>
 <script>
-export default {};
+export default {
+  props: ["banner", "list"]
+};
 </script>
 <style lang="scss" scoped>
 .brandChoice {

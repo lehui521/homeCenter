@@ -28,10 +28,10 @@
         <img :src="item.image" alt="" class="discountProImg">
         <div class="producText">
           <div class="text1">{{item.shop_name}}&nbsp;&nbsp;{{item.name}}</div>
-          <div class="text2">上海市灯具城</div>
+          <div class="text2">{{item.market}}</div>
           <div class="text3">
-            <span>￥{{item.zkprice}}</span>
-            <s>￥{{item.price}}</s>
+            <span>￥{{item.zkprice/100}}</span>
+            <s>￥{{item.price/100}}</s>
           </div>
         </div>
         <!-- 已领取的样式 -->
@@ -91,6 +91,8 @@ export default {
     clickNav: function(res) {
       this.typeId = res.type_id;
       this.activeTypeName = res.name;
+      this.getData();
+      this.showNav = false;
     },
     recieveCoupon: function(res) {
       this.tool
@@ -268,7 +270,7 @@ export default {
       background: #fff;
       display: flex;
       justify-content: flex-start;
-      height: 1.76rem;
+      min-height: 1.76rem;
       padding-bottom: 0.2rem;
       padding-left: 0.3rem;
       box-sizing: border-box;
@@ -286,7 +288,7 @@ export default {
         .text1 {
           font-size: 0.3rem;
           color: #333333;
-          height: 0.45rem;
+          min-height: 0.45rem;
           line-height: 0.45rem;
         }
         .text2 {

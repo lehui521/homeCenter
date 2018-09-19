@@ -47,14 +47,14 @@
       </div>
     </div>
     <div class="caseContent">
-      <div class="single">
+      <div class="single" v-for="(item,index) in caseData" :key="index">
         <div class="singleImg">
-          <img src="static/img/banner1.png" alt="">
+          <img v-lazy="item.image" alt="">
         </div>
         <div class="singleFloor1">
-          <div class="text1">新中式</div>
+          <div class="text1">{{item.title}}</div>
           <div class="text2">
-            <span>上海市|中商小区</span>
+            <span>{{item.city}}|{{item.community}}</span>
           </div>
         </div>
         <div class="singleFloor2">
@@ -62,15 +62,13 @@
             <div class="contentImg">
               <img src="static/img/grayStar.png" alt="">
             </div>
-
-            <span>3</span>
+            <span>{{item.fav_total}}</span>
           </div>
           <div class="content1">
             <div class="contentImg">
               <img src="static/img/yan.png" alt="">
             </div>
-
-            <span>154</span>
+            <span>{{item.view_total}}</span>
           </div>
         </div>
       </div>
@@ -84,8 +82,32 @@ export default {
       status: {
         typeStatus: "",
         showTypeStatus: false
-      }
+      },
+      queryData: {
+        city_id: JSON.parse(localStorage.getItem("cityData")).city_id,
+        market_id: "",
+        page_size: 10,
+        page: 1
+      },
+      caseData: []
     };
+  },
+  created: function() {
+    if (localStorage.getItem("marketData")) {
+      this.queryData.market_id = JSON.parse(
+        localStorage.getItem("marketData")
+      ).market_id;
+    } else {
+      return this.$dialog
+        .alert({
+          title: "提示",
+          message: "请选择市场"
+        })
+        .then(() => {
+          this.$router.push("marketList");
+        });
+    }
+    this.getCaseData();
   },
   methods: {
     typeClick: function(res) {
@@ -94,6 +116,19 @@ export default {
         return (this.status.typeStatus = "");
       }
       this.status.typeStatus = res;
+    },
+    getCaseData: function() {
+      this.tool
+        .request({
+          url: "decorator/case_list",
+          method: "post",
+          params: this.queryData
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.caseData = res.data.list;
+          }
+        });
     }
   }
 };

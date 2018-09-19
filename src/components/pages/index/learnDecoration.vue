@@ -5,17 +5,19 @@
       <img src="static/img/rightIcon.png" alt="" class="rightIcon">
     </div>
     <div class="banner">
-      <img src="static/img/discountBanner.png" alt="">
+      <img v-lazy="newObjBanner.image" alt="">
     </div>
     <div class="center">
-      <div class="list" v-for="(item,index) in [1,2,3,4]" :key="index">
-        <img src="static/img/shichangtuipian.png" alt="">
+      <div class="list" v-for="(item,index) in newObjList" :key="index">
+        <img v-lazy="item.image" alt="">
       </div>
     </div>
   </div>
 </template>
 <script>
-export default {};
+export default {
+  props: ["newObjBanner", "newObjList"]
+};
 </script>
 <style lang="scss" scoped>
 .learnDecoration {

@@ -26,6 +26,10 @@ export default new Router({
             ]
         },
         {
+            path: '/login',
+            component: resolve => require(['../components/pages/login'], resolve)
+        },
+        {
             path: '/mapCity',
             component: resolve => require(['../components/pages/mapCity'], resolve)
         },
@@ -123,6 +127,26 @@ export default new Router({
                 import ('../components/pages/my/message')
         },
         {
+            path: '/systemMessage',
+            component: () =>
+                import ('../components/pages/my/systemMessage')
+        },
+        {
+            path: '/decorationRoom',
+            component: () =>
+                import ('../components/pages/my/decorationRoom')
+        },
+        {
+            path: '/promotion',
+            component: () =>
+                import ('../components/pages/my/promotion')
+        },
+        {
+            path: '/systemMessageDetail',
+            component: () =>
+                import ('../components/pages/my/systemMessageDetail')
+        },
+        {
             path: '/myHome',
             component: () =>
                 import ('../components/pages/my/home')
@@ -174,6 +198,10 @@ export default new Router({
             component: resolve => require(['../components/pages/onlineMarket/decorationCompanyContent/searchDecorationCompany'], resolve)
         }, //装修公司搜索
         {
+            path: '/companyIntroduction',
+            component: resolve => require(['../components/pages/onlineMarket/decorationCompanyContent/companyIntroduction'], resolve)
+        }, //装修公司简介
+        {
             path: '/brandChoiceContent',
             component: resolve => require(['../components/pages/onlineMarket/brandChoiceContent'], resolve)
         }, //品牌列表
@@ -181,10 +209,6 @@ export default new Router({
             path: '/brandDetail',
             component: resolve => require(['../components/pages/onlineMarket/brandChoiceContent/brandDetail'], resolve)
         }, //品牌详情
-        {
-            path: '/onlineMarketNews',
-            component: resolve => require(['../components/pages/onlineMarket/onlineMarketNews'], resolve)
-        }, //新闻头条
         {
             path: '/decorationEncyclopedia',
             component: resolve => require(['../components/pages/decorationSchool/decorationEncyclopedia'], resolve)

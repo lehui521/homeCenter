@@ -4,33 +4,33 @@
       <img src="static/img/tuijianshichang.png" alt="">
     </div>
     <div class="marketList">
-      <div class="market" v-for="(item,index) in [1,2,3]" :key="index" @click="$router.push('onlineMarket')">
+      <div class="market" v-for="(item,index) in newArr" :key="index" @click="jumpOnlineMarket(item)">
         <div class="marketBorder" :style="index==2?'border:0;':''">
           <div class="marketImg">
-            <img src="static/img/shichangtuipian.png" alt="">
+            <img v-lazy="item.cover?item.cover:'static/img/shichangtuipian.png'" alt="">
           </div>
           <div class="marketText">
             <div class="marketName">
-              <span class="name">上海家饰佳徐汇店</span>
-              <span>64m</span>
+              <span class="name">{{item.name}}</span>
+              <span>{{item.distance}}</span>
             </div>
             <div class="marketTag">
-              <van-tag type="success" plain>家具</van-tag>
-              <van-tag type="success" plain>灯饰</van-tag>
+              <van-tag type="success" plain v-for="(tag,i) in item.cate_name" :key="i">{{tag}}</van-tag>
+              <!-- <van-tag type="success" plain>灯饰</van-tag> -->
             </div>
             <div class="marketPhone">
               <div class="icon"><img src="static/img/dianhua.png" alt=""></div>
 
-              <span>15252111236</span>
+              <span>{{item.contact}}</span>
             </div>
             <div class="marketAddress">
               <div class="icon"><img src="static/img/dizhi.png" alt=""></div>
 
-              <span>上海市徐汇区凯旋路552号</span>
+              <span>{{item.address}}</span>
             </div>
             <div class="marketHot">
               <div class="icon"><img src="static/img/re.png" alt=""></div>
-              <span>市场新开业，品牌大放价</span>
+              <span>{{item.hot_title}}</span>
             </div>
           </div>
         </div>
@@ -44,7 +44,16 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  props: ["newArr"],
+  methods: {
+    jumpOnlineMarket: function(res) {
+      let str = JSON.stringify(res);
+      localStorage.setItem("marketData", str);
+      this.$router.push("onlineMarket");
+    }
+  }
+};
 </script>
 <style lang="scss" scoped>
 .recommendMarket {
@@ -70,8 +79,10 @@ export default {};
         width: 40%;
         box-sizing: border-box;
         padding: 0.1rem;
+        height: 2.2rem;
         img {
           width: 100%;
+          height: 100%;
         }
       }
       .marketText {
@@ -88,6 +99,9 @@ export default {};
           .name {
             font-size: 0.3rem;
             font-weight: 540;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
           }
         }
       }

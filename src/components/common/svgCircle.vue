@@ -19,7 +19,7 @@ export default {
   methods: {
     getFontSize: function() {
       let size = document.body.clientWidth / 10;
-      this.options.r = size / 1.5;
+      this.options.r = size / 1.6;
     }
   }
 };

@@ -3,14 +3,13 @@
     <span>{{headerObj.title}}</span>
     <img :src="headerObj.img" alt="" class="share" @click="handleClickRight(headerObj.text)" v-if="headerObj.img!==''">
     <div class="back">
-      <img src="static/img/leftArrow.png" alt="" @click="gobackClick">
+      <img src="static/img/leftArrow.png" alt="" @click="gobackClick(headerObj.type)">
     </div>
-
   </div>
 </template>
 <script>
 export default {
-  props: ["headerObj"],
+  props: ["headerObj", "params"],
   methods: {
     handleClickRight: function(res) {
       if (res == "discountProduct") {
@@ -21,7 +20,7 @@ export default {
         this.$router.push("searchSalesPro");
       } else if (res == "productChoice") {
         //精品商品的搜索
-        this.$router.push("searchProductChoice");
+        this.$router.push({ path: "searchProductChoice", query: this.params });
       } else if (res == "storeChoice") {
         //精品店铺搜索
         this.$router.push("searchStoreChoice");
@@ -35,8 +34,12 @@ export default {
         this.$router.push("searchIndexNew");
       }
     },
-    gobackClick: function() {
-      this.goBack();
+    gobackClick: function(type) {
+      if (type) {
+        this.$router.go(-1);
+      } else {
+        this.goBack();
+      }
     }
   }
 };

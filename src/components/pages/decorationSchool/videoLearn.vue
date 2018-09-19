@@ -5,16 +5,16 @@
       <img src="static/img/rightIcon.png" alt="" class="rightIcon">
     </div>
     <div class="content">
-      <div class="video" v-for="(item,index) in [1,2]" :key="index">
+      <div class="video" v-for="(item,index) in list" :key="index">
         <div class="videoContent">
-          <img src="static/img/banner1.png" alt="" style="width:100%;height:100%;">
-          <img src="static/img/bofang.png" alt="" class="videoButton" @click="showVideoHandle">
+          <img v-lazy="item.img" alt="" style="width:100%;height:100%;">
+          <img src="static/img/bofang.png" alt="" class="videoButton" @click="showVideoHandle(item)">
         </div>
-        <div class="videoText">帮你搞定小卧室装修烦恼</div>
+        <div class="videoText">{{item.title}}</div>
         <div class="videoHeart">
           <div><img src="static/img/smallBofang.png" alt=""></div>
           <div>
-            <span>555</span>
+            <span>{{item.view_total}}</span>
           </div>
         </div>
       </div>
@@ -25,12 +25,13 @@
 </template>
 <script>
 export default {
+  props: ["list"],
   data: function() {
     return {};
   },
   methods: {
     showVideoHandle: function(res) {
-      this.$router.push("video");
+      this.$router.push("video?url=" + res.play_url);
     }
   }
 };

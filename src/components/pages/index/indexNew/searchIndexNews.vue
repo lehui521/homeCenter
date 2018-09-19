@@ -1,13 +1,23 @@
 <template>
-    <div class="pages">
-        <searchHeader @searchClick="handleSearch"></searchHeader>
-        <!-- 内容 -->
-
-        <div class="noProduct">
-            <img src="static/img/noProduct.png" alt="">
-            <div class="text">未搜索到相关商品</div>
+  <div class="pages">
+    <searchHeader @searchClick="handleSearch"></searchHeader>
+    <!-- 内容 -->
+    <div class="newContent" v-if="showStatus==1">
+      <div class="recommendNew" @click="jumpNewDetail(item)" v-for="(item,i) in searchData" :key="i">
+        <div class="leftText">
+          <div class="text1">{{item.title}}</div>
+          <div class="text2">{{item.create_time}} · {{item.click}}次阅读</div>
         </div>
+        <div class="rightText">
+          <img v-lazy="item.image" alt="">
+        </div>
+      </div>
     </div>
+    <div class="noProduct" v-if="showStatus==0">
+      <img src="static/img/noProduct.png" alt="">
+      <div class="text">未搜索到相关商品</div>
+    </div>
+  </div>
 </template>
 <script>
 import svgCircle from "../../../common/svgCircle.vue";
@@ -15,11 +25,39 @@ import searchHeader from "../../../common/sameSearch.vue";
 export default {
   components: { searchHeader, svgCircle },
   data: function() {
-    return {};
+    return {
+      queryData: {
+        page: 1,
+        page_size: 10,
+        keywords: ""
+      },
+      showStatus: 2,
+      searchData: []
+    };
   },
   methods: {
     handleSearch: function(res) {
-      console.log(res);
+      this.queryData.keywords = res;
+      this.getData();
+    },
+    jumpNewDetail: function(res) {},
+    getData: function() {
+      this.tool
+        .request({
+          url: "news/list",
+          method: "post",
+          params: this.queryData
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.searchData = res.data.list;
+            if (this.searchData.length == 0) {
+              this.showStatus = 0;
+            } else {
+              this.showStatus = 1;
+            }
+          }
+        });
     }
   }
 };
@@ -77,6 +115,46 @@ export default {
       position: absolute;
       left: 0.15rem;
       top: 0;
+    }
+  }
+  .newContent {
+    padding-top: 0.4rem;
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+    box-sizing: border-box;
+    background: #fff;
+    .recommendNew {
+      border-bottom: 1px solid #979797;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.3rem;
+      padding-bottom: 0.44rem;
+      margin-bottom: 0.4rem;
+
+      .leftText {
+        width: 60%;
+        color: #333333;
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        .text1 {
+          height: auto;
+          word-wrap: break-word;
+        }
+        .text2 {
+          font-size: 0.24rem;
+          color: #333333;
+        }
+      }
+      .rightText {
+        width: 2rem;
+        height: 1.5rem;
+        img {
+          height: 100%;
+          width: 100%;
+        }
+      }
     }
   }
   .discountProduct {

@@ -1,56 +1,57 @@
 <template>
-  <div class="pages">
-    <HeaderSame :headerObj="headerObj"></HeaderSame>
-    <div class="content">
-      <div class="title">
-        <div class="iconImg ppjs">
-          <img src="static/img/ppjs.png" alt="">
-        </div>
-        <div class="titleText">品牌介绍</div>
-      </div>
-      <div class="titleContent">
-        {{shopData.brand_info}}
-      </div>
-      <div class="title">
-        <div class="iconImg jyfw">
-          <img src="static/img/jyfw.png" alt="">
-        </div>
-        <div class="titleText">经营范围</div>
-      </div>
-      <div class="titleContent">
-        {{shopData.business_info}}
-      </div>
+    <div class="pages">
+        <HeaderSame :headerObj="headerObj"></HeaderSame>
+        <div class="content">
+            <div class="title">
+                <div class="iconImg ppjs">
+                    <img src="static/img/ppjs.png" alt="">
+                </div>
+                <div class="titleText">公司介绍</div>
+            </div>
+            <div class="titleContent">
+                asdsad
+            </div>
 
-      <!-- <div class="title">
+            <div class="title">
+                <div class="iconImg jyfw">
+                    <img src="static/img/jyfw.png" alt="">
+                </div>
+                <div class="titleText">服务区域</div>
+            </div>
+            <div class="titleContent">
+                asdasd
+            </div>
+
+            <!-- <div class="title">
         <div class="iconImg"></div>
         <div class="titleText">店铺地址</div>
       </div>
       <div class="titleContent">
         {{shopData.city+shopData.market_place}}
       </div> -->
-      <div class="title">
-        <div class="iconImg jyfw">
-          <img src="static/img/fwbz.png" alt="">
-        </div>
-        <div class="titleText">服务保障</div>
-      </div>
-      <div class="titleContent">
-        &nbsp;
-      </div>
+            <div class="title">
+                <div class="iconImg jyfw">
+                    <img src="static/img/yyzs.png" alt="">
+                </div>
+                <div class="titleText">公司资质</div>
+            </div>
+            <div class="titleContent">
+                &nbsp;
+            </div>
 
-      <div class="title">
-        <div class="iconImg jyfw">
-          <img src="static/img/yyzs.png" alt="">
+            <div class="title">
+                <div class="iconImg jyfw">
+                    <img src="static/img/gssj.png" alt="">
+                </div>
+                <div class="titleText">公司实景</div>
+            </div>
+            <div class="titleContent businessImg">
+                <div class="yimg" v-for="(item,i) in [1,2]" :key="i">
+                    <img src="static/img/banner1.png" alt="">
+                </div>
+            </div>
         </div>
-        <div class="titleText">营业证书</div>
-      </div>
-      <div class="titleContent businessImg">
-        <div class="yimg" v-for="(item,i) in shopData.license_image" :key="i">
-          <img :src="item" alt="">
-        </div>
-      </div>
     </div>
-  </div>
 </template>
 <script>
 import HeaderSame from "../../../common/sameHeader.vue";
@@ -59,8 +60,7 @@ export default {
   data: function() {
     return {
       headerObj: {
-        title: "我乐橱柜",
-        type: "H5"
+        title: "装修公司简介"
       },
       shopData: {}
     };
@@ -69,21 +69,7 @@ export default {
     this.getData();
   },
   methods: {
-    getData: function() {
-      this.tool
-        .request({
-          url: "shop/info",
-          method: "post",
-          params: {
-            shop_id: this.$route.query.shop_id
-          }
-        })
-        .then(res => {
-          if (res.status == 200) {
-            this.shopData = res.data.shop_info;
-          }
-        });
-    }
+    getData: function() {}
   }
 };
 </script>

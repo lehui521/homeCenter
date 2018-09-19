@@ -5,25 +5,31 @@
       <img src="static/img/rightIcon.png" alt="" class="rightIcon">
     </div>
     <div class="banner">
-      <img src="static/img/discountBanner.png" alt="">
+      <img v-lazy="newObjBanner.image" alt="">
     </div>
     <div class="center">
       <div class="leftImg">
-        <img src="static/img/discountLeft.png" alt="">
+        <img v-lazy="newObjList[0].image" alt="">
       </div>
       <div class="rightImg">
         <div>
-          <img src="static/img/discountRight1.png" alt="">
+          <img v-lazy="newObjList[1].image" alt="">
         </div>
         <div>
-          <img src="static/img/discountRight2.png" alt="">
+          <img v-lazy="newObjList[2].image" alt="">
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-export default {};
+export default {
+  props: ["newObjBanner", "newObjList"],
+  data: function() {
+    return {};
+  },
+  created: function() {}
+};
 </script>
 <style lang="scss" scoped>
 .discountArea {

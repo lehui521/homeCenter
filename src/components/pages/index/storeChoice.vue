@@ -5,23 +5,25 @@
       <img src="static/img/rightIcon.png" alt="" class="rightIcon">
     </div>
     <div class="banner">
-      <img src="static/img/discountBanner.png" alt="">
+      <img :src="newObjBanner.image" alt="">
     </div>
     <div class="center">
-      <div class="list" v-for="(item,index) in [1,2,3,4]" :key="index" @click="$router.push('storeDetail')">
-        <img src="static/img/shichangtuipian.png" alt="">
+      <div class="list" v-for="(item,index) in newObjList" :key="index" @click="$router.push('storeDetail')">
+        <img v-lazy="item.image" alt="">
         <div class="listName">
-          冠珠陶瓷
+          {{item.shop_name}}
         </div>
         <div class="text">
-          上海恒大建材厂
+          {{item.market_name}}
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-export default {};
+export default {
+  props: ["newObjBanner", "newObjList"]
+};
 </script>
 <style lang="scss" scoped>
 .storeChoice {

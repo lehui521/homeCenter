@@ -5,47 +5,43 @@
       <img src="static/img/rightIcon.png" alt="" class="rightIcon">
     </div>
     <div class="designerContent">
-      <div class="designer" v-for="(item,index) in [1,2,3]" :key="index">
+      <div class="designer" v-for="(item,index) in list" :key="index">
         <div class="memberDetail">
           <div class="memberLeft">
-            <img src="static/img/touxiang.jpg" alt="" class="tou">
+            <img v-lazy="item.avatar" alt="" class="tou">
             <p class="heart">
               <img src="static/img/shejishixin.png" alt="">
-              <span>551</span>
+              <span>{{item.fav_total}}</span>
             </p>
           </div>
           <div class="memberRight">
             <div class="memberName">
-              呵呵哒
+              {{item.name}}
               <span>找TA</span>
             </div>
             <div class="tag">
-              <van-tag type="success" plain>明星</van-tag>
-              <van-tag type="success" plain>资深</van-tag>
+              <van-tag type="success" plain v-for="(tag,i) in item.tag_title" :key="i">{{tag}}</van-tag>
             </div>
             <div class="address">
-              <span>上海市</span>
-              <span>15年</span>
+              <span>{{item.province}}</span>
+              <span>{{item.year}}</span>
             </div>
             <div class="textD">
-              <span>现代</span>
-              <span>简欧</span>
-              <span>美式</span>
-              <span>北欧</span>
+              <span v-for="(stag,i) in item.style_title" :key="i">{{stag}}</span>
             </div>
           </div>
         </div>
         <div class="designerImg">
-          <img src="static/img/shichangtuipian.png" alt="">
-          <img src="static/img/shichangtuipian.png" alt="">
-          <img src="static/img/shichangtuipian.png" alt="">
+          <img v-lazy="image" alt="" v-for="(image,i) in item.decorator_image" :key="i">
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-export default {};
+export default {
+  props: ["list"]
+};
 </script>
 <style lang="scss" scoped>
 .designer {
