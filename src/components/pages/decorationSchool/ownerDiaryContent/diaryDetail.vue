@@ -1,42 +1,43 @@
 <template>
-    <div class="pages">
-        <HeaderSame :headerObj="headerObj"></HeaderSame>
-        <div class="diaryImg">
-            <img src="static/img/banner1.png" alt="">
-            <span class="report" @click="$router.push('reportPage')">举报</span>
-        </div>
-        <div class="finishIcon">
-            <img src="static/img/dunpai.png" alt="">
-            <span>毕业照</span>
-        </div>
-        <div class="finishImg">
-            <img src="static/img/banner1.png" alt="">
-        </div>
-        <div class="grayBlank"></div>
-        <div class="finishText">
-            <div class="leftImg">
-                <img src="static/img/greenDot.png" alt="">
-            </div>
-            <div class="rightText">
-                <div class="text1">
-                    <span>完成验收</span>
-                    <span class="tag">完成验收</span>
-                </div>
-                <div class="text2">
-                    今天的撒贝宁， 金币，接啊 短裤 看看打开面膜呢你吃 对家就打吧吧就不能看家那就不能安静你看你啊就能看 阿迪就百科 ， 你看见啊看哪里
-                </div>
-            </div>
-        </div>
-        <img src="static/img/menu.png" alt="" class="menuButton" @click="showMenu=true">
-        <van-popup v-model="showMenu" position="right" :overlay="true" class="menuContent">
-            <div class="titleText">目录</div>
-            <div class="menuList">
-                <div class="single">环保入住</div>
-                <div class="single">环保入住</div>
-                <div class="single">环保入住</div>
-            </div>
-        </van-popup>
+  <div class="pages">
+    <HeaderSame :headerObj="headerObj"></HeaderSame>
+    <div class="diaryImg">
+      <img v-lazy="diaryData.diaryInfo.image" alt="">
+      <span class="report" @click="reportClick">举报</span>
     </div>
+    <div class="finishIcon">
+      <img src="static/img/dunpai.png" alt="">
+      <span>毕业照</span>
+    </div>
+    <div class="finishImg">
+      <img v-lazy="item" alt="" v-for="(item,i) in diaryData.diaryInfo.over_images" :key="i">
+    </div>
+    <div class="grayBlank"></div>
+    <div class="finishText" v-for="(item,i) in diaryData.diaryContentList" :key="i">
+      <div class="leftImg">
+        <img src="static/img/greenDot.png" alt="">
+      </div>
+      <div class="rightText">
+        <div class="text1">
+          <span>{{item.decorate_name}}</span>
+          <span class="tag">{{item.tag_name}}</span>
+        </div>
+        <div class="text2">
+          {{item.content}}
+        </div>
+        <div class="rightImg">
+          <img v-lazy="image.img" alt="" v-for="(image,num) in item.image_content" :key="num">
+        </div>
+      </div>
+    </div>
+    <img src="static/img/menu.png" alt="" class="menuButton" @click="showMenu=true">
+    <van-popup v-model="showMenu" position="right" :overlay="true" class="menuContent">
+      <div class="titleText">目录</div>
+      <div class="menuList">
+        <div class="single" v-for="(item,i) in diaryData.diaryContentList" :key="i">{{item.decorate_name}}</div>
+      </div>
+    </van-popup>
+  </div>
 </template>
 <script>
 import HeaderSame from "../../../common/sameHeader.vue";
@@ -49,8 +50,43 @@ export default {
         img: "static/img/fenxiang.png",
         text: "diaryDetail"
       },
-      showMenu: false
+      showMenu: false,
+      diaryData: {
+        diaryInfo: {},
+        diaryContentList: []
+      }
     };
+  },
+  created: function() {
+    this.getData();
+  },
+  methods: {
+    reportClick: function() {
+      if (!localStorage.getItem("ticket")) {
+        return this.$toast({
+          type: "text",
+          message: "请登录"
+        });
+      } else {
+        this.$router.push("reportPage?diaryId=" + this.$route.query.diaryId);
+      }
+    },
+    getData: function() {
+      this.tool
+        .request({
+          url: "diary/content",
+          method: "post",
+          params: {
+            diary_id: this.$route.query.diaryId
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.diaryData.diaryInfo = res.data.diary_info;
+            this.diaryData.diaryContentList = res.data.diary_content_list;
+          }
+        });
+    }
   }
 };
 </script>
@@ -111,11 +147,12 @@ export default {
     img {
       height: 100%;
       width: 2.5rem;
+      height: 2rem;
     }
   }
   .finishText {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     padding-left: 0.44rem;
     padding-right: 0.39rem;
     padding-top: 0.24rem;
@@ -149,6 +186,15 @@ export default {
         font-size: 0.26rem;
         color: #999999;
         letter-spacing: 0;
+      }
+      .rightImg {
+        width: 100%;
+        margin-top: 0.2rem;
+        img {
+          width: 2.5rem;
+          height: 2rem;
+          margin-right: 0.2rem;
+        }
       }
     }
   }

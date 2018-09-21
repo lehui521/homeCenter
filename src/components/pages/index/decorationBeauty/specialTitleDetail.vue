@@ -18,7 +18,20 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  methods: {
+    getDetail: function() {
+      this.tool.request({
+        url: "picture/info",
+        method: "post",
+        params: {
+          ticket: localStorage.getItem("ticket"),
+          picture_id: this.$route.query.id
+        }
+      });
+    }
+  }
+};
 </script>
 <style lang="scss" scoped>
 .pages {

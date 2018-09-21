@@ -80,6 +80,7 @@ export default {
   background: #fff;
   height: 100%;
   padding-top: 1.76rem;
+  box-sizing: border-box;
   .header {
     height: 0.88rem;
     position: fixed;

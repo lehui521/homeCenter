@@ -1,29 +1,66 @@
 <template>
-    <div class="pages">
-        <div class="header">
-            <span>日记详情</span>
-            <span class="share" @click="$router.push('addDiaryStep2')">下一步</span>
-            <img src="static/img/leftArrow.png" alt="" class="back" @click="$router.go(-1)">
-        </div>
-        <div class="title">
-            <van-field v-model="diaryTitle" clearable placeholder="日记标题" class="titleInput" />
-        </div>
-        <div class="uploadImg">
-            <van-uploader :after-read="uploadImgClick" accept="image/gif, image/jpeg" multiple>
-                <img src="static/img/addImg.png" alt="">
-            </van-uploader>
-        </div>
+  <div class="pages">
+    <div class="header">
+      <span>新建日记</span>
+      <span class="share" @click="nextStep">下一步</span>
+      <img src="static/img/leftArrow.png" alt="" class="back" @click="$router.go(-1)">
     </div>
+    <div class="title">
+      <van-field v-model="queryData.name" clearable placeholder="日记标题" class="titleInput" />
+    </div>
+    <div class="uploadImg">
+      <van-uploader :after-read="uploadImgClick" accept="image/gif, image/jpeg" multiple>
+        <img v-lazy="queryData.image==''?'static/img/addImg.png':queryData.image" alt="">
+      </van-uploader>
+    </div>
+  </div>
 </template>
 <script>
+import lrz from "lrz";
 export default {
   data: function() {
     return {
-      diaryTitle: ""
+      queryData: {
+        ticket: localStorage.getItem("ticket"),
+        name: "",
+        image: ""
+      }
     };
   },
   methods: {
-    uploadImgClick: function() {}
+    uploadImgClick: function(res) {
+      let file = res.file;
+      lrz(file, { filedName: file.name }).then(fileData => {
+        let form = new FormData();
+        form.append("file", fileData.base64);
+        this.tool
+          .request({
+            url: "upload/base64",
+            method: "post",
+            data: {
+              image: fileData.base64
+            }
+          })
+          .then(res => {
+            if (res.status == 200) {
+              this.queryData.image = res.data.image;
+            }
+          });
+      });
+    },
+    nextStep: function() {
+      this.tool
+        .request({
+          url: "user/setDiary",
+          method: "post",
+          params: this.queryData
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.$router.push("addDiaryStep2");
+          }
+        });
+    }
   }
 };
 </script>

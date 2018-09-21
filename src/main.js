@@ -19,6 +19,9 @@ Vue.use(VueLazyload, {
     loading: '../static/img/zwf.png',
     attempt: 1
 })
+import { InfiniteScroll } from 'mint-ui';
+
+Vue.use(InfiniteScroll);
 
 import VideoPlayer from 'vue-video-player'
 require('video.js/dist/video-js.css')

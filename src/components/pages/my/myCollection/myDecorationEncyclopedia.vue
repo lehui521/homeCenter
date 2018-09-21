@@ -1,45 +1,55 @@
 <template>
-    <div :class="checkStatus?'pages pb-1':'pages'">
-        <div class="header">
-            <span>收藏装修百科</span>
-            <span class="share" @click="checkAllClick('all')" v-if="!checkStatus">全选</span>
-            <span class="share" @click="checkAllClick('cancel')" v-if="checkStatus">取消</span>
-            <img src="static/img/leftArrow.png" alt="" class="back" @click="$router.go(-1)">
-        </div>
-        <div class="content">
-            <van-checkbox-group v-model="result" @change="checkChange">
-                <div class="single" @click="$router.push('decorationEncyclopediaDetail')" v-for="i in 3" :key="i">
-                    <div class="singleLeft">
-                        <div class="leftText1">
-                            集成墙饰多少钱一平方
-                        </div>
-                        <div class="singleText2">
-                            <span>2017-12-19</span>
-                            <img src="static/img/yan.png" alt="">
-                            <span>154</span>
-                        </div>
-                    </div>
-                    <div class="singleRight">
-                        <img src="static/img/banner1.png" alt="">
-                        <span class="cancel" v-if="!checkStatus">取消</span>
-                        <van-checkbox :name="i" class="checkSingle" v-if="checkStatus">
-                        </van-checkbox>
-                    </div>
-                </div>
-            </van-checkbox-group>
-        </div>
-        <!-- <van-popup v-model="checkStatus" position="bottom" :overlay="false"> -->
-        <div class="cancelFocus" :style="checkStatus?'height:1rem':''">取消收藏</div>
-        <!-- </van-popup> -->
+  <div :class="checkStatus?'pages pb-1':'pages'">
+    <div class="header">
+      <span>收藏装修百科</span>
+      <span class="share" @click="checkAllClick('all')" v-if="!checkStatus">全选</span>
+      <span class="share" @click="checkAllClick('cancel')" v-if="checkStatus">取消</span>
+      <img src="static/img/leftArrow.png" alt="" class="back" @click="$router.go(-1)">
     </div>
+    <div class="content">
+      <van-checkbox-group v-model="result" @change="checkChange">
+        <div class="single" @click="$router.push('decorationEncyclopediaDetail')" v-for="(item,i) in decorationData" :key="i">
+          <div class="singleLeft">
+            <div class="leftText1">
+              {{item.title}}
+            </div>
+            <div class="singleText2">
+              <span>{{item.add_time}}</span>
+              <img src="static/img/yan.png" alt="">
+              <span>{{item.view_total}}</span>
+            </div>
+          </div>
+          <div class="singleRight">
+            <img v-alzy="item.img" alt="">
+            <span class="cancel" v-if="!checkStatus">取消</span>
+            <van-checkbox :name="i" class="checkSingle" v-if="checkStatus">
+            </van-checkbox>
+          </div>
+        </div>
+      </van-checkbox-group>
+    </div>
+    <!-- <van-popup v-model="checkStatus" position="bottom" :overlay="false"> -->
+    <div class="cancelFocus" :style="checkStatus?'height:1rem':''">取消收藏</div>
+    <!-- </van-popup> -->
+  </div>
 </template>
 <script>
 export default {
   data: function() {
     return {
       result: [],
-      checkStatus: false
+      checkStatus: false,
+      queryData: {
+        ticket: localStorage.getItem("ticket"),
+        page: 1,
+        page_size: 15,
+        type: "wiki"
+      },
+      decorationData: []
     };
+  },
+  created: function() {
+    this.getData();
   },
   methods: {
     checkChange: function(res) {
@@ -52,6 +62,19 @@ export default {
       } else if (res == "cancel") {
         this.checkStatus = false;
       }
+    },
+    getData: function() {
+      this.tool
+        .request({
+          url: "favorite/list",
+          method: "post",
+          params: this.queryData
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.decorationData = res.data.list;
+          }
+        });
     }
   }
 };
@@ -59,6 +82,13 @@ export default {
 <style lang="scss" scoped>
 .pages {
   padding-top: 0.88rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  background: #fff;
   .header {
     height: 0.88rem;
     position: fixed;

@@ -1,18 +1,16 @@
 <template>
   <div class="singleDragram">
-    <van-list v-model="loading" :finished="finished" @load="getData" style="height:100%;" :offset="10">
-      <van-checkbox-group v-model="result" @change="changeBoxClick" style="height:100%;">
-        <vueWaterfallEasy :imgsArr="imgsArr" class="content" :loadingDotCount="0">
-          <template slot-scope="props">
-            <div class="cancel" v-if="!danCheckStatus">
-              取消
-            </div>
-            <van-checkbox :name="props.value" class="checkBox" v-if="danCheckStatus">
-            </van-checkbox>
-          </template>
-        </vueWaterfallEasy>
-      </van-checkbox-group>
-    </van-list>
+    <van-checkbox-group v-model="result" @change="changeBoxClick" style="height:100%;">
+      <vueWaterfallEasy :imgsArr="singleData" class="content" srcKey="cover" :loadingDotCount="0">
+        <template slot-scope="props">
+          <div class="cancel" v-if="!danCheckStatus">
+            取消
+          </div>
+          <van-checkbox :name="props.value" class="checkBox" v-if="danCheckStatus">
+          </van-checkbox>
+        </template>
+      </vueWaterfallEasy>
+    </van-checkbox-group>
   </div>
 </template>
 <script>
@@ -24,28 +22,15 @@ export default {
     return {
       colorData: ["yellow", "#000", "#3CB850", "#FF9100", "#3D64FF"],
       localData: ["不限", "店面", "衣柜", "酒柜", "鞋柜"],
-      loading: false,
-      finished: false,
       result: [],
       danCheckStatus: false,
-      imgsArr: [
-        { src: "static/img/touxiang.jpg" },
-        {
-          src: "static/img/shichangtuipian.png"
-        },
-        { src: "static/img/touxiang.jpg" },
-        {
-          src: "static/img/shichangtuipian.png"
-        },
-        { src: "static/img/touxiang.jpg" },
-        {
-          src: "static/img/shichangtuipian.png"
-        },
-        { src: "static/img/touxiang.jpg" },
-        {
-          src: "static/img/shichangtuipian.png"
-        }
-      ]
+      queryData: {
+        ticket: localStorage.getItem("ticket"),
+        page: 1,
+        page_size: 15,
+        type: "single_picture"
+      },
+      singleData: []
     };
   },
   watch: {
@@ -56,18 +41,10 @@ export default {
     }
   },
   mounted: function() {},
+  created: function() {
+    this.getData();
+  },
   methods: {
-    getData: function() {
-      setTimeout(() => {
-        this.imgsArr = this.imgsArr.concat(this.imgsArr);
-        this.loading = false;
-        this.finished = true;
-      }, 1000);
-
-      //   this.imgsArr = this.imgsArr.concat(this.imgsArr);
-      console.log(5555);
-      //   this.$refs.waterfall.waterfallOver();
-    },
     changeBoxClick: function(res) {
       console.log(res);
     },
@@ -75,6 +52,19 @@ export default {
       if (res.tabActive == "dan") {
         this.danCheckStatus = res.checkStatus;
       }
+    },
+    getData: function() {
+      this.tool
+        .request({
+          url: "favorite/list",
+          method: "post",
+          params: this.queryData
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.singleData = res.data.list;
+          }
+        });
     }
   }
 };

@@ -37,7 +37,7 @@
       </div>
     </div>
     <div class="content">
-      <div class="diary" @click="$router.push('diaryDetail')">
+      <div class="diary" @click="$router.push('diaryDetail')" v-if="false">
         <img src="static/img/shichangtuipian.png" alt="">
         <div class="diaryTitle">
           学林苑我的家

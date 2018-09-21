@@ -2,7 +2,7 @@
   <div class="pages">
     <div class="header">
       <span>新建日记</span>
-      <span class="share">完成</span>
+      <span class="share" @click="submitClick">完成</span>
       <img src="static/img/leftArrow.png" alt="" class="back" @click="$router.go(-1)">
     </div>
     <div class="diaryImg">
@@ -13,18 +13,23 @@
       <img src="static/img/grayCamera.png" alt="">
     </div>
     <div class="diaryTextContent">
-      <van-field v-model="message" type="textarea" placeholder="请输入日记内容" rows="2" autosize class="textArea" />
+      <van-field v-model="queryData.content" type="textarea" placeholder="请输入日记内容" rows="2" autosize class="textArea" />
     </div>
     <div class="diarySelect">
-      <van-cell title="装修阶段" is-link value="泥木验收" class="single" @click="status.showDecorationStage=true" />
-      <van-cell title="装修标签" is-link value="准备" class="single" />
-      <van-cell title="选中日期" is-link value="2017-10-10" class="single" @click="status.showDate=true" />
+      <van-cell title="装修阶段" is-link :value="stepName" class="single" @click="status.showDecorationStage=true" />
+      <van-cell title="装修标签" is-link :value="labelName" class="single" @click="status.showLabel=true" />
+      <van-cell title="选中日期" is-link :value="queryData.day" class="single" @click="status.showDate=true" />
     </div>
     <van-popup v-model="status.showDecorationStage" position="bottom" :overlay="true" class="typeMask">
-      <van-picker show-toolbar :columns="columns" @cancel="status.showDecorationStage=false" @confirm="status.showDecorationStage=false" class="picker" />
+      <van-picker value-key="name" show-toolbar :columns="stepData" @cancel="status.showDecorationStage=false" @confirm="stepClick" class="picker" />
     </van-popup>
+    <!-- 装修标签 -->
+    <van-popup v-model="status.showLabel" position="bottom" :overlay="true" class="typeMask">
+      <van-picker value-key="tag_name" show-toolbar :columns="labelData" @cancel="status.showLabel=false" @confirm="labelClick" class="picker" />
+    </van-popup>
+
     <van-popup v-model="status.showDate" position="bottom" :overlay="true" class="typeMask">
-      <van-datetime-picker :max-date="minDate" v-model="currentDate" type="date" @cancel="status.showDate=false" @confirm="status.showDate=false" :formatter="formatterDate" />
+      <van-datetime-picker :max-date="minDate" v-model="currentDate" type="date" @cancel="status.showDate=false" @confirm="dateClick" :formatter="formatterDate" />
     </van-popup>
   </div>
 </template>
@@ -33,20 +38,105 @@ export default {
   data: function() {
     return {
       message: "",
-      currentDate: new Date(),
+      currentDate: "",
       minDate: new Date(),
+      stepName: "",
+      labelName: "",
       status: {
         showDecorationStage: false,
-        showDate: false
+        showDate: false,
+        showLabel: false
       },
-      columns: [
-        { text: "装修准备", defaultIndex: 0 },
-        { text: "合同签订", defaultIndex: 1 },
-        { text: "拆除改造", defaultIndex: 2 }
-      ]
+      queryData: {
+        decorate_id: "",
+        content: "",
+        tag_id: "",
+        ticket: localStorage.getItem("ticket")
+      },
+      stepData: [],
+      labelData: [{ tag_name: "请先选择装修阶段" }] //装修标签
     };
   },
+  created: function() {
+    this.getStepData();
+  },
   methods: {
+    submitClick: function() {
+      this.tool
+        .request({
+          url: "user/editDiary",
+          method: "post",
+          params: this.queryData
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.$dialog({
+              title: "提示",
+              message: res.msg
+            });
+          } else {
+            this.$toast({
+              type: "text",
+              message: res.msg == "" ? "新增失败" : res.msg
+            });
+          }
+        });
+    },
+    getStepData: function() {
+      this.tool
+        .request({
+          url: "tags/getList",
+          method: "post",
+          params: {
+            tag_ename: "decorate"
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.stepData = res.data.tags;
+          }
+        });
+    },
+    getLabelData: function() {
+      this.tool
+        .request({
+          url: "tags/getChildList",
+          method: "post",
+          params: {
+            tag_id: this.queryData.decorate_id
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.labelData = res.data;
+          }
+        });
+    },
+    stepClick: function(res) {
+      this.queryData.decorate_id = res.id;
+      this.stepName = res.name;
+      this.status.showDecorationStage = false;
+      this.getLabelData();
+    },
+    labelClick: function(res) {
+      this.queryData.tag_id = res.tag_id;
+      this.labelName = res.tag_name;
+      this.status.showLabel = false;
+    },
+    dateClick: function(res) {
+      let year = res.getFullYear();
+      let month = parseInt(res.getMonth()) + 1;
+      if (parseInt(month) < 10) {
+        month = "0" + month;
+      }
+      let day = res.getDate();
+      if (parseInt(day) < 10) {
+        day = "0" + day;
+      }
+      let str = year + "-" + month + "-" + day;
+      this.queryData.day = str;
+      this.status.showDate = false;
+    },
     uploadImgClick: function() {},
     formatterDate: function(type, value) {
       if (type === "year") {

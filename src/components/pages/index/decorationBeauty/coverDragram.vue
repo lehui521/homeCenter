@@ -31,43 +31,45 @@
       </div>
       <!-- 颜色 -->
       <div class="typeContent" v-if="typeStatus=='color'">
-        <div class="content" :style="'background-color:'+item" v-for="(item,index) in colorData" :key="index"></div>
+        <div :class="queryData.color==item.id?'contentActive content':'content'" :style="'background-color:#'+item.content" v-for="(item,index) in colorCover" :key="index" @click="typeSelectClickColor(item,'color')">
+          <span v-if="item.content==''">{{item.name}}</span>
+        </div>
       </div>
-      <!-- 局部 -->
+      <!-- 面积 -->
       <div class="typeContent" v-if="typeStatus=='local'">
-        <div class="content local" v-for="(item,index) in localData" :key="index">
-          {{item}}
+        <div :class="queryData.area==item.id?'contentActive content local':'content local'" v-for="(item,index) in sizeCover" :key="index" @click="typeSelectClickColor(item,'size')">
+          {{item.name}}
         </div>
       </div>
       <!-- 户型 -->
       <div class="typeContent" v-if="typeStatus=='door'">
-        <div class="content local" v-for="(item,index) in localData" :key="index">
-          {{item}}
+        <div :class="queryData.layout==item.id?'contentActive content local':'content local'" v-for="(item,index) in houseCover" :key="index" @click="typeSelectClickColor(item,'layout')">
+          {{item.name}}
         </div>
       </div>
       <!-- 风格 -->
       <div class="typeContent" v-if="typeStatus=='style'">
-        <div class="content local" v-for="(item,index) in localData" :key="index">
-          {{item}}
+        <div :class="queryData.style==item.id?'contentActive content local':'content local'" v-for="(item,index) in styleCover" :key="index" @click="typeSelectClickColor(item,'style')">
+          {{item.name}}
         </div>
       </div>
     </div>
-    <van-list v-model="loading" :finished="finished" @load="getData" style="height:100%;" :offset="10">
-      <vueWaterfallEasy :imgsArr="imgsArr" :loadingDotCount="0" class="singleCover" :mobileGap="16">
+    <Scroll :on-refresh="onRefresh" :on-infinite="scrollEnd" ref="scroll">
+      <vueWaterfallEasy :imgsArr="coverData" :loadingDotCount="0" srcKey="cover" class="singleCover" :mobileGap="16" @click="coverClick">
         <template slot-scope="props">
           <div class="blank"></div>
-          <div class="title">{{props.value.info}}
+          <div class="title">{{props.value.title}}
             <div class="imgNum">
               <div class="imgN">
                 <img src="static/img/numImg.png" alt="">
               </div>
-              <span>10</span>
+              <span>{{props.value.content.length}}</span>
             </div>
           </div>
           <div class="blank"></div>
         </template>
       </vueWaterfallEasy>
-    </van-list>
+    </Scroll>
     <!-- 模态框 -->
     <div class="mask" v-if="typeStatus!==''" @click="typeStatus=''">
     </div>
@@ -75,56 +77,98 @@
 </template>
 <script>
 import vueWaterfallEasy from "vue-waterfall-easy";
+import Scroll from "../../../common/test.vue";
+import { ImagePreview } from "vant";
 export default {
-  components: { vueWaterfallEasy },
+  props: ["styleCover", "houseCover", "sizeCover", "colorCover"],
+  components: { vueWaterfallEasy, Scroll },
   data: function() {
     return {
-      colorData: ["yellow", "#000", "#3CB850", "#FF9100", "#3D64FF"],
-      localData: ["不限", "店面", "衣柜", "酒柜", "鞋柜"],
       typeStatus: "",
-      loading: false,
-      finished: false,
-      imgsArr: [
-        { src: "static/img/touxiang.jpg", info: "温暖趣味北欧三居" },
-        {
-          src: "static/img/shichangtuipian.png",
-          info: "温暖趣味北欧三居"
-        },
-        { src: "static/img/touxiang.jpg", info: "温暖趣味北欧三居" },
-        {
-          src: "static/img/shichangtuipian.png",
-          info: "温暖趣味北欧三居"
-        },
-        { src: "static/img/touxiang.jpg", info: "温暖趣味北欧三居" },
-        {
-          src: "static/img/shichangtuipian.png",
-          info: "温暖趣味北欧三居"
-        },
-        { src: "static/img/touxiang.jpg", info: "温暖趣味北欧三居" },
-        {
-          src: "static/img/shichangtuipian.png",
-          info: "温暖趣味北欧三居"
-        }
-      ]
+      queryData: {
+        ticket: localStorage.getItem("ticket"),
+        page: 1,
+        page_size: 15,
+        category_id: 2,
+        space: 0,
+        style: 0,
+        area: 0,
+        color: 0,
+        place: 0,
+        layout: 0
+      },
+      loading: true,
+      coverData: []
     };
   },
+  created: function() {
+    this.getData();
+  },
   methods: {
+    coverClick: function(index, value) {
+      let arr = [];
+      for (var i in value.value.content) {
+        arr.push(value.value.content[i].img);
+      }
+      ImagePreview(arr);
+    },
+    onRefresh: function(done) {
+      return done();
+    },
     getData: function() {
+      this.tool
+        .request({
+          url: "picture/list",
+          method: "post",
+          params: this.queryData
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.coverData = res.data.list;
+          }
+        });
+    },
+    scrollEnd: function(done) {
+      this.queryData.page += 1;
+      this.loading = true;
       setTimeout(() => {
-        this.imgsArr = this.imgsArr.concat(this.imgsArr);
-        this.loading = false;
-        this.finished = true;
+        this.tool
+          .request({
+            url: "picture/list",
+            method: "post",
+            params: this.queryData
+          })
+          .then(res => {
+            if (res.status == 200) {
+              for (var i in res.data.list) {
+                this.coverData.push(res.data.list[i]);
+              }
+              if (res.data.list.length < 15) {
+                this.$el.querySelector(".load-more span").innerHTML =
+                  "没有更多了";
+                return;
+              }
+              done();
+            }
+          });
       }, 1000);
-
-      //   this.imgsArr = this.imgsArr.concat(this.imgsArr);
-      console.log(5555);
-      //   this.$refs.waterfall.waterfallOver();
     },
     typeClick: function(res) {
       if (this.typeStatus == res) {
         return (this.typeStatus = "");
       }
       this.typeStatus = res;
+    },
+    typeSelectClickColor: function(item, type) {
+      if (type == "color") {
+        this.queryData.color = item.id;
+      } else if (type == "size") {
+        this.queryData.area = item.id;
+      } else if (type == "layout") {
+        this.queryData.layout = item.id;
+      } else if (type == "style") {
+        this.queryData.style = item.id;
+      }
     }
   }
 };
@@ -174,6 +218,12 @@ export default {
   }
   .content {
     background-color: #f8f8f8;
+    border: 1px solid #fff;
+  }
+  .contentActive {
+    border: 1px solid rgb(61, 204, 66);
+    color: rgb(61, 204, 66) !important;
+    background-color: #f8f8f8;
   }
   .mask {
     position: fixed;
@@ -195,6 +245,9 @@ export default {
     box-sizing: border-box;
     flex-flow: wrap;
     padding-bottom: 0.32rem;
+    font-size: 0.28rem;
+    color: #666666;
+    text-align: center;
     .content {
       height: 0.6rem;
       width: 1.5rem;

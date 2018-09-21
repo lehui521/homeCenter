@@ -5,7 +5,7 @@
       <img src="static/img/rightIcon.png" alt="" class="rightIcon">
     </div>
     <div class="content">
-      <div class="diary" v-for="(item,index) in list" :key="index">
+      <div class="diary" v-for="(item,index) in list" :key="index" @click="$router.push('diaryDetail?diaryId='+item.diary_id)">
         <img v-lazy="item.image" alt="">
         <div class="diaryTitle">
           {{item.name}}

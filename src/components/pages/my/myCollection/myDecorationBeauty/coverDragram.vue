@@ -1,26 +1,24 @@
 <template>
   <div class="coverDragram">
-    <van-list v-model="loading" :finished="finished" @load="getData" style="height:100%;" :offset="10">
-      <van-checkbox-group v-model="result" @change="changeBoxClick" style="height:100%;">
-        <vueWaterfallEasy :imgsArr="imgsArr" :loadingDotCount="0">
-          <template slot-scope="props">
-            <div class="blank"></div>
-            <div class="title">{{props.value.info}}
-              <div class="imgNum">
-                <img src="static/img/numImg.png" alt="">
-                <span>10</span>
-              </div>
+    <van-checkbox-group v-model="result" @change="changeBoxClick" style="height:100%;">
+      <vueWaterfallEasy :imgsArr="coverData" :loadingDotCount="0" srcKey="cover">
+        <template slot-scope="props">
+          <div class="blank"></div>
+          <div class="title">{{props.value.title}}
+            <div class="imgNum">
+              <img src="static/img/numImg.png" alt="">
+              <span>10</span>
             </div>
-            <div class="blank"></div>
-            <div class="cancel" v-if="!taoCheckStatus">
-              取消
-            </div>
-            <van-checkbox :name="props.value" class="checkBox" v-if="taoCheckStatus">
-            </van-checkbox>
-          </template>
-        </vueWaterfallEasy>
-      </van-checkbox-group>
-    </van-list>
+          </div>
+          <div class="blank"></div>
+          <div class="cancel" v-if="!taoCheckStatus">
+            取消
+          </div>
+          <van-checkbox :name="props.value" class="checkBox" v-if="taoCheckStatus">
+          </van-checkbox>
+        </template>
+      </vueWaterfallEasy>
+    </van-checkbox-group>
   </div>
 </template>
 <script>
@@ -32,49 +30,37 @@ export default {
       colorData: ["yellow", "#000", "#3CB850", "#FF9100", "#3D64FF"],
       localData: ["不限", "店面", "衣柜", "酒柜", "鞋柜"],
       result: [],
-      loading: false,
-      finished: false,
       taoCheckStatus: false,
-      imgsArr: [
-        { src: "static/img/touxiang.jpg", info: "温暖趣味北欧三居" },
-        {
-          src: "static/img/shichangtuipian.png",
-          info: "温暖趣味北欧三居"
-        },
-        { src: "static/img/touxiang.jpg", info: "温暖趣味北欧三居" },
-        {
-          src: "static/img/shichangtuipian.png",
-          info: "温暖趣味北欧三居"
-        },
-        { src: "static/img/touxiang.jpg", info: "温暖趣味北欧三居" },
-        {
-          src: "static/img/shichangtuipian.png",
-          info: "温暖趣味北欧三居"
-        },
-        { src: "static/img/touxiang.jpg", info: "温暖趣味北欧三居" },
-        {
-          src: "static/img/shichangtuipian.png",
-          info: "温暖趣味北欧三居"
-        }
-      ]
+      coverData: [],
+      queryData: {
+        ticket: localStorage.getItem("ticket"),
+        page: 1,
+        page_size: 15,
+        type: "multi_picture"
+      }
     };
   },
+  created: function() {
+    this.getCoverData();
+  },
   methods: {
-    getData: function() {
-      setTimeout(() => {
-        this.imgsArr = this.imgsArr.concat(this.imgsArr);
-        this.loading = false;
-        this.finished = true;
-      }, 1000);
-
-      //   this.imgsArr = this.imgsArr.concat(this.imgsArr);
-      console.log(5555);
-      //   this.$refs.waterfall.waterfallOver();
-    },
     updateData: function(res) {
       this.taoCheckStatus = res.checkStatus;
     },
-    changeBoxClick: function() {}
+    changeBoxClick: function() {},
+    getCoverData: function() {
+      this.tool
+        .request({
+          url: "favorite/list",
+          method: "post",
+          params: this.queryData
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.coverData = res.data.list;
+          }
+        });
+    }
   }
 };
 </script>

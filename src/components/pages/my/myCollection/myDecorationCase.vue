@@ -1,53 +1,76 @@
 <template>
-    <div :class="checkStatus?'pages pb-1 ':'pages'">
-        <div class="header">
-            <span>收藏装修案例</span>
-            <span class="share" @click="checkAllClick('all')" v-if="!checkStatus">全选</span>
-            <span class="share" @click="checkAllClick('cancel')" v-if="checkStatus">取消</span>
-            <img src="static/img/leftArrow.png" alt="" class="back" @click="$router.go(-1)">
-        </div>
-        <div class="caseContent">
-            <van-checkbox-group v-model="result" @change="checkChange">
-                <div class="single" v-for="i in 3" :key="i">
-                    <div class="singleImg">
-                        <img src="static/img/banner1.png" alt="">
-                        <span class="cancel" v-if="!checkStatus">取消</span>
-                        <van-checkbox :name="i" class="checkSingle" v-if="checkStatus">
-                        </van-checkbox>
-                    </div>
-                    <div class="singleFloor1">
-                        <div class="text1">新中式</div>
-                        <div class="text2">
-                            <span>上海市|中商小区</span>
-                        </div>
-                    </div>
-                    <div class="singleFloor2">
-                        <div class="content1">
-                            <img src="static/img/grayStar.png" alt="">
-                            <span>3</span>
-                        </div>
-                        <div class="content1">
-                            <img src="static/img/yan.png" alt="">
-                            <span>154</span>
-                        </div>
-                    </div>
-                </div>
-            </van-checkbox-group>
-        </div>
-        <!-- <van-popup v-model="checkStatus" position="bottom" :overlay="false"> -->
-        <div class="cancelFocus" :style="checkStatus?'height:1rem':''">取消收藏</div>
-        <!-- </van-popup> -->
+  <div :class="checkStatus?'pages pb-1 ':'pages'">
+    <div class="header">
+      <span>收藏设计案例</span>
+      <span class="share" @click="checkAllClick('all')" v-if="!checkStatus">全选</span>
+      <span class="share" @click="checkAllClick('cancel')" v-if="checkStatus">取消</span>
+      <img src="static/img/leftArrow.png" alt="" class="back" @click="$router.go(-1)">
     </div>
+    <div class="caseContent">
+      <van-checkbox-group v-model="result" @change="checkChange">
+        <div class="single" v-for="(item,i) in caseData" :key="i">
+          <div class="singleImg">
+            <img v-lazy="item.image" alt="">
+            <span class="cancel" v-if="!checkStatus">取消</span>
+            <van-checkbox :name="i" class="checkSingle" v-if="checkStatus">
+            </van-checkbox>
+          </div>
+          <div class="singleFloor1">
+            <div class="text1">{{item.community}}</div>
+            <div class="text2">
+              <span>{{item.detail_title}}</span>
+            </div>
+          </div>
+          <div class="singleFloor2">
+            <div class="content1">
+              <img src="static/img/grayStar.png" alt="">
+              <span>3</span>
+            </div>
+            <div class="content1">
+              <img src="static/img/yan.png" alt="">
+              <span>154</span>
+            </div>
+          </div>
+        </div>
+      </van-checkbox-group>
+    </div>
+    <!-- <van-popup v-model="checkStatus" position="bottom" :overlay="false"> -->
+    <div class="cancelFocus" :style="checkStatus?'height:1rem':''">取消收藏</div>
+    <!-- </van-popup> -->
+  </div>
 </template>
 <script>
 export default {
   data: function() {
     return {
       result: [],
-      checkStatus: false
+      checkStatus: false,
+      caseData: [],
+      queryData: {
+        ticket: localStorage.getItem("ticket"),
+        page: 1,
+        page_size: 15,
+        type: "design_case"
+      }
     };
   },
+  created: function() {
+    this.getData();
+  },
   methods: {
+    getData: function() {
+      this.tool
+        .request({
+          url: "favorite/list",
+          method: "post",
+          params: this.queryData
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.caseData = res.data.list;
+          }
+        });
+    },
     checkChange: function(res) {
       console.log(res);
     },
@@ -158,6 +181,8 @@ export default {
           font-size: 0.26rem;
           color: #666666;
           position: relative;
+          height: 0.4rem;
+          line-height: 0.4rem;
           span {
             position: absolute;
             left: 0;

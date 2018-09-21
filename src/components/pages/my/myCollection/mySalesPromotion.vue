@@ -1,41 +1,52 @@
 <template>
-    <div :class="checkStatus?'pages pb-1':'pages'">
-        <div class="header">
-            <span>收藏精选商品</span>
-            <span class="share" @click="checkAllClick('all')" v-if="!checkStatus">全选</span>
-            <span class="share" @click="checkAllClick('cancel')" v-if="checkStatus">取消</span>
-            <img src="static/img/leftArrow.png" alt="" class="back" @click="$router.go(-1)">
-        </div>
-        <van-checkbox-group v-model="result" @change="checkChange">
-            <div class="center">
-                <div class="list" v-for="(item,index) in [1,2,3,4]" :key="index" @click="$router.push('productDetail')">
-                    <div class="price">￥5555</div>
-                    <img src="static/img/shichangtuipian.png" alt="">
-                    <div class="listName">
-                        秋夕-现代橱柜
-                    </div>
-                    <div class="text">
-                        <span class="name" style="padding-right:0.1rem;">九牧恒大店</span>
-                        <span class="name">上海恒大陶瓷市场</span>
-                    </div>
-                    <span class="cancel" v-if="!checkStatus">取消</span>
-                    <van-checkbox :name="item" class="checkSingle" v-if="checkStatus">
-                    </van-checkbox>
-                </div>
-            </div>
-        </van-checkbox-group>
-        <!-- <van-popup v-model="checkStatus" position="bottom" :overlay="false"> -->
-        <div class="cancelFocus" :style="checkStatus?'height:1rem':''">取消收藏</div>
-        <!-- </van-popup> -->
+  <div :class="checkStatus?'pages pb-1':'pages'">
+    <div class="header">
+      <span>收藏精选商品</span>
+      <span class="share" @click="checkAllClick('all')" v-if="!checkStatus">全选</span>
+      <span class="share" @click="checkAllClick('cancel')" v-if="checkStatus">取消</span>
+      <img src="static/img/leftArrow.png" alt="" class="back" @click="$router.go(-1)">
     </div>
+    <van-checkbox-group v-model="result" @change="checkChange">
+      <div class="center">
+        <div class="list" v-for="(item,index) in salesData" :key="index" @click="$router.push('productDetail')">
+          <div class="price">￥{{item.price}}</div>
+          <img v-lazy="item.image" alt="">
+          <div class="listName">
+            {{item.name}}
+          </div>
+          <div class="text">
+            <span class="name" style="padding-right:0.1rem;">{{item.shop_info.name}}
+            </span>
+            <span class="name">{{item.market_name}}</span>
+          </div>
+          <span class="cancel" v-if="!checkStatus">取消</span>
+          <van-checkbox :name="item" class="checkSingle" v-if="checkStatus">
+          </van-checkbox>
+        </div>
+      </div>
+    </van-checkbox-group>
+    <!-- <van-popup v-model="checkStatus" position="bottom" :overlay="false"> -->
+    <div class="cancelFocus" :style="checkStatus?'height:1rem':''">取消收藏</div>
+    <!-- </van-popup> -->
+  </div>
 </template>
 <script>
 export default {
   data: function() {
     return {
       result: [],
-      checkStatus: false
+      checkStatus: false,
+      queryData: {
+        ticket: localStorage.getItem("ticket"),
+        page: 1,
+        page_size: 15,
+        type: "goods"
+      },
+      salesData: []
     };
+  },
+  created: function() {
+    this.getData();
   },
   methods: {
     checkChange: function(res) {
@@ -48,6 +59,19 @@ export default {
       } else if (res == "cancel") {
         this.checkStatus = false;
       }
+    },
+    getData: function() {
+      this.tool
+        .request({
+          url: "favorite/list",
+          method: "post",
+          params: this.queryData
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.salesData = res.data.list;
+          }
+        });
     }
   }
 };

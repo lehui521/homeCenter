@@ -1,43 +1,106 @@
 <template>
-    <div class="pages">
-        <div class="header">
-            <span>举报</span>
-            <span class="share">完成</span>
-            <img src="static/img/leftArrow.png" alt="" class="back" @click="$router.go(-1)">
-        </div>
-        <div class="content">
-            <van-cell :title="item.value" class="cellSingle" @click="cellClick(item.id)" v-for="(item,index) in radioData" :key="index">
-                <div :class="selectId==item.id?'radio selected':'radio'">
-                    <span></span>
-                </div>
-            </van-cell>
-            <van-field v-model="message" type="textarea" placeholder="举报详情描述" rows="2" autosize class="textArea" />
-            <van-uploader :after-read="uploadImg" class="uploadImg">
-                <img src="static/img/addImg2.png" alt="">
-            </van-uploader>
-        </div>
+  <div class="pages">
+    <div class="header">
+      <span>举报</span>
+      <span class="share" @click="submitClick">完成</span>
+      <img src="static/img/leftArrow.png" alt="" class="back" @click="$router.go(-1)">
     </div>
+    <div class="content">
+      <van-cell :title="item.name" class="cellSingle" @click="cellClick(item)" v-for="(item,index) in labelData" :key="index">
+        <div :class="queryData.tag_id==item.id?'radio selected':'radio'">
+          <span></span>
+        </div>
+      </van-cell>
+      <van-field v-model="queryData.content" type="textarea" placeholder="举报详情描述" rows="2" autosize class="textArea" />
+      <van-uploader :after-read="uploadImg" class="uploadImg">
+        <img src="static/img/addImg2.png" alt="">
+        <img v-lazy="item" alt="" v-for="(item,i) in queryData.image_list" :key="i">
+      </van-uploader>
+    </div>
+  </div>
 </template>
 <script>
+import lrz from "lrz";
 export default {
   data: function() {
     return {
-      radioData: [
-        { value: "色情", id: 0 },
-        { value: "暴力", id: 1 },
-        { value: "政治敏感", id: 2 },
-        { value: "欺诈", id: 3 },
-        { value: "违法", id: 4 }
-      ],
-      selectId: 0,
-      message: ""
+      labelData: [],
+      queryData: {
+        ticket: localStorage.getItem("ticket"),
+        type: 1,
+        type_id: this.$route.query.diaryId,
+        tag_id: "",
+        content: "",
+        image_list: []
+      }
     };
   },
+  created: function() {
+    this.getLabel();
+  },
   methods: {
-    cellClick: function(res) {
-      this.selectId = res;
+    getLabel: function() {
+      this.tool
+        .request({
+          url: "report/tag",
+          params: {
+            ticket: localStorage.getItem("ticket")
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.labelData = res.data;
+          }
+        });
     },
-    uploadImg: function() {}
+    cellClick: function(res) {
+      this.queryData.tag_id = res.id;
+    },
+    submitClick: function() {
+      this.tool
+        .request({
+          url: "report/add",
+          method: "post",
+          params: this.queryData
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.$dialog
+              .alert({
+                title: "提示",
+                message: res.msg
+              })
+              .then(() => {
+                this.$router.go(-1);
+              });
+          } else {
+            this.$toast({
+              type: "text",
+              message: res.msg
+            });
+          }
+        });
+    },
+    uploadImg: function(res) {
+      let file = res.file;
+      lrz(file, { filedName: file.name }).then(fileData => {
+        let form = new FormData();
+        form.append("file", fileData.base64);
+        this.tool
+          .request({
+            url: "upload/base64",
+            method: "post",
+            data: {
+              image: fileData.base64
+            }
+          })
+          .then(res => {
+            if (res.status == 200) {
+              this.queryData.image_list.push(res.data.image);
+            }
+          });
+      });
+    }
   }
 };
 </script>

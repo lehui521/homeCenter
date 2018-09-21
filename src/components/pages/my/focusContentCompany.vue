@@ -1,52 +1,61 @@
 <template>
-    <div :class="checkStatus?'pages pb-1 ':'pages'">
-        <div class="header">
-            <span>关注装修公司</span>
-            <span class="share" @click="checkAllClick('all')" v-if="!checkStatus">全选</span>
-            <span class="share" @click="checkAllClick('cancel')" v-if="checkStatus">取消</span>
-            <img src="static/img/leftArrow.png" alt="" class="back" @click="$router.go(-1)">
-        </div>
-        <div class="companyCenter">
-            <van-checkbox-group v-model="result" @change="checkChange">
-                <div class="company" v-for="(item,index) in 6" :key="index">
-                    <div class="companyImg">
-                        <img src="static/img/shichangtuipian.png" alt="">
-                    </div>
-                    <div class="companyContent">
-                        <div class="name">
-                            境远装饰
-                            <span v-if="!checkStatus">取消</span>
-                            <van-checkbox :name="item" class="checkSingle" v-if="checkStatus">
-                            </van-checkbox>
-                        </div>
-                        <div class="tag">
-                            <van-tag type="success" plain>推荐</van-tag>
-                            <van-tag type="success" plain>认证</van-tag>
-                        </div>
-                        <div class="address">
-                            上海真北路520号
-                        </div>
-                        <div class="icon">
-                            <img src="static/img/xin.png" alt="">
-                            <span>12345</span>
-                            <img src="static/img/yan.png" alt="">
-                            <span>65656</span>
-                        </div>
-
-                    </div>
-                </div>
-            </van-checkbox-group>
-        </div>
-        <div class="cancelFocus" :style="checkStatus?'height:1rem':''">取消收藏</div>
+  <div :class="checkStatus?'pages pb-1 ':'pages'">
+    <div class="header">
+      <span>关注装修公司</span>
+      <span class="share" @click="checkAllClick('all')" v-if="!checkStatus">全选</span>
+      <span class="share" @click="checkAllClick('cancel')" v-if="checkStatus">取消</span>
+      <img src="static/img/leftArrow.png" alt="" class="back" @click="$router.go(-1)">
     </div>
+    <div class="companyCenter">
+      <van-checkbox-group v-model="result" @change="checkChange">
+        <div class="company" v-for="(item,index) in companyData" :key="index">
+          <div class="companyImg">
+            <img src="static/img/shichangtuipian.png" alt="">
+          </div>
+          <div class="companyContent">
+            <div class="name">
+              境远装饰
+              <span v-if="!checkStatus">取消</span>
+              <van-checkbox :name="item" class="checkSingle" v-if="checkStatus">
+              </van-checkbox>
+            </div>
+            <div class="tag">
+              <van-tag type="success" plain>推荐</van-tag>
+              <van-tag type="success" plain>认证</van-tag>
+            </div>
+            <div class="address">
+              上海真北路520号
+            </div>
+            <div class="icon">
+              <img src="static/img/xin.png" alt="">
+              <span>12345</span>
+              <img src="static/img/yan.png" alt="">
+              <span>65656</span>
+            </div>
+          </div>
+        </div>
+      </van-checkbox-group>
+    </div>
+    <div class="cancelFocus" :style="checkStatus?'height:1rem':''">取消收藏</div>
+  </div>
 </template>
 <script>
 export default {
   data: function() {
     return {
       result: [],
-      checkStatus: false
+      checkStatus: false,
+      queryData: {
+        ticket: localStorage.getItem("ticket"),
+        page: 1,
+        page_size: 15,
+        type: "company"
+      },
+      companyData: []
     };
+  },
+  created: function() {
+    this.getData();
   },
   methods: {
     checkChange: function(res) {
@@ -55,10 +64,22 @@ export default {
     checkAllClick: function(res) {
       if (res == "all") {
         this.checkStatus = true;
-        this.result = [1, 2, 3];
       } else if (res == "cancel") {
         this.checkStatus = false;
       }
+    },
+    getData: function() {
+      this.tool
+        .request({
+          url: "favorite/list",
+          method: "post",
+          params: this.queryData
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.companyData = res.data.list;
+          }
+        });
     }
   }
 };

@@ -1,64 +1,74 @@
 <template>
-    <div :class="checkStatus?'pages pb-1 ':'pages'">
-        <div class="header">
-            <span>关注设计师</span>
-            <span class="share" @click="checkAllClick('all')" v-if="!checkStatus">全选</span>
-            <span class="share" @click="checkAllClick('cancel')" v-if="checkStatus">取消</span>
-            <img src="static/img/leftArrow.png" alt="" class="back" @click="$router.go(-1)">
-        </div>
-        <div class="designerContent">
-            <van-checkbox-group v-model="result">
-
-                <div class="designer" v-for="(item,index) in [1,2,3]" :key="index">
-                    <div class="memberDetail">
-                        <div class="memberLeft">
-                            <img src="static/img/touxiang.jpg" alt="" class="tou">
-                            <p class="heart">
-                                <img src="static/img/shejishixin.png" alt="">
-                                <span>551</span>
-                            </p>
-                        </div>
-                        <div class="memberRight">
-                            <div class="memberName">
-                                呵呵哒
-                                <span v-if="!checkStatus">取消</span>
-                                <van-checkbox :name="item" class="cancelCheck" v-if="checkStatus">
-                                </van-checkbox>
-                            </div>
-                            <div class="tag">
-                                <van-tag type="success" plain>明星</van-tag>
-                                <van-tag type="success" plain>资深</van-tag>
-                            </div>
-                            <div class="address">
-                                <span>上海市</span>
-                                <span>15年</span>
-                            </div>
-                            <div class="textD">
-                                <span>现代</span>
-                                <span>简欧</span>
-                                <span>美式</span>
-                                <span>北欧</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="designerImg">
-                        <img src="static/img/shichangtuipian.png" alt="">
-                        <img src="static/img/shichangtuipian.png" alt="">
-                        <img src="static/img/shichangtuipian.png" alt="">
-                    </div>
-                </div>
-            </van-checkbox-group>
-        </div>
-        <div class="cancelFocus" :style="checkStatus?'height:1rem':''">取消收藏</div>
+  <div :class="checkStatus?'pages pb-1 ':'pages'">
+    <div class="header">
+      <span>关注设计师</span>
+      <span class="share" @click="checkAllClick('all')" v-if="!checkStatus">全选</span>
+      <span class="share" @click="checkAllClick('cancel')" v-if="checkStatus">取消</span>
+      <img src="static/img/leftArrow.png" alt="" class="back" @click="$router.go(-1)">
     </div>
+    <div class="designerContent">
+      <van-checkbox-group v-model="result">
+
+        <div class="designer" v-for="(item,index) in designerData" :key="index">
+          <div class="memberDetail">
+            <div class="memberLeft">
+              <img src="static/img/touxiang.jpg" alt="" class="tou">
+              <div class="heart">
+                <img src="static/img/shejishixin.png" alt="">
+                <span>551</span>
+              </div>
+            </div>
+            <div class="memberRight">
+              <div class="memberName">
+                呵呵哒
+                <span v-if="!checkStatus">取消</span>
+                <van-checkbox :name="item" class="cancelCheck" v-if="checkStatus">
+                </van-checkbox>
+              </div>
+              <div class="tag">
+                <van-tag type="success" plain>明星</van-tag>
+                <van-tag type="success" plain>资深</van-tag>
+              </div>
+              <div class="address">
+                <span>上海市</span>
+                <span>15年</span>
+              </div>
+              <div class="textD">
+                <span>现代</span>
+                <span>简欧</span>
+                <span>美式</span>
+                <span>北欧</span>
+              </div>
+            </div>
+          </div>
+          <div class="designerImg">
+            <img src="static/img/shichangtuipian.png" alt="">
+            <img src="static/img/shichangtuipian.png" alt="">
+            <img src="static/img/shichangtuipian.png" alt="">
+          </div>
+        </div>
+      </van-checkbox-group>
+    </div>
+    <div class="cancelFocus" :style="checkStatus?'height:1rem':''">取消收藏</div>
+  </div>
 </template>
 <script>
 export default {
   data: function() {
     return {
       result: [],
-      checkStatus: false
+      checkStatus: false,
+      queryData: {
+        ticket: localStorage.getItem("ticket"),
+        page: 1,
+        page_size: 15,
+        type: "designer"
+      },
+      designerData: []
     };
+  },
+  created: function() {
+    this.getData();
   },
   methods: {
     checkChange: function(res) {
@@ -71,6 +81,19 @@ export default {
       } else if (res == "cancel") {
         this.checkStatus = false;
       }
+    },
+    getData: function() {
+      this.tool
+        .request({
+          url: "favorite/list",
+          method: "post",
+          params: this.queryData
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.designerData = res.data.list;
+          }
+        });
     }
   }
 };

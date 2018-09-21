@@ -24,6 +24,7 @@ export default {
   mounted: function() {
     this.scroll = new Bscroll(this.$refs.wrapper, this.options);
     this.handlePullLoad();
+    this.scroll.refresh();
   },
   methods: {
     handlePullLoad: function() {
@@ -42,6 +43,9 @@ export default {
   height: 100%;
   width: 100%;
   overflow: hidden;
+  .wrapperContent {
+    padding: 0;
+  }
 }
 </style>
 
