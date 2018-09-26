@@ -114,7 +114,8 @@ export default {
       headerObj: {
         title: "促销活动",
         img: "static/img/sousuo.png",
-        text: "salesPromotion"
+        text: "salesPromotion",
+        salesType: 1
       },
       type: 1,
       type_id: "",
@@ -131,6 +132,11 @@ export default {
       this.status.tabStatus = res;
     },
     handleClickTab: function(res) {
+      if (res == "market") {
+        this.headerObj.salesType = 1;
+      } else {
+        this.headerObj.salesType = 2;
+      }
       this.status.tabStatus = res;
       this.getData();
     },

@@ -5,7 +5,7 @@
       <img src="static/img/rightIcon.png" alt="" class="rightIcon">
     </div>
     <div class="content">
-      <div class="list" v-for="(item,index) in list" :key="index">
+      <div class="list" v-for="(item,index) in list" :key="index" @click="singleClick(item)">
         <img v-lazy="item.cover" alt="">
         <div class="text">{{item.title}}</div>
       </div>
@@ -13,8 +13,16 @@
   </div>
 </template>
 <script>
+import { ImagePreview } from "vant";
 export default {
-  props: ["list"]
+  props: ["list"],
+  methods: {
+    singleClick: function(res) {
+      let arr = [];
+      arr.push(res.cover);
+      ImagePreview(arr);
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>

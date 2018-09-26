@@ -132,14 +132,7 @@ export default {
         }
       },
       showHeaderStyle: false,
-      // cityData: JSON.parse(localStorage.getItem("cityData"))
-      cityData: {
-        id: "310100",
-        lat: "31.2317",
-        lng: "121.473",
-        name: "上海市",
-        pinyin: "Shanghai"
-      }
+      cityData: JSON.parse(localStorage.getItem("cityData"))
     };
   },
   created: function() {

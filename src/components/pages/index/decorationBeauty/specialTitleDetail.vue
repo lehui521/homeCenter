@@ -2,8 +2,8 @@
   <div class="pages">
     <div class="header">
       <span>专题详情</span>
-      <img src="static/img/fenxiang.png" alt="" class="share">
-      <img src="static/img/greenFullStar.png" alt="" class="star">
+      <img src="static/img/fenxiangB.png" alt="" class="share">
+      <img src="static/img/grayStar.png" alt="" class="star">
       <img src="static/img/leftArrow.png" alt="" class="back" @click="$router.go(-1)">
     </div>
     <van-swipe class="swipeContent" :show-indicators="false" :loop="false">
@@ -19,16 +19,30 @@
 </template>
 <script>
 export default {
+  data: function() {
+    return {
+      titleDetail: []
+    };
+  },
+  created: function() {
+    this.getDetail();
+  },
   methods: {
     getDetail: function() {
-      this.tool.request({
-        url: "picture/info",
-        method: "post",
-        params: {
-          ticket: localStorage.getItem("ticket"),
-          picture_id: this.$route.query.id
-        }
-      });
+      this.tool
+        .request({
+          url: "picture/info",
+          method: "post",
+          params: {
+            ticket: localStorage.getItem("ticket"),
+            picture_id: this.$route.query.id
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.titleDetail = res.data.content;
+          }
+        });
     }
   }
 };

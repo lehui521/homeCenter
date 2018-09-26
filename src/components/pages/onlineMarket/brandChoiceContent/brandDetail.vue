@@ -1,16 +1,15 @@
 <template>
-    <div class="pages">
-        <HeaderSame :headerObj="headerObj"></HeaderSame>
-        <div class="banner">
-            <img src="static/img/banner1.png" alt="">
-        </div>
-        <div class="title">
-            品牌介绍
-        </div>
-        <div class="introductionContent">
-            都好看啊几节课 科纳克里看了看你可怜你 的美女 上啊看是 安静的空间内
-        </div>
+  <div class="pages">
+    <HeaderSame :headerObj="headerObj"></HeaderSame>
+    <div class="banner">
+      <img v-lazy="detailData.image" alt="">
     </div>
+    <div class="title">
+      品牌介绍
+    </div>
+    <div class="introductionContent" v-html="detailData.content">
+    </div>
+  </div>
 </template>
 <script>
 import HeaderSame from "../../../common/sameHeader.vue";
@@ -22,14 +21,37 @@ export default {
         title: "品牌详情",
         img: "static/img/fenxiang.png",
         text: "brandDetailShare"
+      },
+      detailData: {},
+      queryData: {
+        brand_id: this.$route.query.brandId
       }
     };
+  },
+  created: function() {
+    this.getDetail();
+  },
+  methods: {
+    getDetail: function() {
+      this.tool
+        .request({
+          url: "brand/info",
+          method: "post",
+          params: this.queryData
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.detailData = res.data;
+          }
+        });
+    }
   }
 };
 </script>
 <style lang="scss" scoped>
 .pages {
   padding-top: 0.88rem;
+  background: #fff;
   .banner {
     height: 4rem;
     width: 100%;

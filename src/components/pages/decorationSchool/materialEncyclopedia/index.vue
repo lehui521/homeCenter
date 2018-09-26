@@ -2,31 +2,37 @@
   <div class="pages" id="decorationEncyclopedia">
     <HeaderSame :headerObj="headerObj"></HeaderSame>
     <div class="headerNav">
-      <van-tabs :line-width="50">
-        <van-tab v-for="index in 8" :title="'材料百科' + index" :key="index">
+      <van-tabs :line-width="50" @click="mainClickType" v-model="mainActive">
+        <van-tab v-for="(item,i) in decorationData" :title="item.name" :key="i">
+          <div class="typeNav">
+            <van-tabs v-model="singleActive" @click="singleClickType">
+              <van-tab v-for="(tag,num) in item.types" :title="tag.name" :key="num">
+              </van-tab>
+            </van-tabs>
+          </div>
         </van-tab>
       </van-tabs>
     </div>
-    <div class="typeNav">
+    <!-- <div class="typeNav">
       <van-tabs>
         <van-tab v-for="index in 8" :title="'厨房装修' + index" :key="index">
         </van-tab>
       </van-tabs>
-    </div>
+    </div> -->
     <div class="content">
-      <div class="single" @click="$router.push('decorationEncyclopediaDetail')">
+      <div class="single" @click="$router.push('materialEncyclopediaDetail?materialId='+item.material_id)" v-for="(item,i) in decorationContentData" :key="i">
         <div class="singleLeft">
           <div class="leftText1">
-            集成墙饰多少钱一平方
+            {{item.title}}
           </div>
           <div class="singleText2">
-            <span>2017-12-19</span>
+            <span>{{item.add_time}}</span>
             <img src="static/img/yan.png" alt="">
-            <span>154</span>
+            <span>{{item.view_total}}</span>
           </div>
         </div>
         <div class="singleRight">
-          <img src="static/img/banner1.png" alt="">
+          <img v-lazy="item.img" alt="">
         </div>
       </div>
     </div>
@@ -41,8 +47,66 @@ export default {
       headerObj: {
         title: "材料百科",
         img: ""
+      },
+      mainActive: "",
+      singleActive: "",
+      decorationData: [],
+      decorationContentData: [],
+      queryData: {
+        category_id: "",
+        type_id: "",
+        page: 1,
+        page_size: 10
       }
     };
+  },
+  created: function() {
+    this.getData();
+  },
+  methods: {
+    mainClickType: function(index, title) {
+      this.queryData.category_id = this.decorationData[
+        this.mainActive
+      ].category_id;
+      this.queryData.type_id = this.decorationData[this.mainActive].types[
+        this.singleActive
+      ].type_id;
+      this.getContentData();
+    },
+    singleClickType: function() {
+      this.queryData.type_id = this.decorationData[this.mainActive].types[
+        this.singleActive
+      ].type_id;
+      this.getContentData();
+    },
+    getData: function() {
+      this.tool
+        .request({
+          url: "material/category",
+          method: "post"
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.decorationData = res.data;
+            this.queryData.category_id = res.data[0].category_id;
+            this.queryData.type_id = res.data[0].types[0].type_id;
+            this.getContentData();
+          }
+        });
+    },
+    getContentData: function() {
+      this.tool
+        .request({
+          url: "material/list",
+          method: "post",
+          params: this.queryData
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.decorationContentData = res.data.list;
+          }
+        });
+    }
   }
 };
 </script>
@@ -63,8 +127,8 @@ export default {
     width: 100%;
     left: 0;
     box-sizing: border-box;
-    background: #fff;
     z-index: 9999;
+    background: #fff;
   }
   .typeNav {
     height: 0.88rem;
@@ -73,8 +137,8 @@ export default {
     width: 100%;
     left: 0;
     border-top: 1px solid #e5e5e5;
-    background: #fff;
     z-index: 9999;
+    background: #fff;
   }
   .content {
     .single {

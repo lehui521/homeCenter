@@ -1,15 +1,15 @@
 <template>
   <div class="pages">
     <searchHeader @searchClick="handleSearch"></searchHeader>
-    <div class="marketActive" v-if="false">
-      <div class="active">
+    <div class="marketActive" v-if="showSearch==1">
+      <div class="active" v-for="(item,i) in searchData" :key="i" @click="$router.push(path+item.activity_id)">
         <div class="activeImg">
-          <img src="static/img/banner1.png" alt="">
+          <img v-lazy="item.image" alt="">
         </div>
         <div class="activeText">
           <div class="left">
-            <span class="text1">我乐橱柜国庆促销</span>
-            <span class="text2">上海红星美凯龙asdasdasd</span>
+            <span class="text1">{{item.title}}</span>
+            <!-- <span class="text2">{{item.market_info.name}}</span> -->
           </div>
           <div class="right">
             <img src="static/img/rightArrow.png" alt="">
@@ -18,7 +18,7 @@
         </div>
       </div>
     </div>
-    <div class="noProduct">
+    <div class="noProduct" v-if="showSearch==0">
       <img src="static/img/noProduct.png" alt="">
       <div class="text">未搜索到相关商品</div>
     </div>
@@ -29,11 +29,34 @@ import searchHeader from "../../../common/sameSearch.vue";
 export default {
   components: { searchHeader },
   data: function() {
-    return {};
+    return {
+      showSearch: -1,
+      path: this.$route.query.type == 1 ? "marketAD?id=" : "storeAD?id="
+    };
   },
   methods: {
     handleSearch: function(res) {
       console.log(res);
+      this.tool
+        .request({
+          url: "v3_activity/index",
+          method: "post",
+          params: {
+            type: this.$route.query.type,
+            type_id: "",
+            title: res
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.searchData = res.data.list.list;
+            if (this.searchData.length !== 0) {
+              this.showSearch = 1;
+            } else {
+              this.showSearch = 0;
+            }
+          }
+        });
     }
   }
 };
@@ -120,7 +143,7 @@ export default {
           color: #333333;
           display: inline-block;
           padding-right: 0.1rem;
-          border-right: 1px solid #333333;
+          // border-right: 1px solid #333333;
         }
         .text2 {
           font-size: 0.22rem;

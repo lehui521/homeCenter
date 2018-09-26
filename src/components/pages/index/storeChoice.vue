@@ -1,6 +1,6 @@
 <template>
   <div class="storeChoice">
-    <div class="title" @click="$router.push('productClassif')">
+    <div class="title" @click="$router.push('storeChoiceContent')">
       <img src="static/img/dianpujingxuan.png" alt="">
       <img src="static/img/rightIcon.png" alt="" class="rightIcon">
     </div>
@@ -8,7 +8,7 @@
       <img :src="newObjBanner.image" alt="">
     </div>
     <div class="center">
-      <div class="list" v-for="(item,index) in newObjList" :key="index" @click="$router.push('storeDetail')">
+      <div class="list" v-for="(item,index) in newObjList" :key="index" @click="$router.push('storeDetail?shop_id='+item.shop_id)">
         <img v-lazy="item.image" alt="">
         <div class="listName">
           {{item.shop_name}}

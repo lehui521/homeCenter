@@ -30,7 +30,7 @@
     </div>
     <loadList @scrollEnd="scrollEnd">
       <div>
-        <div class="titleContent" @click="$router.push('specialTitleDetail')" v-for="(item,i) in specialData" :key="i">
+        <div class="titleContent" @click="$router.push('specialTitleDetail?id='+item.picture_id)" v-for="(item,i) in specialData" :key="i">
           <div class="floor1">
             <img v-lazy="item.cover" alt="">
           </div>

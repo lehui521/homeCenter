@@ -132,6 +132,15 @@
         font-size: 0.3rem;
         color: #333333;
         box-sizing: initial;
+        border: 0;
+        padding: 0;
+        border-radius: 0.08rem;
+        width: auto;
+        padding: 0 0.2rem;
+    }
+    
+    #decorationEncyclopedia .van-tabs__nav {
+        display: -webkit-box;
     }
     
     #decorationEncyclopedia .van-tab--active {
@@ -153,7 +162,6 @@
     }
     
     #decorationEncyclopedia .typeNav .van-tab span {
-        width: 1.5rem;
         height: 0.6rem;
         font-size: 0.28rem;
         color: #999999;
@@ -162,6 +170,7 @@
         line-height: 0.6rem;
         border-radius: 0.08rem;
         margin-top: 0.18rem;
+        padding: 0 0.3rem;
     }
     
     #decorationEncyclopedia .typeNav .van-tab--active span {

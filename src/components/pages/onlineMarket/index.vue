@@ -37,12 +37,12 @@
     <div class="grayBlank">
     </div>
     <div class="marketDetail">
-      <div class="name">
+      <div class="name" @click="$router.push('marketInfo')">
         <span>{{marketData.name}}</span>
         <img src="static/img/rightIcon.png" alt="" class="rightIcon">
         <span class="icon">简介</span>
       </div>
-      <div class="describe">
+      <div class="describe" @click="$router.push('marketInfo')">
         <span class="text1">上海红星美凯龙商场阿萨德喀什几乎是可敬的会卡金黄色的框架框架建行卡手机号的</span>
         <u class="text2">全文</u>
       </div>

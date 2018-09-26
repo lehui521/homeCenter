@@ -1,35 +1,33 @@
 <template>
-    <div class="pages">
-        <HeaderSame :headerObj="headerObj"></HeaderSame>
-        <div class="banner">
-            <img src="static/img/banner1.png" alt="">
-        </div>
-        <div class="content">
-            <div class="single" v-for="i in 4" :key="i">
-                <div class="singleFloor1">
-                    <div class="singleTitle">
-                    </div>
-                    <div class="singleText">
-                        <div class="text1">装修准备</div>
-                        <div class="text2">确定家装风格，资金到位</div>
-                    </div>
-                </div>
-                <div class="singleFloor2">
-                    <img src="static/img/banner1.png" alt="">
-                    <span>准备</span>
-                </div>
-            </div>
-        </div>
-        <img src="static/img/menu.png" alt="" class="menuButton" @click="showMenu=true">
-        <van-popup v-model="showMenu" position="right" :overlay="true" class="menuContent">
-            <div class="titleText">目录</div>
-            <div class="menuList">
-                <div class="single">环保入住</div>
-                <div class="single">环保入住</div>
-                <div class="single">环保入住</div>
-            </div>
-        </van-popup>
+  <div class="pages">
+    <HeaderSame :headerObj="headerObj"></HeaderSame>
+    <div class="banner">
+      <img src="static/img/banner1.png" alt="">
     </div>
+    <div class="content">
+      <div class="single" v-for="(item,i) in strategyData" :key="i" :id="i">
+        <div class="singleFloor1">
+          <div class="singleTitle">
+            <img v-lazy="item.img" alt="">
+          </div>
+          <div class="singleText">
+            <div class="text1">{{item.name}}</div>
+            <div class="text2">{{item.sub_name}}</div>
+          </div>
+        </div>
+        <div class="singleFloor2" v-for="(tag,num) in item.types" :key="num">
+          <img v-lazy="tag.img" alt="">
+        </div>
+      </div>
+    </div>
+    <img src="static/img/menu.png" alt="" class="menuButton" @click="showMenu=true">
+    <van-popup v-model="showMenu" position="right" :overlay="true" class="menuContent">
+      <div class="titleText">目录</div>
+      <div class="menuList">
+        <div :class="i==activeMenu?'single singleActive':'single'" v-for="(item,i) in strategyData" :key="i" @click="menuClick(i)">{{item.name}}</div>
+      </div>
+    </van-popup>
+  </div>
 </template>
 <script>
 import HeaderSame from "../../../common/sameHeader.vue";
@@ -41,8 +39,31 @@ export default {
         title: "装修攻略",
         img: ""
       },
-      showMenu: false
+      showMenu: false,
+      strategyData: [],
+      activeMenu: 0
     };
+  },
+  created: function() {
+    this.getContentData();
+  },
+  methods: {
+    menuClick: function(res) {
+      this.activeMenu = res;
+      document.getElementById(res).scrollIntoView();
+    },
+    getContentData: function() {
+      this.tool
+        .request({
+          url: "skill/category",
+          method: "post"
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.strategyData = res.data;
+          }
+        });
+    }
   }
 };
 </script>
@@ -74,10 +95,17 @@ export default {
       display: flex;
       justify-content: space-between;
       .singleTitle {
-        height: 0.84rem;
-        width: 0.84rem;
-        background: #999999;
         border-radius: 50%;
+        height: 0.84rem;
+        position: relative;
+        width: 1rem;
+        img {
+          height: 0.84rem;
+          width: 0.84rem;
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
       }
       .singleText {
         width: 100%;
@@ -119,10 +147,12 @@ export default {
         color: #fff;
         line-height: 0.5rem;
         text-align: center;
-        background: rgba(0, 0, 0, 0.55);
         top: 0.65rem;
         left: 0.77rem;
       }
+    }
+    .singleFloor2Last {
+      border-left: 0;
     }
   }
   .menuButton {
@@ -168,6 +198,12 @@ export default {
         position: absolute;
         left: -0.05rem;
         top: 0.2rem;
+      }
+      .singleActive {
+        color: rgb(73, 192, 95);
+      }
+      .singleActive::after {
+        background: rgb(73, 192, 95);
       }
     }
   }

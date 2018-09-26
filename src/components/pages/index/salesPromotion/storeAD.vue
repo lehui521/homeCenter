@@ -2,7 +2,9 @@
   <div class="pages">
     <HeaderSame :headerObj="headerObj"></HeaderSame>
     <div class="content">
-      <div class="cntentImg"></div>
+      <div class="cntentImg">
+        <img v-lazy="item.image" alt="" v-for="(item,i) in storeA" :key="i">
+      </div>
     </div>
   </div>
 </template>
@@ -15,7 +17,8 @@ export default {
       headerObj: {
         title: "商家活动",
         type: "H5"
-      }
+      },
+      storeA: []
     };
   },
   created: function() {
@@ -32,7 +35,9 @@ export default {
           }
         })
         .then(res => {
-          console.log(res);
+          if (res.status == 200) {
+            this.storeA = res.data.list;
+          }
         });
     }
   }

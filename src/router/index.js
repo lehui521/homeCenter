@@ -210,6 +210,10 @@ export default new Router({
             component: resolve => require(['../components/pages/onlineMarket/brandChoiceContent/brandDetail'], resolve)
         }, //品牌详情
         {
+            path: '/marketInfo',
+            component: resolve => require(['../components/pages/onlineMarket/marketInfo'], resolve)
+        }, //市场简介
+        {
             path: '/decorationEncyclopedia',
             component: resolve => require(['../components/pages/decorationSchool/decorationEncyclopedia'], resolve)
         }, //装修百科

@@ -8,7 +8,7 @@
       <img v-lazy="banner.image" alt="">
     </div>
     <div class="center">
-      <div v-for="(item,index) in list" :key="index" @click="$router.push('brandDetail')">
+      <div v-for="(item,index) in list" :key="index" @click="$router.push('brandDetail?brandId='+item.brand_id)">
         <img v-lazy="item.image" alt="">
       </div>
     </div>
@@ -54,6 +54,7 @@ export default {
     div {
       margin-top: 0.2rem;
       width: 2.32rem;
+      height: 2.3rem;
       padding: 0.6rem 0.2rem;
       box-shadow: #dedede 2px 3px 5px;
       text-align: center;

@@ -1,6 +1,6 @@
 <template>
   <div class="pages">
-    <HeaderSame :headerObj="headerObj"></HeaderSame>
+    <HeaderSame :headerObj="headerObj" :params="shopShare"></HeaderSame>
     <div class="banner">
       <!-- <img :src="shopDetailData.image" alt=""> -->
       <van-swipe :autoplay="3000" style="height:100%;">
@@ -31,11 +31,11 @@
       </div>
     </div>
     <div class="storeAddress">
-      <span>{{shopDetailData.address}}</span>
-      <div class="addressleftImg ">
+      <span @click="navMap">{{shopDetailData.address}}</span>
+      <div class="addressleftImg " @click="callStore">
         <img src="static/img/dianhua.png" alt="">
       </div>
-      <div class="addressrightImg" style="border-right:1px solid #e9e9e9;">
+      <div class="addressrightImg" style="border-right:1px solid #e9e9e9;" @click="navMap">
         <img src="static/img/dizhi.png" alt="">
       </div>
     </div>
@@ -46,7 +46,7 @@
     <div class="grayBlank" v-if="couponData.length!=0"></div>
     <div class="discount" @click="status.showCoupon=true" v-if="couponData.length!=0">
       <img src="static/img/juan.png" alt="" class="juan">
-      <span>折扣劵</span>
+      <span>优惠劵</span>
       <img src="static/img/rightArrow.png" alt="" class="rightArrow">
     </div>
     <div class="grayBlank"></div>
@@ -136,7 +136,7 @@
     </div>
     <!-- 商家活动 -->
     <div class="storeActive" v-if="status.storeTabStatus==3">
-      <div class="active" @click="$router.push('productDetail')" v-for="(item,index) in storeActiveData" :key="index">
+      <div class="active" @click="$router.push('storeAD?id='+item.activity_id)" v-for="(item,index) in storeActiveData" :key="index">
         <div class="activeImg">
           <img :src="item.image?item.image:'static/img/banner1.png'" alt="">
         </div>
@@ -149,26 +149,26 @@
       </div>
     </div>
     <footer class="footer">
-      <div class="attention" @click="clickFocus(200)" v-if="collectStatus==-1">关注</div>
+      <div class="attention" @click="clickFocus(200)" v-if="collectStatus!==200">关注</div>
       <div class="attention" @click="clickFocus(-1)" v-if="collectStatus==200">取消关注</div>
       <div class="phoneSeller" @click="callStore">联系商家</div>
     </footer>
     <van-popup v-model="status.showCoupon" position="bottom" :overlay="true" class="tanDiscount">
-      <div class="couponTitle">折扣券</div>
+      <div class="couponTitle">优惠券</div>
       <div class="couponContent">
         <div class="couponImg" v-for="(item ,i) in couponData" :key="i">
           <div class="left">
             <div class="leftText">
               <div class="leftText1">
-                乐橱柜
+                {{item.name}}
               </div>
               <div class="leftText2">
-                上海家饰佳徐汇店
+                {{item.shopname}}
               </div>
               <div class="leftText3">
                 {{item.begin_time}} - {{item.end_time}}
               </div>
-              <div class="leftButton">
+              <div class="leftButton" @click="recieveCouponClick(item)">
                 立即领取
               </div>
             </div>
@@ -176,8 +176,8 @@
           </div>
           <div class="right">
             <img src="static/img/manjian.png" alt="" class="rightImg">
-            <div class="rightText1">30元</div>
-            <div class="rightText2">满30元可用</div>
+            <div class="rightText1">{{item.coupon}}元</div>
+            <div class="rightText2">满{{item.full}}元可用</div>
           </div>
         </div>
       </div>
@@ -197,13 +197,13 @@ export default {
   data: function() {
     return {
       queryData: {
-        shopId: this.$route.query.shop_id || "5",
-        ticket:
-          this.$route.query.ticket || "JFWsM0I3ESlfC4CrUIXKtVz_bY_b423g_c_c",
+        shopId: this.$route.query.shop_id,
+        ticket: this.$route.query.ticket || localStorage.getItem("ticket"),
         minPrice: "",
         maxPrice: "",
         order: "sort_asc"
       },
+      shopShare: {},
       status: {
         typeStatus: "", //类型状态
         storeTabStatus: 1, //切换状态
@@ -211,7 +211,8 @@ export default {
       },
       headerObj: {
         title: "店铺详情",
-        img: "static/img/fenxiang.png"
+        img: "static/img/fenxiangB.png",
+        text: "share"
       },
       storeTabStyle: "color:#333333;",
       lineStyle: "",
@@ -237,6 +238,50 @@ export default {
       this.queryData.order = sort;
       this.queryData.minPrice = "";
       this.queryData.maxPrice = "";
+    },
+    recieveCouponClick: function(res) {
+      if (!localStorage.getItem("ticket")) {
+        this.$toast({
+          type: "text",
+          text: "请登录"
+        });
+      }
+      this.tool
+        .request({
+          url: "shop/receivegoodscoupons",
+          method: "post",
+          params: {
+            coupon_id: res.coupon_id,
+            type: 1,
+            id: this.shopDetailData.shop_id,
+            ticket: localStorage.getItem("ticket")
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.$toast({
+              type: "text",
+              message: "领取成功"
+            });
+          } else {
+            this.$toast({
+              type: "text",
+              message: res.msg
+            });
+          }
+        });
+    },
+    navMap: function() {
+      let params = {
+        lat: this.shopDetailData.lat,
+        lng: this.shopDetailData.lng,
+        name: this.shopDetailData.name
+      };
+      if (window.HostApp) {
+        let data = JSON.stringify(params);
+        window.HostApp.location(data);
+      } else {
+      }
     },
     clickPrice: function(price) {
       this.queryData.order = price;
@@ -282,6 +327,13 @@ export default {
         });
     },
     clickFocus: function(num) {
+      if (!localStorage.getItem("ticket")) {
+        this.$toast({
+          type: "text",
+          message: "请登录"
+        });
+      }
+      localStorage.getItem("ticket");
       this.tool
         .request({
           url: num == 200 ? "favorite/add" : num == -1 ? "favorite/remove" : "",
@@ -338,6 +390,20 @@ export default {
           if (res.status == 200) {
             this.shopDetailData = res.data.shop_info;
             this.shopDetailData.tags = res.data.shop_info.tags.split(";");
+            this.shopShare = {
+              image: res.data.shop_info.image,
+              title:
+                res.data.shop_info.name +
+                "----" +
+                res.data.shop_info.market_name,
+              des:
+                "向您推荐" +
+                res.data.shop_info.market_name +
+                res.data.shop_info.name +
+                "精品店" +
+                res.data.shop_info.address,
+              path: "shop/" + res.data.shop_info.shop_id
+            };
           }
         });
     },
@@ -482,6 +548,7 @@ export default {
           color: #3cb850;
           background: #fafdfa;
           padding: 0.04rem 0.08rem;
+          margin-right: 0.1rem;
         }
       }
     }

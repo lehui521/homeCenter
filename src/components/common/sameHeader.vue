@@ -17,7 +17,7 @@ export default {
         this.$router.push("searchDiscountArea");
       } else if (res == "salesPromotion") {
         //促销活动的搜索
-        this.$router.push("searchSalesPro");
+        this.$router.push("searchSalesPro?type=" + this.headerObj.salesType);
       } else if (res == "productChoice") {
         //精品商品的搜索
         this.$router.push({ path: "searchProductChoice", query: this.params });
@@ -32,6 +32,13 @@ export default {
         this.$router.push("addDiary");
       } else if (res == "indexNews") {
         this.$router.push("searchIndexNew");
+      } else if (res == "share") {
+        if (window.HostApp) {
+          let data = JSON.stringify(this.params);
+          window.HostApp.share(data);
+        } else {
+          console.log(this.params);
+        }
       }
     },
     gobackClick: function(type) {

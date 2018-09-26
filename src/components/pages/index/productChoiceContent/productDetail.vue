@@ -1,21 +1,21 @@
 <template>
   <div class="pages">
-    <HeaderSame :headerObj="headerObj"></HeaderSame>
+    <HeaderSame :headerObj="headerObj" :params="shareProduct"></HeaderSame>
     <div class="banner">
       <!-- <img src="static/img/banner1.png" alt=""> -->
       <img :src="detail.image" alt="">
     </div>
     <div class="productDetail">
       <div class="productName">{{detail.name}}</div>
-      <!-- <div class="productText">
-        舒适的空间享受 刚柔并济设计
-      </div> -->
+      <div class="productText">
+        {{detail.subname}}
+      </div>
       <div class="productTag">
         <span class="sTag" v-for="(item,index) in detail.tags" :key="index">{{item}}</span>
       </div>
       <div class="newPrice">
         <span class="price">￥{{detail.price}}</span>
-        <span class="kucun">库存：{{detail.view_total}}</span>
+        <span class="kucun">库存：{{detail.stock}}</span>
       </div>
       <!-- <div class="oldPrice">
         <s>￥3600</s>
@@ -46,15 +46,14 @@
       </div>
     </div>
     <footer class="footer">
-      <div class="collection" @click="handleCollection(200)" v-if="collectionStatus==-1">
+      <div class="collection" @click="handleCollection(200)" v-if="collectionStatus!==200">
         <img src="static/img/collection.png" alt="">
-        <!-- <img src="static/img/greenFullStar.png" alt=""> -->
         <span>收藏</span>
       </div>
       <div class="collection" @click="handleCollection(-1)" v-if="collectionStatus==200">
         <span>取消收藏</span>
       </div>
-      <div class="inStore" @click="$router.push('storeDetail')">进入店铺</div>
+      <div class="inStore" @click="$router.push('storeDetail?shop_id='+detail.shop_id)">进入店铺</div>
       <div class="phoneSeller" @click="callProduct">联系商家</div>
     </footer>
     <van-popup v-model="showProductCoupon" position="bottom" :overlay="true">
@@ -103,19 +102,20 @@ export default {
     return {
       headerObj: {
         title: "商品详情",
-        img: "static/img/fenxiangB.png"
+        img: "static/img/fenxiangB.png",
+        text: "share"
       },
       productTabStatus: 1,
       productTabStyle: "color:#333333;",
       lineStyle: "",
       queryData: {
-        ticket:
-          this.$route.query.ticket || "JFWsM0I3ESlfC4CrUIXKtVz_bY_b423g_c_c",
-        goodId: this.$route.query.goods_id || 4
+        ticket: this.$route.query.ticket || localStorage.getItem("ticket"),
+        goodId: this.$route.query.goods_id
       },
       detail: {},
       collectionStatus: -1,
       couponData: [],
+      shareProduct: {}, //分享
       showProductCoupon: false //商品优惠劵
     };
   },
@@ -144,6 +144,17 @@ export default {
         }
       };
       this.tool.request(param).then(data => {
+        this.shareProduct = {
+          image: data.data.image,
+          title: data.data.name + "----" + data.data.shop_info.name,
+          des:
+            "向您推荐" +
+            data.data.market_name +
+            data.data.shop_info.name +
+            "的精品" +
+            data.data.name,
+          path: "goods/" + data.data.goods_id
+        };
         this.detail = data.data;
       });
     },
@@ -158,12 +169,17 @@ export default {
         })
         .then(res => {
           if (res.status == 200) {
-            console.log(res);
             this.couponData = res.data.goods;
           }
         });
     },
     handleCollection: function(num) {
+      if (!localStorage.getItem("ticket")) {
+        this.$toast({
+          type: "text",
+          message: "请登录"
+        });
+      }
       this.tool
         .request({
           url: num == 200 ? "favorite/add" : "favorite/remove",
@@ -254,6 +270,13 @@ export default {
     .productTag {
       font-size: 0.22rem;
       margin: 0.14rem 0;
+      .sTag {
+        display: inline-block;
+        color: #3cb850;
+        background: #fafdfa;
+        padding: 0.04rem 0.08rem;
+        margin-right: 0.1rem;
+      }
     }
 
     .newPrice {

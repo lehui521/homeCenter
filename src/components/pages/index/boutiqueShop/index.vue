@@ -2,12 +2,24 @@
   <div class="pages" id="boutiqueShop">
     <HeaderSame :headerObj="headerObj"></HeaderSame>
     <div class="banner">
-      <img src="static/img/banner1.png" alt="">
+      <van-swipe :autoplay="3000" style="height:100%;">
+        <van-swipe-item v-for="(image, index) in contentData.banner" :key="index">
+          <img v-lazy="image.image" style="width:100%;height:100%;" class="bannerImg" />
+        </van-swipe-item>
+      </van-swipe>
     </div>
     <div class="headerNav">
-      <div class="nav" v-for="i in 10" :key="i">
-        <div class="img"></div>
-        <div class="text">瓷砖</div>
+      <div class="nav" v-for="(item,i) in contentData.categoryList" :key="i">
+        <div class="img">
+          <img :src="item.icon" alt="">
+        </div>
+        <div class="text">{{item.name}}</div>
+      </div>
+      <div class="nav" @click="showAllType=true">
+        <div class="img">
+          <img src="static/img/touxiang.jpg" alt="">
+        </div>
+        <div class="text">全部</div>
       </div>
     </div>
     <div class="typeList">
@@ -29,19 +41,16 @@
           <div class="currentType">
             全部
           </div>
-          <div class="typeTitle">建材</div>
-          <div class="typeMore">
-            <div class="single">瓷砖</div>
-            <div class="single">瓷砖</div>
-            <div class="single">瓷砖</div>
-            <div class="single">瓷砖</div>
-            <div class="single">瓷砖</div>
+          <div v-for="(item,i) in contentData.typeList" :key="i">
+            <div class="typeTitle">{{item.name}}</div>
+            <div class="typeMore">
+              <div class="single" v-for="(tag,num) in item.tags" :key="num">{{tag.name}}</div>
+            </div>
           </div>
         </div>
         <div class="sortContent" v-if="status.typeStatus=='sort'">
-          <div class="floor1 activeSort">默认排序</div>
-          <div class="floor1">关注最多</div>
-          <div class="floor1">距离最近</div>
+          <!-- <div class="floor1 activeSort">默认排序</div> -->
+          <div class="floor1" v-for="(item,i) in contentData.sortList" :key="i">{{item.name}}</div>
         </div>
       </div>
       <div class="market" v-for="(item,index) in storeData" :key="index">
@@ -65,14 +74,20 @@
         </div>
       </div>
     </div>
+    <van-popup v-model="showAllType" position="right" :overlay="true" class="allType">
+      <all-type :allType="contentData.typeList" @clickType="clickType"></all-type>
+      <span class="closeIcon" @click="showAllType=false">X</span>
+    </van-popup>
   </div>
 </template>
 <script>
 import HeaderSame from "../../../common/sameHeader.vue";
+import allType from "./allType.vue";
 export default {
-  components: { HeaderSame },
+  components: { HeaderSame, allType },
   data: function() {
     return {
+      showAllType: false,
       headerObj: {
         title: "精品旺铺",
         img: "static/img/sousuo.png",
@@ -82,6 +97,12 @@ export default {
         typeStatus: "",
         showTypeStatus: false
       },
+      contentData: {
+        banner: [],
+        categoryList: [],
+        typeList: [],
+        sortList: []
+      },
       queryData: {
         page: 1,
         page_size: 10,
@@ -90,7 +111,8 @@ export default {
         market_id: "",
         order: "",
         city_id: JSON.parse(localStorage.getItem("cityData")).city_id
-      }
+      },
+      storeData: []
     };
   },
   created: function() {
@@ -109,6 +131,8 @@ export default {
         });
     }
     this.getData();
+    this.getStoreContent();
+    this.getStoreType();
   },
   methods: {
     typeClick: function(res) {
@@ -117,6 +141,31 @@ export default {
         return (this.status.typeStatus = "");
       }
       this.status.typeStatus = res;
+    },
+    clickType: function(res) {
+      this.showAllType = false;
+      console.log(res);
+    },
+    getStoreContent: function() {
+      this.tool
+        .request({
+          url: "shop/index",
+          method: "post",
+          params: {
+            city_id: JSON.parse(localStorage.getItem("cityData")).id,
+            market_id: JSON.parse(localStorage.getItem("marketData")).market_id
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.contentData.banner = res.data.banner;
+            for (var i = 0; i < 9; i++) {
+              this.contentData.categoryList.push(
+                res.data.category_list[0].tags[i]
+              );
+            }
+          }
+        });
     },
     getData: function() {
       this.tool
@@ -130,6 +179,18 @@ export default {
             this.storeData = res.data.list;
           }
         });
+    },
+    getStoreType: function() {
+      this.tool
+        .request({
+          url: "v1_shop/category"
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.contentData.typeList = res.data.category_list[0].tags;
+            this.contentData.sortList = res.data.category_list[1].tags;
+          }
+        });
     }
   }
 };
@@ -138,6 +199,18 @@ export default {
 .pages {
   padding-top: 0.88rem;
   background: #fff;
+  .allType {
+    height: 100%;
+    width: 100%;
+    padding-top: 0.88rem;
+    box-sizing: border-box;
+    .closeIcon {
+      position: absolute;
+      left: 0.5rem;
+      top: 1rem;
+      font-size: 0.39rem;
+    }
+  }
   .banner {
     height: 3.46rem;
     width: 100%;
@@ -159,8 +232,11 @@ export default {
         width: 0.96rem;
         height: 0.96rem;
         border-radius: 50%;
-        background: #666;
         margin: auto;
+        img {
+          width: 100%;
+          height: 100%;
+        }
       }
       .text {
         font-size: 0.26rem;
