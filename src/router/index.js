@@ -152,6 +152,11 @@ export default new Router({
                 import ('../components/pages/my/home')
         },
         {
+            path: '/myHomeNew',
+            component: () =>
+                import ('../components/pages/my/homeNew')
+        },
+        {
             path: '/myFocus',
             component: () =>
                 import ('../components/pages/my/focus')
