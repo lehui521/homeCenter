@@ -341,7 +341,6 @@ export default {
             display: flex;
             // justify-content: space-between;
             flex-wrap: wrap;
-
             span {
               display: inline-block;
               height: 0.6rem;
@@ -353,7 +352,8 @@ export default {
               margin-bottom: 0.3rem;
               text-align: center;
               line-height: 0.6rem;
-              margin-left: 1vw;
+              margin-left: 2vw;
+              border: 1px solid #fff;
             }
           }
         }
@@ -426,8 +426,8 @@ export default {
   }
   .storeNav-green {
     color: #3cb850 !important;
-    border: 1px solid #3cb850;
-    background: #fff;
+    border: 1px solid #3cb850 !important;
+    background: #fff !important;
   }
 }
 </style>
