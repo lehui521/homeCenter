@@ -96,7 +96,7 @@ export default {
   },
   computed: {},
   created: function() {
-    this.ticket = 'dg2lMBVsEX1UC_bWDFYHMsFX9YO033OY_c' //localStorage.getItem("ticket");
+    this.ticket = localStorage.getItem("ticket"); //'dg2lMBVsEX1UC_bWDFYHMsFX9YO033OY_c'
     if (!this.ticket) {
       //this.$router.push("login");
     }
