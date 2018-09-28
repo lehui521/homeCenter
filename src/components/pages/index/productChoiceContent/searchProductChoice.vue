@@ -3,14 +3,16 @@
     <searchHeader @searchClick="handleSearch"></searchHeader>
     <!-- 内容 -->
     <div class="productChoiceContent" v-if="showProductStatus==1">
-      <div class="list" v-for="(item,index) in productData" :key="index">
-        <div class="price">￥5555</div>
-        <img src="static/img/shichangtuipian.png" alt="">
+      <div class="list" v-for="(item,index) in productData" :key="index" @click="$router.push('productDetail?goods_id='+item.goods_id)">
+        <div class="price">￥{{item.price}}</div>
+        <img v-lazy="item.image" alt="">
         <div class="listName">
-          秋夕-现代橱柜
+          {{item.name}}
         </div>
         <div class="text">
-          <span class="name">九牧恒大店</span>
+          <div class="name">{{item.shop_info.name}}
+            <span v-if="$route.query.cityId">| {{item.market_name}}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -30,9 +32,9 @@ export default {
         page: 1,
         page_size: 10,
         keywords: "",
-        category_id: "",
-        market_id: JSON.parse(localStorage.getItem("marketData")).market_id,
-        city_id: JSON.parse(localStorage.getItem("cityData")).city_id,
+        category_id: this.$route.query.categoryId,
+        market_id: this.$route.query.marketId,
+        city_id: this.$route.query.cityId,
         type_id: this.$route.query.typeId,
         min_price: "",
         max_price: ""

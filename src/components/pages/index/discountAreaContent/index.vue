@@ -47,7 +47,7 @@
             <svgCircle :proNum="item.bfb"></svgCircle>
           </div>
           <div class="discountImgContent">
-            <span class="goRecieveButton" @click="recieveCoupon">立即领取</span>
+            <span class="goRecieveButton" @click="recieveCoupon(item)">立即领取</span>
           </div>
         </div>
       </div>
@@ -290,6 +290,10 @@ export default {
           color: #333333;
           min-height: 0.45rem;
           line-height: 0.45rem;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          width: 3.5rem;
         }
         .text2 {
           font-size: 0.24rem;
@@ -330,6 +334,7 @@ export default {
           margin: auto;
           text-align: center;
           font-size: 0.18rem;
+          margin-top: 0.1rem;
           .goUseButton {
             display: inline-block; // height: 0.28rem;
             // line-height: 0.28rem;

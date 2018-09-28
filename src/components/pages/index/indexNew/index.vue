@@ -8,7 +8,7 @@
       </van-tabs>
     </div>
     <div class="newsContent">
-      <div class="recommendNew" @click="jumpNewDetail(newData.topNew)">
+      <div class="recommendNew" @click="jumpNewDetail(newData.topNew)" v-if="cateId==0">
         <div class="leftText">
           <div class="text1">{{newData.topNew.title}}</div>
           <div class="text2">{{newData.topNew.date}} · {{newData.topNew.click}}次阅读</div>

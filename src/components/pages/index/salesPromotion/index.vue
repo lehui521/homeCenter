@@ -27,18 +27,19 @@
     </div>
     <div class="storer" v-if="status.tabStatus=='storer'">
       <div class="grayBlank"></div>
-      <div class="storeNav">
-        <!-- <div class="nav storeNav-green" @click="tablistClick()">{{tabStr}}</div> -->
-        <!-- <div class="nav" @click="tablistClick()" :class="{'storeNav-green':tabStr=='全部'}">全部</div> -->
-        <div class="nav" v-for="(item) in _tabListLimit" :key="item.type_id" @click='tablistClick(item)' :class="{'storeNav-green':tabStr==item.title}">{{item.title}}</div>
-        <!-- <div class="nav" @click="clickNav">地板</div>
+
+      <div class="storeActive">
+        <div class="storeNav">
+          <!-- <div class="nav storeNav-green" @click="tablistClick()">{{tabStr}}</div> -->
+          <!-- <div class="nav" @click="tablistClick()" :class="{'storeNav-green':tabStr=='全部'}">全部</div> -->
+          <div class="nav" v-for="(item) in _tabListLimit" :key="item.type_id" @click='tablistClick(item)' :class="{'headerNav-green':tabStr==item.title}">{{item.title}}</div>
+          <!-- <div class="nav" @click="clickNav">地板</div>
         <div class="nav" @click="clickNav">橱柜</div>
         <div class="nav" @click="clickNav">石材</div> -->
-        <div class="navImg" @click="status.showNav=true">
-          <img src="static/img/navDown.png" alt="">
+          <div class="navImg" @click="status.showNav=true">
+            <img src="static/img/navDown.png" alt="">
+          </div>
         </div>
-      </div>
-      <div class="storeActive">
         <!-- 类型内容 -->
         <div class="mask" v-if="status.showNav">
           <div class="navPosition">
@@ -294,12 +295,15 @@ export default {
     .storeActive {
       background: #f7f7f7;
       box-sizing: border-box;
-      padding: 0.2rem;
+      padding: 0;
       position: relative;
-
+      .active {
+        padding: 0.2rem;
+        box-sizing: border-box;
+      }
       .mask {
         position: absolute;
-        top: -0.88rem;
+        top: 0;
         left: 0;
         background: rgba(0, 0, 0, 0.5);
         z-index: 99;
@@ -417,9 +421,13 @@ export default {
       }
     }
   }
-
+  .headerNav-green {
+    color: #3cb850 !important;
+  }
   .storeNav-green {
     color: #3cb850 !important;
+    border: 1px solid #3cb850;
+    background: #fff;
   }
 }
 </style>

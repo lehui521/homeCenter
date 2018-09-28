@@ -1,6 +1,6 @@
 <template>
   <div class="pages">
-    <HeaderSame :headerObj="headerObj"></HeaderSame>
+    <HeaderSame :headerObj="headerObj" :params="params"></HeaderSame>
     <div class="typeList">
       <div class="left" @click="typeClick('type')">
         <span :style="status.typeStatus=='type'?'color:#3CB850;':''">类目</span>
@@ -13,56 +13,57 @@
         <img src="static/img/grayDown.png" alt="" v-else>
       </div>
     </div>
-    <div class="storeList">
-      <!-- 类型的内容 -->
-      <div class="typeMask" v-if="status.typeStatus!==''">
-        <div class="typeContent" v-if="status.typeStatus=='type'">
-          <div class="currentType">
-            全部
-          </div>
-          <div class="typeTitle">建材</div>
-          <div class="typeMore">
-            <div class="single">瓷砖</div>
-            <div class="single">瓷砖</div>
-            <div class="single">瓷砖</div>
-            <div class="single">瓷砖</div>
-            <div class="single">瓷砖</div>
-          </div>
+    <!-- 类型的内容 -->
+    <div class="typeMask" v-if="status.typeStatus!==''">
+      <div class="typeContent" v-if="status.typeStatus=='type'">
+        <div :class="queryData.category_id==''?'currentType singleActive':'currentType'" @click="clickType('')">
+          全部
         </div>
-        <div class="sortContent" v-if="status.typeStatus=='sort'">
-          <div class="floor1 activeSort">默认排序</div>
-          <div class="floor1">关注最多</div>
-          <div class="floor1">距离最近</div>
+        <div v-for="(item,i) in typeData.categoryList" :key="i">
+          <div class="typeTitle">{{item.name}}</div>
+          <div class="typeMore">
+            <div :class="queryData.category_id==tag.id?'single singleActive':'single'" v-for="(tag,num) in item.tags" :key="num" @click="clickType(tag.id)">{{tag.name}}</div>
+          </div>
         </div>
       </div>
-      <div class="market" v-for="(item,index) in [1,2,3]" :key="index" @click="$router.push('storeDetail')">
-        <div class="marketImg">
-          <img src="static/img/shichangtuipian.png" alt="">
-        </div>
-        <div class="marketText">
-          <div class="marketName">
-            <span class="name">上海家饰佳徐汇店</span>
-            <span>64m</span>
-          </div>
-          <div class="marketTag">
-            <van-tag type="success" plain>家具</van-tag>
-            <van-tag type="success" plain>灯饰</van-tag>
-          </div>
-          <div class="marketPhone">
-            <span>15252111236</span>
-          </div>
-          <div class="marketAddress">
-            <span>上海市徐汇区凯旋路552号</span>
-          </div>
-        </div>
+      <div class="sortContent" v-if="status.typeStatus=='sort'">
+        <!-- <div class="floor1 activeSort">默认排序</div> -->
+        <div :class="queryData.order==item.id?'floor1 activeSort':'floor1'" v-for="(item,i) in typeData.orderList" :key="i" @click="orderClick(item.id)">{{item.name}}</div>
       </div>
     </div>
+    <loadList @scrollEnd="scrollEnd">
+      <div class="storeList">
+        <div class="market" v-for="(item,index) in storeData" :key="index" @click="$router.push('storeDetail?shop_id='+item.shop_id)">
+          <div class="marketImg">
+            <img v-lazy="item.image" alt="">
+          </div>
+          <div class="marketText">
+            <div class="marketName">
+              <span class="name">{{item.name}}</span>
+              <span>{{item.distance}}</span>
+            </div>
+            <div class="marketTag">
+              <van-tag type="success" plain>{{item.category_name}}</van-tag>
+              <!-- <van-tag type="success" plain>灯饰</van-tag> -->
+            </div>
+            <div class="marketPhone">
+              <span>{{item.market_name}}</span>
+            </div>
+            <div class="marketAddress">
+              <span>{{item.address}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </loadList>
+
   </div>
 </template>
 <script>
 import HeaderSame from "../../../common/sameHeader.vue";
+import loadList from "../../../common/load.vue";
 export default {
-  components: { HeaderSame },
+  components: { HeaderSame, loadList },
   data: function() {
     return {
       headerObj: {
@@ -73,8 +74,34 @@ export default {
       status: {
         typeStatus: "",
         showTypeStatus: false
-      }
+      },
+      typeData: {
+        categoryList: [],
+        orderList: []
+      },
+      storeData: [],
+      queryData: {
+        city_id: this.$route.query.cityId,
+        page: 1,
+        page_size: 10,
+        keywords: "",
+        category_id: "",
+        market_id: this.$route.query.marketId,
+        order: 0,
+        lng: this.$route.query.lng,
+        lat: this.$route.query.lat
+      },
+      params: {
+        city_id: this.$route.query.cityId,
+        lng: this.$route.query.lng,
+        lat: this.$route.query.lat
+      },
+      scrollStatus: true
     };
+  },
+  created: function() {
+    this.getStoreType();
+    this.getData();
   },
   methods: {
     typeClick: function(res) {
@@ -83,13 +110,70 @@ export default {
         return (this.status.typeStatus = "");
       }
       this.status.typeStatus = res;
+    },
+    clickType: function(id) {
+      this.queryData.category_id = id;
+      this.getData();
+      this.status.typeStatus = "";
+    },
+    orderClick: function(id) {
+      this.queryData.order = id;
+      this.getData();
+      this.status.typeStatus = "";
+    },
+    scrollEnd: function(num) {
+      this.queryData.page = num;
+      if (this.scrollStatus) {
+        this.tool
+          .request({
+            url: "shop/list",
+            method: "post",
+            params: this.queryData
+          })
+          .then(res => {
+            if (res.status == 200) {
+              for (var i in res.data.list) {
+                this.storeData.push(res.data.list[i]);
+              }
+              if (res.data.list.length < this.queryData.page_size) {
+                return (this.scrollStatus = false);
+              }
+            }
+          });
+      }
+    },
+    getData: function() {
+      this.tool
+        .request({
+          url: "shop/list",
+          method: "post",
+          params: this.queryData
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.storeData = res.data.list;
+          }
+        });
+    },
+    getStoreType: function() {
+      this.tool
+        .request({
+          url: "v1_shop/category"
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.typeData.categoryList = res.data.category_list[0].tags;
+            this.typeData.orderList = res.data.category_list[1].tags;
+          }
+        });
     }
   }
 };
 </script>
 <style lang="scss" scoped>
 .pages {
-  padding-top: 0.88rem;
+  padding-top: 1.78rem;
+  height: 100%;
   .typeList {
     border-top: 1px solid #d5d5d5;
     border-bottom: 1px solid #d5d5d5;
@@ -104,6 +188,11 @@ export default {
     box-sizing: border-box;
     line-height: 0.48rem;
     background: #fff;
+    position: fixed;
+    left: 0;
+    top: 0.88rem;
+    width: 100%;
+    z-index: 999;
     div:first-child {
       border-right: 1px solid #d5d5d5;
     }
@@ -132,73 +221,83 @@ export default {
       }
     }
   }
-  .storeList {
-    position: relative;
-    background: #fff;
-    .typeMask {
-      background: rgba(0, 0, 0, 0.5);
-      position: fixed;
-      top: 1.78rem;
-      height: 100%;
+  .typeMask {
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 1.78rem;
+    height: 100%;
+    width: 100%;
+    z-index: 9999;
+    .typeContent {
+      background: #fff;
       width: 100%;
-      z-index: 9999;
-      .typeContent {
-        background: #fff;
-        width: 100%;
-        padding: 0.31rem 0.3rem;
-        box-sizing: border-box;
-        .currentType {
+      padding: 0.31rem 0.3rem;
+      box-sizing: border-box;
+      .currentType {
+        width: 1.5rem;
+        height: 0.6rem;
+        border: 1px solid #fff;
+        border-radius: 0.08rem;
+        color: #666666;
+        font-size: 0.28rem;
+        text-align: center;
+        line-height: 0.6rem;
+        background: #f4f4f4;
+      }
+      .typeTitle {
+        height: 0.72rem;
+        line-height: 0.72rem;
+        text-align: left;
+        font-size: 0.3rem;
+        color: #333333;
+        letter-spacing: 0;
+        margin-top: 0.3rem;
+      }
+      .typeMore {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        .single {
           width: 1.5rem;
           height: 0.6rem;
-          border: 1px solid #3cb850;
+          background: #f4f4f4;
           border-radius: 0.08rem;
-          color: #3cb850;
+          color: #666666;
           font-size: 0.28rem;
           text-align: center;
           line-height: 0.6rem;
-        }
-        .typeTitle {
-          height: 0.72rem;
-          line-height: 0.72rem;
-          text-align: left;
-          font-size: 0.3rem;
-          color: #333333;
-          letter-spacing: 0;
           margin-top: 0.3rem;
+          border: 1px solid #fff;
         }
-        .typeMore {
-          display: flex;
-          justify-content: space-between;
-          flex-wrap: wrap;
-          .single {
-            width: 1.5rem;
-            height: 0.6rem;
-            background: #f4f4f4;
-            border-radius: 0.08rem;
-            color: #666666;
-            font-size: 0.28rem;
-            text-align: center;
-            line-height: 0.6rem;
-            margin-top: 0.3rem;
-          }
-        }
-      }
-      .sortContent {
-        background: #fff;
-        width: 100%;
-        .floor1 {
-          height: 0.74rem;
-          width: 100%;
-          border-bottom: 1px solid #d5d5d5;
-          line-height: 0.74rem;
-          text-align: center;
-          font-size: 0.24rem;
-        }
-        .activeSort {
+        .singleActive {
+          border: 1px solid #3cb850;
           color: #3cb850;
         }
       }
+      .singleActive {
+        border: 1px solid #3cb850;
+        color: #3cb850;
+      }
     }
+    .sortContent {
+      background: #fff;
+      width: 100%;
+      .floor1 {
+        height: 0.74rem;
+        width: 100%;
+        border-bottom: 1px solid #d5d5d5;
+        line-height: 0.74rem;
+        text-align: center;
+        font-size: 0.24rem;
+      }
+      .activeSort {
+        color: #3cb850;
+      }
+    }
+  }
+  .storeList {
+    position: relative;
+    background: #fff;
     .market {
       display: flex;
       justify-content: space-between;
@@ -210,6 +309,7 @@ export default {
         padding: 0.1rem;
         img {
           width: 100%;
+          height: 100%;
         }
       }
       .marketText {

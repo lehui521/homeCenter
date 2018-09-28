@@ -1,6 +1,6 @@
 <template>
   <div class="productChoice">
-    <div class="title" @click="$router.push('productClassif')">
+    <div class="title" @click="$router.push('productClassif?cityId='+cityId)">
       <img src="static/img/shangpinjingxuan.png" alt="">
       <img src="static/img/rightIcon.png" alt="" class="rightIcon">
     </div>
@@ -23,6 +23,11 @@
 </template>
 <script>
 export default {
+  data: function() {
+    return {
+      cityId: JSON.parse(localStorage.getItem("cityData")).id
+    };
+  },
   props: ["newObjBanner", "newObjList"]
 };
 </script>

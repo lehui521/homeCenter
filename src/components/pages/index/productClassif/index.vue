@@ -42,10 +42,12 @@ export default {
       navIndex: -1,
       goodData: [],
       itemData: {
-        types: []
+        types: [],
+        category_id: ""
       },
       recommendData: {
-        types: []
+        types: [],
+        category_id: ""
       }
     };
   },
@@ -82,7 +84,25 @@ export default {
         });
     },
     jumpProduct: function(res) {
-      this.$router.push("productChoiceContent?typeId=" + res.type_id);
+      if (this.$route.query.cityId) {
+        this.$router.push(
+          "productChoiceContent?typeId=" +
+            res.type_id +
+            "&cityId=" +
+            this.$route.query.cityId +
+            "&categoryId=" +
+            this.itemData.category_id
+        );
+      } else if (this.$route.query.marketId) {
+        this.$router.push(
+          "productChoiceContent?typeId=" +
+            res.type_id +
+            "&marketId=" +
+            this.$route.query.marketId +
+            "&categoryId=" +
+            this.itemData.category_id
+        );
+      }
     }
   }
 };

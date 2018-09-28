@@ -1,6 +1,6 @@
 <template>
   <div class="storeChoice">
-    <div class="title" @click="$router.push('storeChoiceContent')">
+    <div class="title" @click="$router.push('storeChoiceContent?cityId='+id+'&lng='+lng+'&lat='+lat)">
       <img src="static/img/dianpujingxuan.png" alt="">
       <img src="static/img/rightIcon.png" alt="" class="rightIcon">
     </div>
@@ -22,7 +22,14 @@
 </template>
 <script>
 export default {
-  props: ["newObjBanner", "newObjList"]
+  props: ["newObjBanner", "newObjList"],
+  data: function() {
+    return {
+      id: JSON.parse(localStorage.getItem("cityData")).id,
+      lng: JSON.parse(localStorage.getItem("cityData")).lng,
+      lat: JSON.parse(localStorage.getItem("cityData")).lat
+    };
+  }
 };
 </script>
 <style lang="scss" scoped>

@@ -59,7 +59,7 @@
     <div class="discountProduct" v-if="status.storeTabStatus==1">
       <div class="product" v-for="(item,i) in discountData" :key="i">
         <img :src="item.image || 'static/img/banner1.png'" alt="" class="discountProImg">
-        <div class="producText" @click="$router.push('productDetail')">
+        <div class="producText">
           <div class="text1">{{item.name}}</div>
           <div class="text2">{{item.goodsname}}</div>
           <div class="text3">
@@ -125,7 +125,7 @@
         </div>
       </div>
       <div class="productList">
-        <div class="list" v-for="(item,index) in productData" :key="index" @click="$router.push('productDetail')">
+        <div class="list" v-for="(item,index) in productData" :key="index" @click="$router.push('productDetail?goods_id='+item.goods_id+'&pathInto=shop')">
           <div class="price">￥{{item.price}}</div>
           <img :src="item.image" alt="">
           <div class="listName">
@@ -212,7 +212,8 @@ export default {
       headerObj: {
         title: "店铺详情",
         img: "static/img/fenxiangB.png",
-        text: "share"
+        text: "share",
+        type: this.$route.query.pathInto == "product" ? "H5" : ""
       },
       storeTabStyle: "color:#333333;",
       lineStyle: "",
@@ -278,8 +279,8 @@ export default {
         name: this.shopDetailData.name
       };
       if (window.HostApp) {
-        let data = JSON.stringify(params);
-        window.HostApp.location(data);
+        // let data = JSON.stringify(params);
+        window.HostApp.location(params.lat, params.lng, params.name);
       } else {
       }
     },
@@ -290,6 +291,9 @@ export default {
     },
     callStore: function(item) {
       window.location.href = "tel://" + this.shopDetailData.contact;
+      if (window.HostApp) {
+        window.HostApp.call(this.shopDetailData.contact);
+      }
     },
     recieveCoupon: function(item) {
       //领取优惠
@@ -327,8 +331,8 @@ export default {
         });
     },
     clickFocus: function(num) {
-      if (!localStorage.getItem("ticket")) {
-        this.$toast({
+      if (!localStorage.getItem("ticket") || !this.$route.query.ticket) {
+        return this.$toast({
           type: "text",
           message: "请登录"
         });
@@ -346,11 +350,13 @@ export default {
         })
         .then(res => {
           if (res.status == 200) {
-            this.$toast({
-              type: "text",
-              message: num == 200 ? "关注成功" : "取消成功"
-            });
             this.judgeCollection();
+            setTimeout(() => {
+              this.$toast({
+                type: "text",
+                message: num == 200 ? "关注成功" : "取消成功"
+              });
+            }, 200);
           }
         });
     },
@@ -660,6 +666,10 @@ export default {
           color: #333333;
           height: 0.45rem;
           line-height: 0.45rem;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          width: 3.5rem;
         }
         .text2 {
           font-size: 0.24rem;
@@ -700,6 +710,7 @@ export default {
           margin: auto;
           text-align: center;
           font-size: 0.18rem;
+          margin-top: 0.1rem;
           .goUseButton {
             display: inline-block; // height: 0.28rem;
             // line-height: 0.28rem;
@@ -978,6 +989,10 @@ export default {
           font-size: 0.36rem;
           color: #ffffff;
           margin-bottom: 0.05rem;
+          width: 3.5rem;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
         .leftText2,
         .leftText3 {

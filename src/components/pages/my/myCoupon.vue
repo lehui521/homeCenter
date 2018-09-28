@@ -313,6 +313,10 @@ export default {
           font-size: 0.36rem;
           color: #ffffff;
           margin-bottom: 0.05rem;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          width: 3.5rem;
         }
         .leftText2,
         .leftText3 {

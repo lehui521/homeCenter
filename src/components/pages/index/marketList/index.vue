@@ -97,7 +97,6 @@
         </div>
       </div>
     </load-list>
-
   </div>
 </template>
 <script>

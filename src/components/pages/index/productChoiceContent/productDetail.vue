@@ -53,7 +53,7 @@
       <div class="collection" @click="handleCollection(-1)" v-if="collectionStatus==200">
         <span>取消收藏</span>
       </div>
-      <div class="inStore" @click="$router.push('storeDetail?shop_id='+detail.shop_id)">进入店铺</div>
+      <div class="inStore" @click="$router.push('storeDetail?shop_id='+detail.shop_id+'&pathInto=product')">进入店铺</div>
       <div class="phoneSeller" @click="callProduct">联系商家</div>
     </footer>
     <van-popup v-model="showProductCoupon" position="bottom" :overlay="true">
@@ -103,7 +103,8 @@ export default {
       headerObj: {
         title: "商品详情",
         img: "static/img/fenxiangB.png",
-        text: "share"
+        text: "share",
+        type: this.$route.query.pathInto == "shop" ? "H5" : ""
       },
       productTabStatus: 1,
       productTabStyle: "color:#333333;",
@@ -134,7 +135,10 @@ export default {
       this.productTabStatus = res;
     },
     callProduct: function() {
-      window.location.href = "tel://" + 555555;
+      window.location.href = "tel://" + this.detail.shop_info.contact;
+      if (window.HostApp) {
+        window.HostApp.call(this.detail.shop_info.contact);
+      }
     },
     getData() {
       let param = {
@@ -174,8 +178,8 @@ export default {
         });
     },
     handleCollection: function(num) {
-      if (!localStorage.getItem("ticket")) {
-        this.$toast({
+      if (!localStorage.getItem("ticket") || !this.$route.query.ticket) {
+        return this.$toast({
           type: "text",
           message: "请登录"
         });
@@ -192,11 +196,13 @@ export default {
         })
         .then(res => {
           if (res.status == 200) {
-            this.$toast({
-              type: "text",
-              message: num == 200 ? "收藏成功" : "取消成功"
-            });
             this.judgeCollection();
+            setTimeout(() => {
+              this.$toast({
+                type: "text",
+                message: num == 200 ? "收藏成功" : "取消成功"
+              });
+            }, 200);
           }
         });
     },
@@ -469,6 +475,10 @@ export default {
           font-size: 0.36rem;
           color: #ffffff;
           margin-bottom: 0.05rem;
+          width: 3.5rem;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
         .leftText2,
         .leftText3 {

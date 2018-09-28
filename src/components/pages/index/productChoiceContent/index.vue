@@ -16,16 +16,16 @@
     <div class="typeMask" v-if="status.typeStatus!==''">
       <div class="grayMask" @click="status.typeStatus=''"></div>
       <div class="priceType" v-if="status.typeStatus=='price'">
-        <div :class="queryData.category_id==3?'single singleActive':'single'" @click="clickType(3)">由高到低</div>
-        <div :class="queryData.category_id==4?'single singleActive':'single'" @click="clickType(4)">由低到高</div>
+        <div :class="queryData.order=='price_desc'?'single singleActive':'single'" @click="clickType('price_desc')">由高到低</div>
+        <div :class="queryData.order=='price_asc'?'single singleActive':'single'" @click="clickType('price_asc')">由低到高</div>
         <div class="button">
           <div class="cancel" @click="status.typeStatus=''">取消</div>
-          <div class="ensure">确定</div>
+          <div class="ensure" @click="getData">确定</div>
         </div>
       </div>
       <div class="sortType" v-if="status.typeStatus=='sort'">
-        <div :class="queryData.category_id==0?'single singleActive':'single'" @click="clickType(0)">默认排序</div>
-        <div :class="queryData.category_id==1?'single singleActive':'single'" @click="clickType(1)">新品优先</div>
+        <div :class="queryData.order=='sort_asc'?'single singleActive':'single'" @click="clickType('sort_asc')">默认排序</div>
+        <div :class="queryData.order=='add_time_desc'?'single singleActive':'single'" @click="clickType('add_time_desc')">新品优先</div>
         <div class="single">
           <input type="text" class="low" v-model="queryData.min_price" placeholder="最低价">
           <span>——</span>
@@ -33,29 +33,36 @@
         </div>
         <div class="button">
           <div class="cancel" @click="status.typeStatus=''">取消</div>
-          <div class="ensure">确定</div>
+          <div class="ensure" @click="getData">确定</div>
         </div>
       </div>
     </div>
     <!-- 内容 -->
-    <div class="productChoiceContent">
-      <div class="list" v-for="(item,index) in productData" :key="index" @click="$router.push('productDetail')">
-        <div class="price">￥5555</div>
-        <img src="static/img/shichangtuipian.png" alt="">
-        <div class="listName">
-          秋夕-现代橱柜
-        </div>
-        <div class="text">
-          <span class="name">九牧恒大店</span>
+    <loadList @scrollEnd="scrollEnd">
+      <div style="padding:0;">
+        <div class="productChoiceContent">
+          <div class="list" v-for="(item,index) in productData" :key="index" @click="$router.push('productDetail?goods_id='+item.goods_id)">
+            <div class="price">￥{{item.price}}</div>
+            <img v-lazy="item.image" alt="">
+            <div class="listName">
+              {{item.name}}
+            </div>
+            <div class="text">
+              <div class="name">{{item.shop_info.name}}
+                <span v-if="$route.query.cityId">| {{item.market_name}}</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </loadList>
   </div>
 </template>
 <script>
 import HeaderSame from "../../../common/sameHeader.vue";
+import loadList from "../../../common/load.vue";
 export default {
-  components: { HeaderSame },
+  components: { HeaderSame, loadList },
   data: function() {
     return {
       headerObj: {
@@ -64,7 +71,10 @@ export default {
         text: "productChoice"
       },
       params: {
-        typeId: this.$route.query.typeId
+        typeId: this.$route.query.typeId,
+        cityId: this.$route.query.cityId,
+        marketId: this.$route.query.marketId,
+        categoryId: this.$route.query.categoryId
       },
       status: {
         typeStatus: "",
@@ -74,31 +84,19 @@ export default {
         page: 1,
         page_size: 10,
         keywords: "",
-        category_id: "",
-        market_id: "",
-        city_id: JSON.parse(localStorage.getItem("cityData")).city_id,
+        category_id: this.$route.query.categoryId,
+        market_id: this.$route.query.marketId,
+        city_id: this.$route.query.cityId,
         type_id: this.$route.query.typeId,
         min_price: "",
-        max_price: ""
+        max_price: "",
+        order: "sort_asc"
       },
-      productData: []
+      productData: [],
+      scrollStatus: true
     };
   },
   created: function() {
-    if (localStorage.getItem("marketData")) {
-      this.queryData.market_id = JSON.parse(
-        localStorage.getItem("marketData")
-      ).market_id;
-    } else {
-      return this.$dialog
-        .alert({
-          title: "提示",
-          message: "请选择市场"
-        })
-        .then(() => {
-          this.$router.push("marketList");
-        });
-    }
     this.getData();
   },
   methods: {
@@ -110,7 +108,28 @@ export default {
       this.status.typeStatus = res;
     },
     clickType: function(res) {
-      this.queryData.category_id = res;
+      this.queryData.order = res;
+    },
+    scrollEnd: function(num) {
+      this.queryData.page = num;
+      if (this.scrollStatus) {
+        this.tool
+          .request({
+            url: "goods/list",
+            method: "post",
+            params: this.queryData
+          })
+          .then(res => {
+            if (res.status == 200) {
+              for (var i in res.data.list) {
+                this.productData.push(res.data.list[i]);
+              }
+              if (res.data.list.length < 10) {
+                this.scrollStatus = false;
+              }
+            }
+          });
+      }
     },
     getData: function() {
       this.tool
@@ -122,6 +141,7 @@ export default {
         .then(res => {
           if (res.status == 200) {
             this.productData = res.data.list;
+            this.status.typeStatus = "";
           }
         });
     }
@@ -130,8 +150,12 @@ export default {
 </script>
 <style lang="scss" scoped>
 .pages {
-  padding-top: 0.88rem;
+  padding-top: 1.78rem;
   background: #fff;
+  // box-sizing: border-box;
+  height: 100%;
+  box-sizing: border-box;
+  position: relative;
   .typeList {
     border-top: 1px solid #d5d5d5;
     border-bottom: 1px solid #d5d5d5;
@@ -146,6 +170,11 @@ export default {
     box-sizing: border-box;
     line-height: 0.48rem;
     background: #fff;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0.88rem;
+    z-index: 999;
     div:first-child {
       border-right: 1px solid #d5d5d5;
     }
@@ -313,17 +342,16 @@ export default {
         color: #fbb0b0;
       }
       .text {
-        text-align: right;
+        text-align: center;
         color: #666666;
         font-size: 0.18rem;
         width: 100%;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
         .name {
           margin-top: 5px;
-          display: inline-block;
-          width: 100%;
           overflow: hidden;
+          width: 100%;
           white-space: nowrap;
           text-overflow: ellipsis;
           text-align: center;

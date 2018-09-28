@@ -1,6 +1,6 @@
 <template>
   <div class="productChoice">
-    <div class="title">
+    <div class="title" @click="$router.push('productClassif?marketId='+marketId)">
       <img src="static/img/shangpinjingxuan.png" alt="">
       <img src="static/img/rightIcon.png" alt="" class="rightIcon">
     </div>
@@ -25,7 +25,9 @@
 export default {
   props: ["banner", "list"],
   data: function() {
-    return {};
+    return {
+      marketId: JSON.parse(localStorage.getItem("marketData")).market_id
+    };
   }
 };
 </script>

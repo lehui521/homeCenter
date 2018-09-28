@@ -1,45 +1,79 @@
 <template>
-    <div class="pages">
-        <searchHeader @searchClick="handleSearch"></searchHeader>
-        <div class="storeList" v-if="true">
-            <div class="market" v-for="(item,index) in [1,2,3]" :key="index">
-                <div class="marketImg">
-                    <img src="static/img/shichangtuipian.png" alt="">
-                </div>
-                <div class="marketText">
-                    <div class="marketName">
-                        <span class="name">上海家饰佳徐汇店</span>
-                        <span>64m</span>
-                    </div>
-                    <div class="marketTag">
-                        <van-tag type="success" plain>家具</van-tag>
-                        <van-tag type="success" plain>灯饰</van-tag>
-                    </div>
-                    <div class="marketPhone">
-                        <span>15252111236</span>
-                    </div>
-                    <div class="marketAddress">
-                        <span>上海市徐汇区凯旋路552号</span>
-                    </div>
-                </div>
-            </div>
+  <div class="pages">
+    <searchHeader @searchClick="handleSearch"></searchHeader>
+    <div class="storeList" v-if="showSearch==1">
+      <div class="market" v-for="(item,index) in storeData" :key="index">
+        <div class="marketImg">
+          <img v-lazy="item.image" alt="">
         </div>
-        <div class="noProduct" v-else>
-            <img src="static/img/noProduct.png" alt="">
-            <div class="text">未搜索到相关商品</div>
+        <div class="marketText">
+          <div class="marketName">
+            <span class="name">{{item.name}}</span>
+            <span>{{item.distance}}</span>
+          </div>
+          <div class="marketTag">
+            <van-tag type="success" plain>{{item.category_name}}</van-tag>
+            <!-- <van-tag type="success" plain>灯饰</van-tag> -->
+          </div>
+          <div class="marketPhone">
+            <span>{{item.market_name}}</span>
+          </div>
+          <div class="marketAddress">
+            <span>{{item.address}}</span>
+          </div>
         </div>
+      </div>
     </div>
+    <div class="noProduct" v-if="showSearch==0">
+      <img src="static/img/noProduct.png" alt="">
+      <div class="text">未搜索到相关商品</div>
+    </div>
+  </div>
 </template>
 <script>
 import searchHeader from "../../../common/sameSearch.vue";
 export default {
   components: { searchHeader },
   data: function() {
-    return {};
+    return {
+      queryData: {
+        city_id: this.$route.query.cityId,
+        page: 1,
+        page_size: 10,
+        keywords: "",
+        category_id: "",
+        market_id: this.$route.query.marketId,
+        order: 0,
+        lng: this.$route.query.lng,
+        lat: this.$route.query.lat
+      },
+      storeData: [],
+      showSearch: -1
+    };
   },
   methods: {
     handleSearch: function(res) {
       console.log(res);
+      this.queryData.keywords = res;
+      this.getData();
+    },
+    getData: function() {
+      this.tool
+        .request({
+          url: "shop/list",
+          method: "post",
+          params: this.queryData
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.storeData = res.data.list;
+            if (res.data.list.length == 0) {
+              this.showSearch = 0;
+            } else {
+              this.showSearch = 1;
+            }
+          }
+        });
     }
   }
 };
@@ -113,6 +147,7 @@ export default {
         padding: 0.1rem;
         img {
           width: 100%;
+          height: 100%;
         }
       }
       .marketText {

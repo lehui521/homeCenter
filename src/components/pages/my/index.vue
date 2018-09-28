@@ -73,7 +73,7 @@ export default {
     if (localStorage.getItem("ticket")) {
       this.showMember = true;
     } else {
-      return (this.showMember = false);
+      this.$router.push("login");
     }
     this.getData();
   },

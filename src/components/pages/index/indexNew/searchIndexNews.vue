@@ -40,7 +40,9 @@ export default {
       this.queryData.keywords = res;
       this.getData();
     },
-    jumpNewDetail: function(res) {},
+    jumpNewDetail: function(res) {
+      this.$router.push("headerNewDetail?newId=" + res.news_id);
+    },
     getData: function() {
       this.tool
         .request({

@@ -1,6 +1,6 @@
 <template>
   <div class="storeChoice">
-    <div class="title">
+    <div class="title" @click="$router.push('storeChoiceContent?marketId='+id+'&lng='+lng+'&lat='+lat)">
       <img src="static/img/dianpujingxuan.png" alt="">
       <div class="rightIcon">
         <img src="static/img/rightIcon.png" alt="">
@@ -21,7 +21,10 @@
 </template>
 <script>
 export default {
-  props: ["banner", "list"]
+  props: ["banner", "list"],
+  id: JSON.parse(localStorage.getItem("marketData")).market_id,
+  lng: JSON.parse(localStorage.getItem("marketData")).lng,
+  lat: JSON.parse(localStorage.getItem("marketData")).lat
 };
 </script>
 <style lang="scss" scoped>

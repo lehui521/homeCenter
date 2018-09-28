@@ -182,6 +182,11 @@ export default new Router({
                 import ('../components/pages/my/collection')
         },
         {
+            path: '/myDiray', //我的日记
+            component: () =>
+                import ('../components/pages/my/myDiray')
+        },
+        {
             path: '/marketList',
             component: resolve => require(['../components/pages/index/marketList'], resolve)
         }, //市场列表

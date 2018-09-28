@@ -23,7 +23,7 @@ export default {
         this.$router.push({ path: "searchProductChoice", query: this.params });
       } else if (res == "storeChoice") {
         //精品店铺搜索
-        this.$router.push("searchStoreChoice");
+        this.$router.push({ path: "searchStoreChoice", query: this.params });
       } else if (res == "decorationCompany") {
         //装修公司搜索
         this.$router.push("searchDecorationCompany");
@@ -34,15 +34,20 @@ export default {
         this.$router.push("searchIndexNew");
       } else if (res == "share") {
         if (window.HostApp) {
-          let data = JSON.stringify(this.params);
-          window.HostApp.share(data);
+          // let data = JSON.stringify(this.params);
+          window.HostApp.share(
+            this.params.image,
+            this.params.title,
+            this.params.des,
+            this.params.path
+          );
         } else {
           console.log(this.params);
         }
       }
     },
     gobackClick: function(type) {
-      if (type) {
+      if (type == "H5") {
         this.$router.go(-1);
       } else {
         this.goBack();
