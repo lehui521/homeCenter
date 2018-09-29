@@ -12,7 +12,7 @@
           <li>{{`${userInfo.style_data||'无'} |`}}</li>
           <li>{{userInfo.layout_data||'无'}}</li>
         </ul>
-        <router-link to="" class="link">我的日记</router-link>
+        <router-link to="/myDiray" class="link">我的日记</router-link>
 
       </div>
 
@@ -36,12 +36,12 @@
 
         <div class="col-main">
 
-          <div v-for="(item,i) in eventList" :key="i" @click="setEventList(i)">
-            <label>
+          <div v-for="(item,i) in eventList" :key="i">
+            <label @click="setEventList(i)">
               <i :class="`uncur ${item.checked ? 'cur' : ''}`"></i>
               <span>{{item.name||'无'}}</span>
             </label>
-            <a :href="item.jump_url">{{item.subname}}</a>
+            <a :href="item.jump_url" v-if="item.subname">{{item.subname}}</a>
           </div>
 
           <div class="col-bottom">
@@ -96,9 +96,9 @@ export default {
   },
   computed: {},
   created: function() {
-    this.ticket = localStorage.getItem("ticket"); //'dg2lMBVsEX1UC_bWDFYHMsFX9YO033OY_c'
+    this.ticket = localStorage.getItem("ticket");//'dg2lMBVsEX1UC_bWDFYHMsFX9YO033OY_c'
     if (!this.ticket) {
-      //this.$router.push("login");
+      this.$router.push("login");
     }
     this.getSkillCategory();
   },
