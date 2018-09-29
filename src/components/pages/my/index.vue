@@ -39,7 +39,7 @@
     <!-- 分割距离 -->
     <div class="grayBlank" style=" border-bottom: 1px solid #d5d5d5;">
     </div>
-    <router-link class="myNews borderTop" to="/myHome">
+    <router-link class="myNews borderTop" to="/myHomeNew">
       <img src="static/img/myhome.png" alt="" class="leftImg">
       <span>我的家</span>
       <img src="static/img/fanhui.png" alt="" class="rightIcon">

@@ -5,48 +5,27 @@
 
       <div class="home-head">
 
-        <img src="https://via.placeholder.com/50x50" />
-        <span>设置我的家</span>
+        <img :src="userInfo.avatar||'https://via.placeholder.com/50x50'" />
+        <router-link to="/myHome" class="set">设置我的家</router-link>
         <ul>
-          <li>小区名称 |</li>
-          <li>现代 |</li>
-          <li>一居</li>
+          <li>{{`${userInfo.community||'无'} |`}}</li>
+          <li>{{`${userInfo.style_data||'无'} |`}}</li>
+          <li>{{userInfo.layout_data||'无'}}</li>
         </ul>
-        <a href="#">我的日记</a>
+        <router-link to="" class="link">我的日记</router-link>
 
       </div>
 
       <div class="home-flow">
-        <div class="sub-flow">
-
-          <div class="flow-info">
-            <span>装修准备</span>
-            <i class="uncur cur"></i>
+        <div class="sub-flow" :style="{width:tags.length*85+'px'}">
+          <div v-for="(item,i) in tags" :key="i" @click="setSkillTags(item.id,i)">
+            <div class="flow-info" >
+              <span>{{item.name||'无'}}</span>
+              <i :class="`uncur ${item.checked ? 'cur':''}`"></i>
+            </div>
+            <span class="rborder" v-if="i<tags.length-1"></span>
           </div>
-          <span></span>
-
-          <div class="flow-info">
-            <span>合同签订</span>
-            <i class="uncur"></i>
-          </div>
-          <span></span>
-
-          <div class="flow-info">
-            <span>拆除改造</span>
-            <i class="uncur"></i>
-          </div>
-          <span></span>
-
-          <div class="flow-info">
-            <span>水电布局</span>
-            <i class="uncur"></i>
-          </div>
-          <span></span>
-
-          <div class="flow-info">
-            <span>泥木工艺</span>
-            <i class="uncur"></i>
-          </div>
+          
         </div>
 
       </div>
@@ -57,24 +36,16 @@
 
         <div class="col-main">
 
-          <div>
+          <div v-for="(item,i) in eventList" :key="i" @click="setEventList(i)">
             <label>
-              <i class="uncur cur"></i>
-              <span>收房验房</span>
+              <i :class="`uncur ${item.checked ? 'cur' : ''}`"></i>
+              <span>{{item.name||'无'}}</span>
             </label>
-            <a href="#">如何收房验房</a>
-          </div>
-
-          <div>
-            <label>
-              <i class="uncur"></i>
-              <span>收房验房</span>
-            </label>
-            <a href="#">如何收房验房</a>
+            <a :href="item.jump_url">{{item.subname}}</a>
           </div>
 
           <div class="col-bottom">
-            已完成1项 <span>（请在已经完成的装修事项上打勾）</span>
+            已完成{{eventTotal}}项 <span>（请在已经完成的装修事项上打勾）</span>
           </div>
           
         </div>
@@ -85,20 +56,12 @@
          <h3 class="col-head">装修学堂</h3>
          <div class="col-main">
 
-           <div>
+           <div v-for="(item,i) in skillList" :key="i">
              <dl>
-               <dt>小白必读</dt>
-               <dd>装修哪有那么难，小白业主看过来！</dd>
+               <dt>{{item.title||'无'}}</dt>
+               <dd>{{item.sub_title||'无'}}</dd>
              </dl>
-              <img src="https://via.placeholder.com/70x55">
-           </div>
-
-           <div>
-             <dl>
-               <dt>小白必读</dt>
-               <dd>装修哪有那么难，小白业主看过来！</dd>
-             </dl>
-              <img src="https://via.placeholder.com/70x55">
+              <img :src="item.img||'https://via.placeholder.com/70x55'">
            </div>
 
          </div>
@@ -118,15 +81,183 @@ export default {
         title: "我的家",
         img: ""
       },
-      
+      ticket:'',
+      userInfo:{
+        avatar:'',
+        community:'',
+        style_data:'',
+        layout_data:''
+      },
+      tags:[],
+      eventList:[],
+      eventTotal:0,
+      skillList:[]
     };
   },
   computed: {},
   created: function() {
-    
+    this.ticket = localStorage.getItem("ticket"); //'dg2lMBVsEX1UC_bWDFYHMsFX9YO033OY_c'
+    if (!this.ticket) {
+      //this.$router.push("login");
+    }
+    this.getSkillCategory();
   },
   methods: {
+    //获取用户信息
+    getUserInfo(){
+      this.tool.request({
+        url: "user/info",
+        method: "post",
+        params: {
+          ticket: this.ticket
+        }
+      }).then(res => {
+        if(res.status == 200) {
+          this.userInfo = res.data;
+          this.getSkillTags();
+          this.skillCategory.map(item =>{
+            if(item.name == this.userInfo.decorate_data){
+              this.category_id = item.category_id;
+              return;
+            }
+          })
+          this.category_id && this.getSkillList(this.category_id);
+        }else{
+          this.$dialog.alert({
+            title: "提示",
+            message: res.msg
+          });
+        }
+      })
+    },
+    //获取获取装修标签
+    getSkillTags(){
+      this.tool.request({
+        url: "tags/getList",
+        method: "post",
+        params: {
+          tag_ename:'decorate'
+        }
+      }).then(res => {
+        if(res.status == 200) {
+          res.data.tags.map(item =>{
+            if(item.name == this.userInfo.decorate_data){
+              item.checked = true;
+              this.decorate_id = item.id;
+              return;
+            }
+          })
+          this.tags = res.data.tags;
+          this.decorate_id && this.getEventList(this.decorate_id)
+        }else{
+          this.$dialog.alert({
+            title: "提示",
+            message: res.msg
+          });
+        }
+      })
+    },
+    //获取获取代办事项
+    getEventList(decorate_id){
+      this.tool.request({
+        url: "event/list",
+        method: "post",
+        params: {
+          ticket:this.ticket,
+          decorate_id:decorate_id
+        }
+      }).then(res => {
+        if(res.status == 200) {
+          res.data.map(item =>{
+            item.checked = item.is_finish;
+            if(item.checked){
+              this.eventTotal++
+            }
+          })
+          this.eventList = res.data;
+        }else{
+          this.$dialog.alert({
+            title: "提示",
+            message: res.msg
+          });
+        }
+      })
+    },
+    //获取我的家-下面的装修课堂
+    getSkillList(category_id){
+      this.tool.request({
+        url: "skill/list",
+        method: "post",
+        params: {
+          category_id:category_id
+        }
+      }).then(res => {
+        if(res.status == 200) {
+          this.skillList = res.data;
+        }else{
+          this.$dialog.alert({
+            title: "提示",
+            message: res.msg
+          });
+        }
+      })
+    },
+    //获取装修分类
+    getSkillCategory(){
+      this.tool.request({
+        url: "skill/category",
+        method: "post",
+        params: {}
+      }).then(res => {
+        if(res.status == 200) {
+          this.skillCategory = res.data;
+          this.skillCategory && this.getUserInfo();
+        }else{
+          this.$dialog.alert({
+            title: "提示",
+            message: res.msg
+          });
+        }
+      })
+    },
+    //switch选中效果
+    setSwitch(list,index,type){
+      if(!list.length) return;
+      if(!type){
+        list.map(item =>{
+          item.checked = false;
+        });
+      }
+      list[index].checked = !list[index].checked;
+      this.$forceUpdate();
+      return list[index].checked;
+    },
     
+    //设置装修阶段
+    setSkillTags(decorate_id,index){
+      this.setSwitch(this.tags,index);
+      this.tool.request({
+        url: "user/config",
+        method: "post",
+        params: {
+          ticket:this.ticket,
+          decorate:decorate_id
+        }
+      }).then(res => {
+        if(res.status == 200) {
+          this.getEventList(decorate_id)
+        }else{
+          this.$dialog.alert({
+            title: "提示",
+            message: res.msg
+          });
+        }
+      })
+    },
+    //设置代码事项
+    setEventList(index){
+      this.setSwitch(this.eventList,index,'checkbox') ? (this.eventTotal++) : (this.eventTotal--);
+    }
   }
 };
 </script>
@@ -147,7 +278,7 @@ export default {
     border: #979797 1px solid;
     border-radius: 50%;
   }
-  >span{
+  >.set{
     color: #999;
     line-height: 30px;
     text-align: center;
@@ -161,7 +292,7 @@ export default {
       padding-left: 5px;
     }
   }
-  a{
+  .link{
     width: 63px;
     height: 23px;
     border: #3CB850 1px solid;
@@ -184,7 +315,9 @@ export default {
   overflow-y: hidden;
   .sub-flow{
     display: flex;
-    width: 420px;
+    > div{
+      display: flex;
+    }
     .flow-info{
       span, i{
         display: block;
@@ -194,7 +327,7 @@ export default {
         padding: 5px;
       }
     }
-    >span{
+    span.rborder{
       width: 30px;
       height: 1px;
       background: #333;
@@ -264,7 +397,7 @@ export default {
     div{
       display: flex;
       justify-content: space-between;
-      line-height: 20px;
+      line-height: 16px;
       padding: 10px 0;
       border-top:1px solid #D5D5D5;
       dt{
@@ -273,6 +406,10 @@ export default {
       dd{
         color: #999;
         padding-top: 5px;
+      }
+      img{
+        width: 75px;
+        height: 55px;
       }
     }
   }
