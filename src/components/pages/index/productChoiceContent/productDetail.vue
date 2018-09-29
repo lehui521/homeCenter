@@ -13,8 +13,13 @@
       <div class="productTag">
         <span class="sTag" v-for="(item,index) in detail.tags" :key="index">{{item}}</span>
       </div>
-      <div class="newPrice">
+      <div class="newPrice" v-if="detail.discount_price==0 || detail.discount_price==''">
         <span class="price">￥{{detail.price}}</span>
+        <span class="kucun">库存：{{detail.stock}}</span>
+      </div>
+      <div class="newPrice" v-else>
+        <span class="price">￥{{detail.discount_price}}</span>
+        <s class="zkprice">￥{{detail.price}}</s>
         <span class="kucun">库存：{{detail.stock}}</span>
       </div>
       <!-- <div class="oldPrice">
@@ -293,7 +298,10 @@ export default {
         font-size: 0.36rem;
         color: #e26f72;
       }
-
+      .zkprice {
+        font-size: 0.29rem;
+        color: #999999;
+      }
       .kucun {
         font-size: 0.24rem;
         color: #999999;

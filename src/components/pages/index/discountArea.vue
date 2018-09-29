@@ -1,6 +1,6 @@
 <template>
   <div class="discountArea">
-    <div class="title" @click="$router.push('discountAreaContent')">
+    <div class="title" @click="jump">
       <img src="static/img/zhekouzhuanqu.png" alt="">
       <img src="static/img/rightIcon.png" alt="" class="rightIcon">
     </div>
@@ -26,9 +26,21 @@
 export default {
   props: ["newObjBanner", "newObjList"],
   data: function() {
-    return {};
+    return {
+      city_id: JSON.parse(localStorage.getItem("cityData")).id
+    };
   },
-  created: function() {}
+  created: function() {},
+  methods: {
+    jump: function() {
+      this.$router.push({
+        path: "discountAreaContent",
+        query: {
+          city_id: this.city_id
+        }
+      });
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>

@@ -1,6 +1,6 @@
 <template>
   <div class="discountArea">
-    <div class="title">
+    <div class="title" @click="jump">
       <img src="static/img/zhekouzhuanqu.png" alt="">
       <img src="static/img/rightIcon.png" alt="" class="rightIcon">
     </div>
@@ -24,7 +24,22 @@
 </template>
 <script>
 export default {
-  props: ["banner", "list"]
+  props: ["banner", "list"],
+  data: function() {
+    return {
+      market_id: JSON.parse(localStorage.getItem("marketData")).market_id
+    };
+  },
+  methods: {
+    jump: function() {
+      this.$router.push({
+        path: "discountAreaContent",
+        query: {
+          market_id: this.market_id
+        }
+      });
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>

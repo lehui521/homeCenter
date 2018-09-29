@@ -21,12 +21,12 @@
       </div>
     </div>
     <div class="banner">
-      <img :src="bannerData.image || 'static/img/banner1.png'" alt="">
+      <img v-lazy="bannerData.image" alt="">
     </div>
     <div class="discountProduct">
       <div class="product" v-for="(item,i) in goodData" :key="i">
         <img :src="item.image" alt="" class="discountProImg">
-        <div class="producText">
+        <div class="producText" @click="$router.push('productDetail?goods_id='+item.goods_id)">
           <div class="text1">{{item.shop_name}}&nbsp;&nbsp;{{item.name}}</div>
           <div class="text2">{{item.market}}</div>
           <div class="text3">
@@ -37,7 +37,7 @@
         <!-- 已领取的样式 -->
         <div class="discountImg" v-if="false">
           <div class="discountImgContent">
-            <span class="goUseButton">去使用</span>
+            <span class="goUseButton" @click="$router.push('myCoupon')">去使用</span>
           </div>
           <img src="static/img/yilingqu.png" alt="" class="recievedImg">
         </div>
@@ -121,7 +121,9 @@ export default {
           url: "v3_coupons/index",
           method: "post",
           params: {
-            type_id: this.typeId
+            type_id: this.typeId,
+            city_id: this.$route.query.city_id,
+            market_id: this.$route.query.market_id
           }
         })
         .then(res => {
@@ -196,6 +198,7 @@ export default {
         .navActive2 {
           color: #3cb850 !important;
           border: 1px solid #3cb850 !important;
+          background: #fff !important;
         }
       }
     }

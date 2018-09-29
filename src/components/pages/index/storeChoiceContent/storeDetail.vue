@@ -41,7 +41,7 @@
     </div>
     <div class="market">
       <span>所属市场：</span>
-      <span style="color:#999999;">{{shopDetailData.market_place}}</span>
+      <span style="color:#999999;">{{shopDetailData.market_name}}</span>
     </div>
     <div class="grayBlank" v-if="couponData.length!=0"></div>
     <div class="discount" @click="status.showCoupon=true" v-if="couponData.length!=0">
@@ -60,8 +60,8 @@
       <div class="product" v-for="(item,i) in discountData" :key="i">
         <img :src="item.image || 'static/img/banner1.png'" alt="" class="discountProImg">
         <div class="producText">
-          <div class="text1">{{item.name}}</div>
-          <div class="text2">{{item.goodsname}}</div>
+          <div class="text1">{{item.goodsname}}</div>
+          <div class="text2">{{item.shop_name}}</div>
           <div class="text3">
             <span>￥{{item.zkprice}}</span>
             <s>￥{{item.price}}</s>
@@ -129,7 +129,7 @@
           <div class="price">￥{{item.price}}</div>
           <img :src="item.image" alt="">
           <div class="listName">
-            {{item.category_name}}
+            {{item.name}}
           </div>
         </div>
       </div>
@@ -237,8 +237,10 @@ export default {
   methods: {
     clickSort: function(sort) {
       this.queryData.order = sort;
-      this.queryData.minPrice = "";
-      this.queryData.maxPrice = "";
+      if (sort !== "price") {
+        this.queryData.minPrice = "";
+        this.queryData.maxPrice = "";
+      }
     },
     recieveCouponClick: function(res) {
       if (!localStorage.getItem("ticket")) {

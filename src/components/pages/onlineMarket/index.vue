@@ -28,7 +28,7 @@
         <img src="static/img/shangpinfenlei.png" alt="">
         <span>商品分类</span>
       </div>
-      <div class="navImg" @click="$router.push('salesPromotion')">
+      <div class="navImg" @click="$router.push('salesPromotion?market_id='+marketData.market_id)">
         <img src="static/img/cuxiaohuodong.png" alt="">
         <span>促销活动</span>
       </div>

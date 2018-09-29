@@ -3,14 +3,14 @@
     <searchHeader @searchClick="handleSearch"></searchHeader>
     <!-- 内容 -->
     <div class="discountProduct" v-if="showStatus==1">
-      <div class="product">
-        <img src="static/img/banner1.png" alt="" class="discountProImg">
-        <div class="producText">
-          <div class="text1">简爱</div>
-          <div class="text2">我乐橱柜</div>
+      <div class="product" v-for="(item,i) in searchData" :key="i">
+        <img :src="item.image" alt="" class="discountProImg">
+        <div class="producText" @click="$router.push('productDetail?goods_id='+item.goods_id)">
+          <div class="text1">{{item.shop_name}}&nbsp;&nbsp;{{item.name}}</div>
+          <div class="text2">{{item.market}}</div>
           <div class="text3">
-            <span>￥2636</span>
-            <s>￥3600</s>
+            <span>￥{{item.zkprice/100}}</span>
+            <s>￥{{item.price/100}}</s>
           </div>
         </div>
         <!-- 已领取的样式 -->
@@ -26,7 +26,7 @@
             <svgCircle :proNum="proNum"></svgCircle>
           </div>
           <div class="discountImgContent">
-            <span class="goRecieveButton">立即领取</span>
+            <span class="goRecieveButton" @click="recieveCoupon(item)">立即领取</span>
           </div>
         </div>
       </div>
@@ -53,7 +53,7 @@ export default {
     handleSearch: function(res) {
       this.tool
         .request({
-          url: "v3_user/searchcoupon",
+          url: "/v3_coupons/searchcoupon",
           method: "post",
           params: {
             keyword: res
@@ -77,6 +77,27 @@ export default {
                 this.showStatus = 0;
               });
           }
+        });
+    },
+    recieveCoupon: function(res) {
+      this.tool
+        .request({
+          url: "shop/receivegoodscoupons",
+          method: "post",
+          params: {
+            coupon_id: res.coupon_id,
+            ticket: localStorage.getItem("ticket")
+          }
+        })
+        .then(res => {
+          this.$dialog
+            .alert({
+              title: "提示",
+              message: res.msg
+            })
+            .then(() => {
+              this.handleSearch();
+            });
         });
     }
   }

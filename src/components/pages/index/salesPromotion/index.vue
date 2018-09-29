@@ -151,11 +151,18 @@ export default {
         url: "v3_activity/index",
         params: {
           type: this.status.tabStatus == "market" ? 1 : 2,
-          type_id: this.type_id || ""
+          type_id: this.type_id || "",
+          market_id: this.$route.query.market_id,
+          city_id: this.$route.query.city_id
         }
       };
       this.tool.request(param).then(data => {
         this.detail = data.data;
+        if (data.data.list.list.length == 0) {
+          if (window.HostApp) {
+            window.HostApp.showNoDataDialog();
+          }
+        }
       });
     },
     getTabList() {
