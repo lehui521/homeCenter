@@ -17,7 +17,7 @@
           <div class="memberRight">
             <div class="memberName">
               {{item.name}}
-              <span>找TA</span>
+              <span @click="$router.push('designerDetail')">找TA</span>
             </div>
             <div class="tag">
               <van-tag type="success" plain v-for="(tag,i) in item.tag_title" :key="i">{{tag}}</van-tag>
