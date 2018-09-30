@@ -216,13 +216,21 @@ export default new Router({
             component: resolve => require(['../components/pages/onlineMarket/brandChoiceContent'], resolve)
         }, //品牌列表
         {
-            path: '/brandDetail',
+            path: '/brandDetail', 
             component: resolve => require(['../components/pages/onlineMarket/brandChoiceContent/brandDetail'], resolve)
         }, //品牌详情
         {
             path: '/marketInfo',
             component: resolve => require(['../components/pages/onlineMarket/marketInfo'], resolve)
         }, //市场简介
+        // {
+        //     path: '/designerContent',
+        //     component: resolve => require(['../components/pages/onlineMarket/designerContent'], resolve)
+        // }, //设计师
+        {
+            path: '/designerDetail',
+            component: resolve => require(['../components/pages/onlineMarket/designerContent/designerDetail'], resolve)
+        }, //设计师详情
         {
             path: '/decorationEncyclopedia',
             component: resolve => require(['../components/pages/decorationSchool/decorationEncyclopedia'], resolve)

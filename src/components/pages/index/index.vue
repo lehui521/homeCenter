@@ -136,6 +136,9 @@ export default {
     };
   },
   created: function() {
+    if(!localStorage.getItem("cityData")){
+      this.$router.push("mapCity")
+    }
     this.getData();
   },
   mounted: function() {
